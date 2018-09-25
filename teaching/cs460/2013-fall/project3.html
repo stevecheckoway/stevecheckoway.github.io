@@ -1,0 +1,429 @@
+<?xml version="1.0" encoding="us-ascii"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+    "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+<title>CS 460: Project 3</title>
+<link rel="stylesheet" href="/css/old-teaching.css" type="text/css" />
+<meta name="viewport" content="width = 640"/>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-34500030-2', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+</head>
+
+<body><h1>Project #3, Web Security</h1>
+
+<p>Part 1 (Attacks A, B, C) due: Tuesday, Nov. 19, 23:59<br/>
+   Part 2 (Attacks D, E) due: Tuesday, Nov. 26, 23:59
+</p>
+
+
+<p>For clarifications and hints, see the
+<a href="project3-faq.html">FAQ</a>, originally developed for Stanford CS 155.
+</p>
+
+<h2>How to set up the environment</h2>
+For this project, as in previous projects, you are going to use 
+a VirtualBox virtual machine.
+
+<p>
+<strong>Setting up Boxes on your own machine:</strong>
+Download the BoxesX virtual machine image,
+BoxesX.ova (warning: 600 MB!).  Note
+that this is not the same VM image as the one in previous projects, so
+you should not use those VMs.  The ova file should load into
+VirtualBox.  Once the BoxesX VM is running, you will want to start X
+and run the Iceweasel browser, <a href="#iceweasel">as described
+below</a>.
+</p>
+
+<h2 id="iceweasel">How to run iceweasel</h2>
+
+<p>
+  The Web server serving the Zoobar site you will be attacking is
+  hosted inside the VM.  (If you try to connect to zoobar.org outside
+  the VM, you will get Stanford&rsquo;s site, which you
+  should <strong>not</strong> try to interact with.)  Furthermore, the
+  Web browser you&rsquo;ll use to develop and test your attacks is also
+  hosted inside the VM.  It is called Iceweasel.
+</p>
+<p>
+  Iceweasel is the Debian version of Firefox&mdash;essentially the
+  same browser, but with a different name because of licensing issues.
+  To start iceweasel in BoxesX, log in as user, and do the
+  following:
+</p>
+<ol>
+  <li>Type the <code>startx</code> command.  This will start the X
+    Windowing System, and a new window will be displayed with a
+    xterm (shell) where you can enter commands.  (Click the mouse
+    to place the window.)
+  </li>
+  <li>
+    Type <code>iceweasel &amp;</code> within the newly displayed xterm.
+    This will open the Iceweasel browser.  (Again, click the mouse
+    to place the window.)
+  </li>
+  <li>
+    In the URL bar, you can type <code>http://zoobar.org/</code> to
+    connect to the Zoobar site.
+  </li>
+</ol>
+
+<h2>Setting up port forwarding</h2>
+
+<p>
+  The easiest way to access your VM from the host computer is with
+  SSH.  VirtualBox&rsquo;s networking rules do not by default allow
+  incoming connections to the VM, but you can set up a port forwarding
+  rule, as follows.  In the settings window for the BoxesX VM, choose
+  the &ldquo;Network&rdquo; tab, then show the &ldquo;Advanced&rdquo;
+  options, and click the &ldquo;Port Forwarding&rdquo; button to bring
+  up the port forwarding rules dialog.
+<p>
+
+<p>
+  In this dialog, you should see a rule binding port 8024 of localhost
+  (127.0.0.1) on the host to port 22 on the VM.  If this rule is not
+  present, or if you would like to use a different port on the host,
+  you can change the configuration and click OK.
+</p>
+
+<p>
+  With port forwarding enabled, you can SSH into your VM using a
+  command like &ldquo;<code>ssh user@localhost -p 8024</code>&rdquo;.
+</p>
+
+<p>
+  Note that if you also used port forwarding on port 8024 for project 2, SSH
+  will get very upset, because the new VM&rsquo;s key is different and
+  SSH suspects a man-in-the-middle attack.  It will tell you what line
+  in <code>~/.ssh/known_hosts</code> is responsible, and you can
+  delete this line and try again.
+</p>
+
+<h2 id="backups">Backing up your work</h2>
+
+<p>
+  As with any project, you will want to make and keep frequent backups
+  of your work.  If you are developing your code in
+  <code>user</code>&rsquo; home directory inside the VM, then an easy
+  way to back this directory up is with the <code>rsync</code>
+  command.
+<p>
+<p>
+  Suppose you have set up port forwarding so that port 8024 on the
+  host forwards to port 22 on the VM.  And suppose you&rsquo;d like to
+  back up into a directory called <code>bkp123</code> in your home
+  directory.  Run the following command on the host:
+  <blockquote>
+    <code>rsync -av -e "ssh -p 8024" user@localhost:/home/user/ ~/bkp123/</code>
+  </blockquote>
+<p>
+  If you run this command again later it will update the contents
+  of <code>bkp123</code> to match the contents of
+  <code>user</code>&rsquo;s home directory.
+</p>
+<p>
+  To restore from backup, run the following command, again from the
+  host:
+</p>
+  <blockquote>
+    <code>rsync -av -e "ssh -p 8024" ~/bkp123/ user@localhost:/home/user/</code>
+  </blockquote>
+
+<h2>Project Overview</h2>
+
+<p>
+  The fictional &ldquo;Zoobar Foundation&rdquo; has set up a simple
+  Web application at <code>zoobar.org</code> (inside the BoxesX
+  VM), allowing registered users to post profiles and transfer
+  &ldquo;zoobar&rdquo; credits between each other. Each registered user
+  starts with 10 zoobars.
+</p>
+
+<p>
+  You will craft a series of attacks on <code>zoobar.org</code> that
+  exploit vulnerabilities in the Website&rsquo;s design.  Each attack
+  presents a distinct scenario with unique goals and constraints,
+  although in some cases you may be able to reuse parts of your
+  code.
+</p>
+
+<p>
+  Although many real-world attackers do not have the source code for
+  the Websites they are attacking, you are one of the lucky ones: you
+  can find the source code under <code>/var/zoobar/www</code> in the
+  BoxesX VM.
+</p>
+
+<P>The zoobar server is actually run locally on each of your boxes.
+We will run your attacks after wiping clean our own local database of
+registered users (except the user named "attacker").  Of course this
+means that any data you have added while working on the assignment
+will <EM>not</EM> be present during grading.
+
+<H3>Setup</H3>
+
+<p>
+  <strong>Browser:</strong> We will grade your project within the
+  BoxesX VM, using the Iceweasel browser.  which is installed in
+  the Boxes. Therefore, you should test your code in the boxes on this
+  browser.  Iceweasel is essentially the same browser as Firefox, but
+  under different branding.  Anything that works in iceweasel will
+  likely work in (the same version of) Firefox as well.
+</p>
+<p>
+  There are subtle quirks in the way HTML and JavaScript are handled
+  by different browsers, and some attacks that work in Internet
+  Explorer (for example) may not work in Firefox (and therefore in
+  Iceweasel).  In particular, you should use the Mozilla way of
+  <a href="https://developer.mozilla.org/en/DOM/element.addEventListener">adding
+  listeners to events</a>.
+</p>
+
+<P><B>Email script</B>. For Attacks A and D, you will need a
+  server-side script to automatically email information captured by
+  your client-side JavaScript to your user account within the
+  Boxes. We have provided this script for you.  Please review the
+  instructions at
+  <code>http://zoomail.org/sendmail.php</code>
+  (open this url from within the Boxes VM) and use that URL in your
+  attack scripts to send emails. Again, this server is also being run
+  locally on your own boxes machine.  To check your local email use
+  the mutt email client (type
+<B><KBD>mutt</KBD></B> in the shell to start the client, and follow the instructions).
+</P>
+
+<hr/>
+
+<h2>Attack A. Cookie Theft</h2>
+
+<ul>
+  <li>
+    Your solution is a URL starting with 
+    <code>http://zoobar.org/users.php?</code>
+  </li>
+  <li>
+    The grader will already be logged in to <code>zoobar.org</code>
+    before loading your URL.
+  </li>
+  <li>
+    Your goal is to steal the document cookie and email it
+    to yourself using the 
+    <code>http://zoomail.org/sendmail.php</code>email script.
+    </li>
+  <li>
+    Except for the browser address bar (which can be different), the
+    grader should see a page that looks <em>exactly</em> as it
+    normally does when the grader visits
+    <code>http://zoobar.org/users.php</code>.
+    No changes to the site appearance or extraneous text should be
+    visible.  Avoiding the <em style="text-color:#ff0000">red warning
+	    text</em> is an important part of this attack. (It&rsquo;s
+    ok if the page looks weird briefly before correcting itself.)
+  </li>
+  <li>Hint: Here is an example attack
+      <code>http://zoobar.org/users.php?user=%22%3E%3Cscript%3Ealert%28document.cookie%29;%3C/script%3E</code>
+      to use as a starting point.
+  </li>
+</ul>
+
+<h2>Attack B. Cross-Site Request Forgery</h2>
+
+<ul>
+  <li>
+    Your solution is a short HTML document that the grader will open
+    using the browser.
+  </li>
+  <li>
+    The grader will already be logged in to <code>zoobar.org</code>
+    before loading your page.
+  </li>
+  <li>
+    Transfer 10 zoobars from the grader&rsquo;s account to the
+    &ldquo;<code>attacker</code>&rdquo; account. The browser should be
+    redirected to
+    <CODE>https://www.cs.jhu.edu/~s/teaching/cs460/2013-fall/</CODE> as soon
+    as the transfer is complete (so fast the user might not notice).
+  </li>
+  <li>
+    The location bar of the browser should not contain 
+    <code>zoobar.org</code> at any point.
+  </li>
+</ul>
+
+<h2>Attack C. SQL Injection</h2>
+<ul>
+  <li>
+    Your solution is a short HTML document that the grader will open
+    using the browser.
+  </li>
+  <li>
+    The grader will not be logged in to <code>zoobar.org</code> before
+    loading your page.
+  </li>
+  <li>
+    Your HTML document should display a form with a text field and a
+    button.  The grader will type a username into the text field and
+    press the button.
+  </li>
+  <li>
+    As a result, the grader should be logged in
+    to <code>zoobar.org</code> as the user whose name was typed in the
+    text field.  The browser&rsquo;s location bar should be redirected
+    to <code>http://zoobar.org/index.php</code>, and the page should
+    look and behave exactly as if the grader had instead typed the
+    username and corresponding password in the
+    legitimate <code>zoobar.org</code> login form.
+  </li>
+  <li>
+    The name the grader types in will already be registered in the
+    with some password.  You do not need to handle the case in which
+    the name was not already registered.
+  </li>
+  <li>
+    Hint: What part of the <code>zoobar.org</code> PHP code handles
+    the user login and registration, and how does it interface with
+    the SQLite database?
+  </li>
+</ul>
+
+<hr/>
+
+<h2>Attack D. Password Theft</h2>
+
+<ul>
+  <li>
+    Your solution is a short HTML document that the grader will open
+    using the browser.
+  </li>
+  <li>
+    The grader will not be logged in to <code>zoobar.org</code> before
+    loading your page.
+  </li>
+  <li>
+    Upon loading your document, the browser should immediately be
+    redirected to <code>http://zoobar.org/</code>.  The grader will
+    enter a username and password and press the &ldquo;Log in&rdquo;
+    button.
+  </li>
+  <li>
+    When the &ldquo;Log in&rdquo; button is pressed, send the username
+    and password (separated by a comma) using the
+    <code>http://zoomail.org/sendmail.php</code> e-mail script.
+  </li>
+  <li>
+    The login form should appear perfectly normal to the user. No
+    extraneous text (e.g., warnings) should be visible, and assuming
+    the username and password are correct the login should proceed the
+    same way it always does.
+  </li>
+  <li>
+    Hint: The site uses
+    <code><a href="http://www.php.net/htmlspecialchars">htmlspecialchars()</A></code>
+    to sanitize the reflected username, but something is not quite
+    right.
+  </li>
+</ul>
+
+<h2>Attack E. Profile Worm</h2>
+
+<ul>
+  <li>
+    Your solution is a profile that, when viewed, transfers 1 zoobar
+    from the current user to a user called
+    &ldquo;<code>attacker</code>&rdquo; (that&rsquo;s an actual
+    username) and replaces the profile of the current user with
+    itself.
+  </li>
+  <li>
+    Your malicious profile must include a witty message to the grader
+    to help us see that the profile was replicated.
+  </li>
+  <li>
+    To grade your attack, we will cut and paste the submitted profile
+    file into the profile of the "attacker" user and view that profile
+    using the grader&rsquo;s account. We will then view the copied profile
+    with more accounts, checking for the transfer and
+    replication.
+  </li>
+  <li>
+    The transfer and replication should be reasonably fast (under 15
+    seconds).  During that time, the grader will not click
+    anywhere.
+  </li>
+  <li>
+    During the transfer and replication process, 
+    the browser&rsquo;s location bar should remain at 
+    <code>http://zoobar.org/users.php?user=<em>username</em></code>,
+    where <code><em>username</em></code> is the user whose profile is
+    being viewed. The visitor should not see any extra graphical user
+    interface elements (e.g., frames), and the user whose profile is
+    being viewed should appear to have 10 zoobars.
+  </li>
+  <li>
+    You will not be graded on the corner case where the user viewing
+    the profile has no zoobars to send.
+  </li>
+  <li>
+    Hint: The site allows a sanitized subset of HTML in profiles, but
+    you can get around it.
+    This <A href="myspace-advisory.txt">MySpace vulnerability</a> may
+    provide some inspiration.
+  </li>
+</ul>
+
+<hr/>
+
+<H2>Deliverables</h2>
+
+<p>
+  Create files named <code>a.txt</code>, <code>b.html</code>,
+  <code>c.html</code>, <code>d.html</code>, and <code>e.txt</code>,
+  containing each of your five attacks.  You may include a
+  separate <code>README</code> file.  (We would appreciate any
+  feedback you may have on this assignment). As before, you will tar
+  up the appropriate files for each part and submit the tarball.</p>
+
+<p>
+  The last two attacks are harder than the first three.  We encourage
+  you to start early!
+</p>
+
+
+<h2>Grading</h2>
+
+<p>
+  Each attack is worth up to 4 points.  The entire project will be
+  graded out of 20.
+</p>
+
+<p>
+  <em>Beware of Race Conditions</em>: Depending on how you write your
+  code, all five of these attacks could potentially have race
+  conditions that affect the success of your attacks. Attacks that
+  fail on the grader&rsquo;s browser during grading will receive less
+  than full credit.  To ensure that you receive full credit, you
+  should wait after making an outbound network request rather than
+  assuming that the request will be sent immediately.
+</p>
+
+<h2>Thanks</h2>
+
+<p>
+This is Project 2 from
+Stanford&rsquo;s <a href="http://crypto.stanford.edu/cs155/">CS
+155</a>, Computer and Network Security.  Thanks to Dan Boneh, John
+Mitchell, Collin Jackson, and the 155 TAs.
+</p>
+</body>
+</html>

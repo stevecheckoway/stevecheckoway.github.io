@@ -1,0 +1,280 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml;charset=utf-8" />
+<link rel="stylesheet" href="/css/old-teaching.css" type="text/css" />
+<link rel="stylesheet" href="/css/TeX.css" type="text/css" />
+<title>CS 460: Software Vulnerability Analysis: Syllabus</title>
+</head>
+<body>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-34500030-2', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+<div id="layout-content">
+<div id="toptitle">
+<div id="title">CS 460: Software Vulnerability Analysis: Syllabus</div>
+</div>
+<p><b>Week 1</b></p>
+<div class="recto">
+<div class="blocktitle">Tue, Sep. 03</div>
+<p><b>Introduction</b><br />
+Reading:</p>
+<ul>
+<li><p>K.&nbsp;Thompson <del>Reflections on Trusting Trust</del></p>
+</li>
+<li><p>C.&nbsp;Miller <a href="http://weis2007.econinfosec.org/papers/29.pdf">The Legitimate Vulnerability Market. Inside the Secretive World of 0-day Exploit Sales</a></p>
+</li>
+<li><p>S.&nbsp;Inguva et al. <del>Source Code Review of the Hart InterCivic Voting System</del> (Chapter&nbsp;3 only)</p>
+</li>
+</ul>
+</div>
+<div class="verso">
+<div class="blocktitle">Thu, Sep. 05</div>
+<p><b>x86 primer and stack smashing</b><br />
+Reading:</p>
+<ul>
+<li><p>Aleph One <a href="http://www.phrack.org/issues.html?issue=49&amp;id=14#article">Smashing The Stack For Fun And Profit</a></p>
+</li>
+</ul>
+</div>
+<p><b>Week 2</b></p>
+<div class="recto">
+<div class="blocktitle">Tue, Sep. 10</div>
+<p><b>Project tutorial</b><br />
+No reading.</p>
+</div>
+<div class="verso">
+<div class="blocktitle">Thu, Sep. 12</div>
+<p><b>Integer overflows</b><br />
+Reading:</p>
+<ul>
+<li><p>blexim <a href="http://www.phrack.com/issues.html?issue=60&amp;id=10#article">Basic Integer Overflows</a></p>
+</li>
+</ul>
+</div>
+<p><b>Week 3</b></p>
+<div class="recto">
+<div class="blocktitle">Tue, Sep. 17</div>
+<p><b>Memory safety vulnerabilities 1</b><br />
+Reading:</p>
+<ul>
+<li><p>MaXX <a href="http://www.phrack.org/issues.html?issue=57&amp;id=8#article">Vudo - An object superstitiously believed to embody magical powers</a></p>
+</li>
+</ul>
+</div>
+<div class="verso">
+<div class="blocktitle">Thu, Sep. 19</div>
+<p><b>Memory safety vulnerabilities 2</b><br />
+Reading:</p>
+<ul>
+<li><p>scut/team teso <a href="http://julianor.tripod.com/bc/formatstring-1.2.pdf">Exploiting Format String Vulnerabilities</a></p>
+</li>
+<li><p><a href="format_string_vuln.pdf">Format String Vulnerabilities slides</a></p>
+</li>
+</ul>
+</div>
+<p><b>Week 4</b></p>
+<div class="recto">
+<div class="blocktitle">Tue, Sep. 24</div>
+<p><b>Code reuse attacks</b><br />
+No reading.</p>
+</div>
+<div class="verso">
+<div class="blocktitle">Thu, Sep. 26</div>
+<p><b>Return-Oriented Programming</b><br />
+Reading:</p>
+<ul>
+<li><p>H.&nbsp;Shacham <a href="http://cseweb.ucsd.edu/~hovav/dist/geometry.pdf">The Geometry of Innocent Flesh on the Bone: Return-into-libc without Function Calls (on the x86)</a></p>
+</li>
+</ul>
+</div>
+<p><b>Week 5</b></p>
+<div class="recto">
+<div class="blocktitle">Tue, Oct. 01</div>
+<p><b>ROP defenses</b><br />
+Reading:</p>
+<ul>
+<li><p>L.&nbsp;Davi, A.-R.&nbsp;Sadeghi, and M.&nbsp;Winandy <a href="ROPdefender.pdf">ROPdefender: A Detection Tool to Defend Against Return-Oriented Programming Attacks</a></p>
+</li>
+<li><p>V.&nbsp;Pappas <a href="http://www.cs.columbia.edu/~vpappas/papers/kbouncer.pdf">kBouncer: Efficient and Transparent ROP Mitigation</a></p>
+</li>
+</ul>
+</div>
+<div class="verso">
+<div class="blocktitle">Thu, Oct. 03</div>
+<p><b>Software Fault Isolation and Control-Flow Integrity</b><br />
+Reading:</p>
+<ul>
+<li><p>S.&nbsp;McCamant and G.&nbsp;Morrisett <a href="http://people.csail.mit.edu/smcc/projects/pittsfield/pubs/usenix-sec-2006/pittsfield-usenix2006.pdf">Evaluating SFI for a CISC Architecture</a></p>
+</li>
+<li><p>M.&nbsp;Abadi, M.&nbsp;Budiu, U.&nbsp;Erlingsson, and J.&nbsp;Ligatti <a href="http://research.microsoft.com/pubs/64250/ccs05.pdf">Control-Flow Integrity: Principles, Implementations, and Applications</a></p>
+</li>
+</ul>
+</div>
+<p><b>Week 6</b></p>
+<div class="recto">
+<div class="blocktitle">Tue, Oct. 08</div>
+<p><b>Data as code</b><br />
+Reading:</p>
+<ul>
+<li><p>N. Alramli <a href="http://web.archive.org/web/20130423223601/http://nadiana.com/python-pickle-insecure">Why Python Pickle is Insecure</a></p>
+</li>
+<li><p>J. Mason, S. Small, F. Monrose, and G. MacManus <a href="http://www.cs.jhu.edu/~sam/ccs243-mason.pdf">English Shellcode</a></p>
+</li>
+<li><p>S. Checkoway, H. Shacham, and E. Rescorla <a href="/papers/tex2010/tex2010.pdf">Are Text-Only Data Formats Safe? Or, Use This <span class="tex">L<span class="raise">a</span>T<span class="drop">e</span>X</span> Class File to Pwn Your Computer</a></p>
+</li>
+</ul>
+</div>
+<div class="verso">
+<div class="blocktitle">Thu, Oct. 10</div>
+<p><b>Exam review</b><br />
+No reading.</p>
+</div>
+<p><b>Week 7</b></p>
+<div class="recto">
+<div class="blocktitle">Tue, Oct. 15</div>
+<p><b>No class</b><br />
+No reading.</p>
+</div>
+<div class="exam">
+<div class="blocktitle">Thu, Oct. 17</div>
+<p><b>Exam 1</b><br />
+No reading.</p>
+</div>
+<p><b>Week 8</b></p>
+<div class="recto">
+<div class="blocktitle">Tue, Oct. 22</div>
+<p><b>Browsers and the Same-Origin Policy</b><br />
+Reading:</p>
+<ul>
+<li><p>M. Zalewski <a href="http://code.google.com/p/browsersec/wiki/Main">Browser Security Handbook</a> chapters 1 (basic concepts) and 2 (standard security features)</p>
+</li>
+<li><p>C. Jackson and A. Barth <a href="http://seclab.stanford.edu/websec/origins/fgo.pdf">Beware of Finer-Grained Origins</a></p>
+</li>
+</ul>
+</div>
+<div class="verso">
+<div class="blocktitle">Thu, Oct. 24</div>
+<p><b>Cross-origin Attacks: CSRF</b><br />
+Reading:</p>
+<ul>
+<li><p>A. Barth, C. Jackson, and J. Mitchell <a href="http://seclab.stanford.edu/websec/csrf/csrf.pdf">Robust Defenses for Cross-Site Request Forgery</a></p>
+</li>
+</ul>
+</div>
+<p><b>Week 9</b></p>
+<div class="recto">
+<div class="blocktitle">Tue, Oct. 29</div>
+<p><b>Cross-origin Attacks: XSS</b><br />
+Reading:</p>
+<ul>
+<li><p>OWASP <a href="https://www.owasp.org/index.php/Cross-site_Scripting_(XSS)">Cross-site Scripting (XSS)</a></p>
+</li>
+<li><p>D. Bates, A. Barth, and C. Jackson <a href="http://www.adambarth.com/papers/2010/bates-barth-jackson.pdf">Regular Expressions Considered Harmful in Client-Side XSS Filters</a></p>
+</li>
+</ul>
+</div>
+<div class="verso">
+<div class="blocktitle">Thu, Oct. 31</div>
+<p><b>Frames: Communication and Clickjacking</b><br />
+Reading:</p>
+<ul>
+<li><p>A. Barth, C. Jackson, and J. Mitchell <a href="http://www.adambarth.com/papers/2009/barth-jackson-mitchell-cacm.pdf">Securing Frame Communication in Browsers</a></p>
+</li>
+<li><p>P. Stone <del>Next Generation Clickjacking: New Attacks Against Framed Web Pages</del></p>
+</li>
+</ul>
+</div>
+<p><b>Week 10</b></p>
+<div class="recto">
+<div class="blocktitle">Tue, Nov. 05</div>
+<p><b>Frames 2: Framebusting</b><br />
+Reading:</p>
+<ul>
+<li><p>G. Rydstedt, E. Bursztein, D. Boneh, and C. Jackson <a href="https://crypto.stanford.edu/~dabo/pubs/papers/framebust.pdf">Busting Frame Busting: a Study of Clickjacking Vulnerabilities on Popular Sites</a></p>
+</li>
+</ul>
+</div>
+<div class="verso">
+<div class="blocktitle">Thu, Nov. 07</div>
+<p><b>HTTPS</b><br />
+Reading:</p>
+<ul>
+<li><p>C. Jackson and A. Barth <a href="https://crypto.stanford.edu/forcehttps/forcehttps.pdf">ForceHTTPS: Protecting High-Security Web Sites from Network Attacks</a></p>
+</li>
+<li><p>C. Soghoian and S. Stamm <a href="http://www.petsymposium.org/2010/papers/hotpets10-Soghoian.pdf">Certified Lies: Detecting and Defeating Government Interception Attacks Against SSL</a></p>
+</li>
+</ul>
+</div>
+<p><b>Week 11</b></p>
+<div class="recto">
+<div class="blocktitle">Tue, Nov. 12</div>
+<p><b>Embedded system security</b><br />
+No reading.</p>
+</div>
+<div class="verso">
+<div class="blocktitle">Thu, Nov. 14</div>
+<p><b>Guest lecture by Prof. Matthew Green</b><br />
+No reading.</p>
+</div>
+<p><b>Week 12</b></p>
+<div class="recto">
+<div class="blocktitle">Tue, Nov. 19</div>
+<p><b>Class canceled</b><br />
+No reading.</p>
+</div>
+<div class="verso">
+<div class="blocktitle">Thu, Nov. 21</div>
+<p><b>Is it all worth it?</b><br />
+Reading:</p>
+<ul>
+<li><p>E. Rescorla <del>Is finding security holes a good idea?</del></p>
+</li>
+<li><p>E. Rescorla <del>Security holes&hellip; Who cares?</del> Optional</p>
+</li>
+</ul>
+</div>
+<p><b>Week 13</b></p>
+<div class="recto">
+<div class="blocktitle">Tue, Nov. 26</div>
+<p><b>Guest lecture by Eric Rescorla</b><br />
+Reading:</p>
+<ul>
+<li><p>E. Rescorla <a href="rescorla-comsec.pdf">SSH, SSL, and IPsec: wtf?</a></p>
+</li>
+</ul>
+</div>
+<div class="verso">
+<div class="blocktitle">Thu, Nov. 28</div>
+<p><b>Thanksgiving: No class</b><br />
+No reading.</p>
+</div>
+<p><b>Week 14</b></p>
+<div class="recto">
+<div class="blocktitle">Tue, Dec. 03</div>
+<p><b>Review</b><br />
+No reading.</p>
+</div>
+<div class="exam">
+<div class="blocktitle">Thu, Dec. 05</div>
+<p><b>Exam 2</b><br />
+No reading.</p>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2016-07-03 10:14:04 CDT.
+</div>
+</div>
+</div>
+</body>
+</html>

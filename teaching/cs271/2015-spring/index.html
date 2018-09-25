@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml;charset=utf-8" />
+<link rel="stylesheet" href="/css/old-teaching.css" type="text/css" />
+<link rel="stylesheet" href="/css/TeX.css" type="text/css" />
+<title>CS 271: Automata and Computation Theory</title>
+</head>
+<body>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-34500030-2', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+<div id="layout-content">
+<div id="toptitle">
+<div id="title">CS 271: Automata and Computation Theory</div>
+<div id="subtitle">Spring 2015</div>
+</div>
+<div class="infoblock">
+<p><b>Instructor:</b> Stephen Checkoway, <a href="mailto:s@cs.jhu.edu">s@cs.jhu.edu</a><br />
+<b>Required textbook:</b> Michael Sipser, <a href="http://www-math.mit.edu/~sipser/book.html">Introduction to the Theory of Computation</a>, 3rd ed.<br />
+<b>Optional textbook:</b> Richard Hammack <a href="http://www.people.vcu.edu/~rhammack/BookOfProof/">Book of Proof</a> (available online)</p>
+<p><b>Lectures:</b> Tuesday and Thursday. 13:30&ndash;14:45 in Shaffer Hall, room 301<br />
+<b>Exam 1:</b> March 3, 2015<br />
+<b>Exam 2:</b> April 7, 2015<br />
+<b>Final:</b> Friday, May 8 at 14:00&ndash;17:00</p>
+</div>
+<h1>Overview</h1>
+<ul>
+<li><p><a href="staff.html">Course Staff</a></p>
+</li>
+<li><p><a href="syllabus.html">Schedule and Readings</a></p>
+</li>
+<li><p><a href="https://piazza.com/jhu/spring2015/en600271/">Piazza Forum</a></p>
+</li>
+</ul>
+<h1>Assessment</h1>
+<p>Your work will be assessed through three mechanisms: exercises, problem
+sets, and exams.
+Grades will be determined as follows:</p>
+<ul>
+<li><p>Exercises: 20%</p>
+</li>
+<li><p>Problem sets: 30%</p>
+</li>
+<li><p>Exams: 50%</p>
+</li>
+</ul>
+<h2>Exercises</h2>
+<p>You may collaborate with as many other students in the class as you
+like on the exercises. You <i>must</i> write up your solutions on your own.
+Exercises will be collected at the beginning of class on the day
+they're due and checked off for completeness but will not be graded.
+(These do still count toward your grade, so make sure you do them
+all.)</p>
+<p>It is recommended, but not required, that you write up your exercise
+solutions in <span class="tex">L<span class="raise">a</span>T<span class="drop">e</span>X</span> (see below). A <span class="tex">L<span class="raise">a</span>T<span class="drop">e</span>X</span> template for
+exercises&nbsp;#1 is <a href="exercises1.tex">here</a>.</p>
+<p>Solutions to the exercises (including the <span class="tex">L<span class="raise">a</span>T<span class="drop">e</span>X</span> source) will be available on
+<a href="https://piazza.com/jhu/spring2015/en600271/resources">Piazza</a> after the due date.</p>
+<ul>
+<li><p>Exercises #1: Sipser 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.11<br />
+Due: Thursday, January 29, 2015.</p>
+</li>
+<li><p>Exercises #2: Sipser 1.1, 1.2, 1.3, 1.4ce, 1.5cg, 1.7abcdg<br />
+Due: Thursday, February 5, 2015.</p>
+</li>
+<li><p>Exercises #3: Sipser 1.22, 1.24dgh, 1.25, 1.27, 1.29ab, 1.30, 1.41, 1.53, 1.60<br />
+Due: Thursday, February 19, 2015.</p>
+</li>
+<li><p>Exercises #4: Sipser 3.2bcd, 3.5, 3.7, build TMs in JFLAP for 3.8, 3.11<br />
+Due: Tuesday, March 24, 2015.</p>
+</li>
+<li><p>Exercises #5: Sipser 5.4, 5.6, 5.7, 5.22, 5.23, 7.1, 7.2<br />
+Due: Thursday, April 16, 2014.</p>
+</li>
+<li><p>Exercises #6: Sipser 7.6, 7.7, 7.8, 7.9, 7.10, 7.12, 7.13, 7.16<br />
+Due: Thursday, April 23, 2015.</p>
+</li>
+</ul>
+<h2>Problem sets</h2>
+<p>You must solve the problem sets <i>on your own</i>, without discussing them
+with anyone other than course staff. You must write up your solutions
+on your own. Further, solutions to problem sets <i>must</i> be written in
+<span class="tex">L<span class="raise">a</span>T<span class="drop">e</span>X</span> (see below). Problem sets are to be turned in as PDFs on
+Blackboard and will be graded for correctness.</p>
+<ul>
+<li><p>Problem set #1: <a href="ps1.pdf">ps1.pdf</a><br />
+Due: Sunday, February 15, 2015 at 23:59</p>
+</li>
+<li><p>Problem set #2: <a href="ps2.pdf">ps2.pdf</a><br />
+Due: Monday, March 2, 2015 at 23:59</p>
+</li>
+<li><p>Problem set #3: <a href="ps3.pdf">ps3.pdf</a><br />
+Due: Monday, April 6, 2015 at 23:59</p>
+</li>
+<li><p>Problem set #4: <a href="ps4.pdf">ps4.pdf</a><br />
+Due: Thursday, April 30, 2015 at 23:59</p>
+</li>
+</ul>
+<h2>Exams</h2>
+<p>There are two, 75-minute, in-class exams at the times listed above.
+Each in-class exam is worth 12.5% of your grade. There is a final exam
+worth 25% of your grade that will be given on the scheduled final
+exam day. The exams are closed book; however, <b>you are allowed to
+bring in one sheet of 8.5" by 11" paper filled on both sides with any
+information you think you'll need.</b></p>
+<p>Any student who does not take the final exam will fail the course.
+There will be no makeup exams.</p>
+<h1><span class="tex">L<span class="raise">a</span>T<span class="drop">e</span>X</span> and JFLAP</h1>
+<p>There are two tools that you will be using throughout this course,
+<span class="tex">L<span class="raise">a</span>T<span class="drop">e</span>X</span> and JFLAP.</p>
+<p><span class="tex">L<span class="raise">a</span>T<span class="drop">e</span>X</span> is a typesetting system which you will use to write up
+solutions to the problem sets. Here is an <a href="example.pdf">example proof</a>
+written in <span class="tex">L<span class="raise">a</span>T<span class="drop">e</span>X</span>. Here is the <a href="example.tex"><span class="tex">L<span class="raise">a</span>T<span class="drop">e</span>X</span> source</a>.</p>
+<p><span class="tex">L<span class="raise">a</span>T<span class="drop">e</span>X</span> distributions are available for
+OS&nbsp;X, *NIX, and Windows:</p>
+<ul>
+<li><p><a href="https://www.tug.org/texlive/acquire-netinstall.html">TeX Live</a> (all systems)</p>
+</li>
+<li><p><a href="https://www.tug.org/mactex/">MacTeX</a> (Mac OS X; essentially TeX Live with some extras)</p>
+</li>
+<li><p><a href="http://miktex.org/download">MiKTeX</a> (Windows)</p>
+</li>
+</ul>
+<p>There are a number of good references on the Web including</p>
+<ul>
+<li><p><a href="http://mirrors.ibiblio.org/CTAN/info/lshort/english/lshort.pdf">The
+Not So Short Introduction to <span class="tex">L<span class="raise">a</span>T<span class="drop">e</span>X</span> 2e</a> Good introduction.</p>
+</li>
+<li><p><a href="ftp://ftp.ams.org/ams/doc/amsmath/amsldoc.pdf">User's Guide for the
+amsmath Package</a> Documentation for mathematical environments.</p>
+</li>
+<li><p><a href="https://tex.stackexchange.com/">TeX StackExchange</a> Q&amp;A site.</p>
+</li>
+<li><p><a href="https://piazza.com/jhu/spring2015/en600271/home">Our Piazza Forum</a>.</p>
+</li>
+</ul>
+<p>There are many tools that can assist in writing <span class="tex">L<span class="raise">a</span>T<span class="drop">e</span>X</span>, including a
+variety of specialized editors such as
+<a href="http://www.xm1math.net/texmaker/">Texmaker</a> and
+<a href="http://pages.uoregon.edu/koch/texshop/">TeXShop</a> as well as add ons
+for editors like <a href="http://www.emacswiki.org/emacs/LaTeX">Emacs</a> (AUCTeX
+is probably the best of them) and <a href="http://vim-latex.sourceforge.net/">Vim</a>.</p>
+<p>Writing your solutions in <span class="tex">L<span class="raise">a</span>T<span class="drop">e</span>X</span> will take time at first, but as you
+become more familiar with it, you'll find that it's an invaluable
+tool. I <i>strongly</i> recommend you learn to use it well.</p>
+<p><a href="http://www.jflap.org">JFLAP</a> is software that you may use for building
+some of the machines we will be discussing such as DFAs and Turing
+machines. Nothing in the class requires you to use the software, but I
+recommend it. It's a good way to test your solutions before turning
+them in.</p>
+<p>You can also using JFLAP as an easy way to produce diagrams for your
+DFAs, NFAs, etc. that you can then save as PDF and include as graphics
+in your problem sets (and exercises). There is a
+<a href="http://www.jflap.org/tutorial/">tutorial</a> as well.</p>
+<h1>Johns Hopkins University Academic Integrity</h1>
+<p><i>The strength of the university depends on academic and personal
+integrity. In this course, you must be honest and truthful. Ethical
+violations include cheating on exams, plagiarism, reuse of
+assignments, improper use of the Internet and electronic devices,
+unauthorized collaboration, alteration of graded assignments, forgery
+and falsification, lying, facilitating academic dishonesty, and unfair
+competition.</i></p>
+<p><i>Report any violations you witness to the instructor. You may consult
+the associate dean of student affairs and/or the chairman of the
+Ethics Board beforehand. See the guide on &ldquo;Academic Ethics for
+Undergraduates&rdquo; and the <a href="http://eng.jhu.edu/wse/asen_undergraduate_handbook/academic-ethics-manual">Undergraduate Academic Ethics Board Web site</a>
+for more information.</i></p>
+<div id="footer">
+<div id="footer-text">
+Last updated 2016-06-28 11:45:45 CDT.
+</div>
+</div>
+</div>
+</body>
+</html>

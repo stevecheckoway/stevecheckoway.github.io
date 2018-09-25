@@ -1,0 +1,224 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml;charset=utf-8" />
+<link rel="stylesheet" href="/css/old-teaching.css" type="text/css" />
+<title>Project 1</title>
+</head>
+<body>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-34500030-2', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+<div id="layout-content">
+<div id="toptitle">
+<div id="title">Project 1</div>
+</div>
+<p><b>Due:</b> Tuesday, September 30 at 23:59.<br /></p>
+<h2>Goal</h2>
+<p>The goal of this assignment is to gain hands-on experience with the effect of
+buffer overflows and other memory-safety bugs.</p>
+<p>All work in this project must be done in the QEMU virtual machine
+provided on the course website; see below for information about this
+environment.</p>
+<p>You are given, in the <tt>targets</tt> directory, the source code for five
+exploitable programs, <tt>target1</tt>, &hellip;, <tt>target5</tt>.
+These programs are to be compiled and installed, setuid root, in the
+<tt>/tmp</tt> directory of your VM. Your goal is to write five exploit programs
+<tt>sploit1</tt>, &hellip;, <tt>sploit5</tt>, each of which will execute the
+corresponding target with input that exploits that target's bug,
+giving a root shell on the VM.</p>
+<p>We have provided skeletons for these exploits programs in the
+<tt>sploits</tt> directory, as <tt>sploit1.c</tt>, &hellip;, <tt>sploit5.c</tt>. Our own
+solutions, incidentally, are very short: fewer than 50 lines each. So
+while understanding and exploiting the bugs will not be easy, you will
+not need to write a lot of code.</p>
+<h2>Collaboration</h2>
+<p>You may work on this project in collaboration with a single partner as
+described on the <a href="index.html">main page</a>.</p>
+<p>You must not discuss the project with anyone other than your partner
+and course staff. You may use online resources for general reference,
+but not to search for solutions to specific questions posed in this
+project.</p>
+<h2>The Environment</h2>
+<p>You (and we, for grading) will test your exploit programs within a
+QEMU ARM virtual machine. This virtual machine emulates an ARM
+processor.</p>
+<p>There are two options for running this virtual machine.</p>
+<ol>
+<li><p>You can install <a href="http://wiki.qemu.org/Main_Page">QEMU</a> on your computer.</p>
+</li>
+<li><p>You can run QEMU from inside the sandbox virtual machine from
+<a href="project0.html">project&nbsp;0</a>.</p>
+</li>
+</ol>
+<p>In either case, you will need to download and decompress
+qemu-arm.tar.bz2. The ARM VM can be started by
+running the <tt>start-arm.sh</tt> inside the <tt>qemu-arm</tt> directory. You can
+log in to the user account using the username/password
+armuser/armuser. In addition to giving you &ldquo;console&rdquo; access to the
+emulated ARM machine, the start-arm.sh script forwards local port 2200
+to port 22 (the ssh port) in the VM. Thus, from a Linux or OS&nbsp;X
+machine, you can ssh to the ARM VM using</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+$ ssh -larmuser -p 2200 localhost
+</pre></div></div>
+<p>You can put the following lines in your local machine's
+<tt>$HOME/.ssh/config</tt> to provide easy ssh access:</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+Host = armguest
+HostName = localhost
+Port = 2200
+User = armuser
+</pre></div></div>
+<p>You can then use the following to log in.</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+$ ssh armguest
+</pre></div></div>
+<p>If you are running the QEMU VM inside the VirtualBox VM, then the
+following line in your <tt>$HOME/.ssh/config</tt> works.</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+Host = sandbox
+HostName = localhost
+Port = 2222
+User = user
+
+Host = armguest
+ProxyCommand = ssh -q sandbox localhost 2200
+</pre></div></div>
+<p>The VM has Ubuntu installed as well as a number of useful
+utilities such as vim, ssh, and wget, and several hex editors such as
+<tt>dhex</tt>.</p>
+<p>Once you have the QEMU VM installed, launch it, log in, and download
+and decompress the assignment tarball.</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+$ wget https://www.cs.jhu.edu/~s/teaching/cs460/2014-fall/project1.tar.gz
+$ tar zxf project1.tar.gz
+</pre></div></div>
+<h2>The Targets</h2>
+<p>The <tt>targets</tt> directory in the assignment tarball contains the source
+code for the targets along with a <tt>Makefile</tt> specifying how they are
+to be built. To compile the targets and install them setuid root in
+<tt>/tmp</tt>, use the commands <tt>make</tt> and <tt>make install</tt>.</p>
+<p><tt>target5</tt> is fairly complicated. It reads commands for manipulating
+strings from the file specified as its argument. Due to the way
+<tt>target5</tt> is compiled, the glibc <tt>malloc</tt>/<tt>free</tt>/<tt>realloc</tt> functions are not
+used. Instead, the replacement functions in <tt>smalloc.c</tt> are called. It is
+easiest to set a breakpoint in <tt>smalloc</tt>/<tt>sfree</tt>/<tt>srealloc</tt> rather than
+trying to step into calls to <tt>malloc</tt>.</p>
+<h2>The Exploits</h2>
+<p>The <tt>sploits</tt> directory in the assignment tarball contains skeleton
+source for the exploits which you are to write, along with a
+<tt>Makefile</tt> for building them. Also included is <tt>shellcode.h</tt>, which
+contains shellcode for you to use.</p>
+<p>Your exploits should assume that the compiled target programs are
+installed in <tt>/tmp</tt>&#8201;&mdash;&#8201;<tt>/tmp/target1</tt>, &hellip;, <tt>/tmp/target5</tt>.</p>
+<p>Along with each exploit skeleton file, there is an empty text file
+that you should fill with an explanation of the bug in the
+corresponding target and how your exploit takes advantage of it. You
+will submit this explanation along with your exploit.</p>
+<h2>The Assignment</h2>
+<p>You are to write exploits, one per target. Each exploit, when run in
+the virtual machine with its target installed setuid-root in <tt>/tmp</tt>,
+should yield a root shell (<tt>/bin/sh</tt>).</p>
+<h2>Hints</h2>
+<ol>
+<li><p>Read Aleph One's &ldquo;Smashing the Stack for Fun and Profit,&rdquo; carefully!
+Also, read the &ldquo;suggested reading&rdquo; listed in the project <tt>README</tt>.
+You will want to have a good understanding of what happens to the
+stack, program counter, and relevant registers before and after a
+function call. Read scut's &ldquo;Exploiting Format String
+Vulnerabilities.&rdquo; It will be helpful to have a solid understanding
+of the basic buffer overflow exploits before reading the more
+advanced exploit papers.</p>
+</li>
+<li><p>The <tt>gdb</tt> debugger is your best friend in this assignment as you'll
+want to understand what's going on in the target program's memory
+space. Specifically, note the <tt>disassemble</tt> and <tt>stepi</tt> commands.
+You may find the <tt>x</tt> command useful to examine memory (and the
+different ways you can print the contents such as <tt>/a</tt> or <tt>/i</tt>
+after <tt>x</tt>). The <tt>info register</tt> command is helpful for printing out
+the contents of registers.</p>
+</li>
+<li><p>A useful way to run <tt>gdb</tt> is to use the <tt>-e</tt> and <tt>-s</tt> command line
+flags; for example, the command
+<tt>gdb -e ./sploit3 -s /tmp/target3</tt> 
+tells <tt>gdb</tt> to execute <tt>sploit3</tt> and use the symbols from <tt>target3</tt>
+which allows you to trace execution in the target in exactly the way
+it is executed by the exploit. By contrast, executing just
+<tt>gdb /tmp/target3</tt> will trace the target in the way it is executed
+by the shell, so the memory layout will be different. (Avoiding a
+segfault while using this requires careful timing in setting
+breakpoints. See the assignment <tt>README</tt> for the details.)</p>
+</li>
+<li><p>One of the projects is very constrained in what arguments can be
+passed to it and you may have trouble running code on the heap
+(i.e., memory allocated by <tt>malloc</tt>). Try placing the shellcode
+somewhere else.</p>
+</li>
+<li><p>Make sure that your exploits work within the provided virtual
+machine.</p>
+</li>
+<li><p>Start early! Theoretical knowledge of exploits does not readily
+translate into the ability to write working exploits. The first
+target is relatively simple to exploit, but the difficulty ramps up
+from there.</p>
+</li>
+</ol>
+<h2>Warnings</h2>
+<p>Aleph One gives code that calculates addresses on the target's stack
+based on addresses on the exploit's stack. Addresses on the exploit's
+stack can be changed based on how the exploit is executed (working
+directory, arguments, environment, etc.); in our testing, we do not
+guarantee to execute your exploits the same way <tt>bash</tt> does.</p>
+<p>You must, therefore, hard-code target stack locations in your
+exploits. You should <i>not</i> use a function such as <tt>get_sp</tt> in the
+exploits you hand in.</p>
+<h2>Deliverables</h2>
+<ol>
+<li><p>You will need to submit the source code for your exploits, along
+with any files (Makefile, shellcode.h) necessary for building them.
+Make sure that all of your exploits compile with a single <tt>make</tt>
+command!</p>
+</li>
+<li><p>In addition, along with each exploit, you should include a text
+file (sploit1.txt, sploit2.txt, and so on).  In this text file,
+explain how your exploit works: what the bug is in the corresponding
+target, how you exploit it, and where the various constants in your
+exploit come from.</p>
+</li>
+<li><p>Finally, you must include a file called <tt>ID</tt> which contains the names
+of all partners (or just your own if you worked by yourself).</p>
+</li>
+</ol>
+<p>Create a single tarball containing your sploits directory and turn
+that in on blackboard. The easiest way to do that is</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+$ cd project1/sploits
+$ make clean
+$ cd ..
+$ tar zcf sploits.tar.gz sploits
+</pre></div></div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2016-06-28 11:50:21 CDT.
+</div>
+</div>
+</div>
+</body>
+</html>

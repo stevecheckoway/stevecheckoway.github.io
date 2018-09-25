@@ -1,0 +1,24 @@
+Name: Your name
+Paper title: The title
+
+Motivation
+(What problem is it trying to solve? Why isn't it trivial? What are
+the previous solutions and why are they insufficient?)
+
+Solution
+(What is the proposed solution and what is the improvement over prior
+work?)
+
+Technical contributions
+(What are the technical contributions, both those identified by the
+author and those you identify?)
+
+Evaluation
+(How is their solution evaluated? Is the evaluation reasonable? If it
+is reasonable, why? If it is isn't, why not and what would be a better
+approach?)
+
+Future work
+(What are the possibilities for future work, both those the author
+notes and your own thoughts?)
+

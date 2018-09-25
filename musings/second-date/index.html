@@ -1,0 +1,73 @@
+<!DOCTYPE html><html lang=en><meta http-equiv=Content-Type content="text/html;charset=utf-8"> <meta http-equiv=X-UA-Compatible content="IE=edge"> <meta name=viewport content="width=device-width, initial-scale=1"><title>SECONDDATE's OS independence</title><meta name=description content="Yesterday, Matt Green asked me to take a look one of the leaked NSA tools, SECONDDATE, to try to confirm some of its behavior. See Sam Biddle’s Intercept art..."> <link rel=stylesheet href=/css/main.css> <script>!function(e,t,a,n,c,o,s){e.GoogleAnalyticsObject=c,e[c]=e[c]||function(){(e[c].q=e[c].q||[]).push(arguments)},e[c].l=1*new Date,o=t.createElement(a),s=t.getElementsByTagName(a)[0],o.async=1,o.src=n,s.parentNode.insertBefore(o,s)}(window,document,"script","https://www.google-analytics.com/analytics.js","ga"),ga("create","UA-34500030-2","auto"),ga("send","pageview");</script><main><article class=post itemscope itemtype=http://schema.org/BlogPosting><div class=post-header><h1 class=post-title itemprop="name headline">SECONDDATE’s OS independence</h1><p class=post-meta><time datetime=2016-08-19T00:00:00-04:00 itemprop=datePublished>Aug 19, 2016</time> • <span itemprop=author itemscope itemtype=http://schema.org/Person><span itemprop=name>Stephen Checkoway</span></span></div><div class=post-content itemprop=articleBody><p>Yesterday, <a href=http://blog.cryptographyengineering.com/>Matt Green</a> asked me to take a look one of the leaked NSA tools, SECONDDATE, to try to confirm some of its behavior. See Sam Biddle’s <a href=https://theintercept.com/2016/08/19/the-nsa-was-hacked-snowden-documents-confirm/>Intercept article</a> for details on that.<p>SECONDDATE is cross-platform and is apparently designed to be loaded into some existing process’s address space. The code relies on the functionality of the host process. In an apparent attempt to simplify the construction of the code, the host functionality is captured by a table of function (and, I’m guessing, data) pointers. Calling a host function requires indexing into the table. If this sounds like calling a function in a dynamic library which could be loaded at any address, you’re right.<h2 id=calling-a-host-function>Calling a host function</h2><p>As a simple example of calling a host function, consider the <code class=highlighter-rouge>SD_getTime</code> function which does nothing but call some function in this table. Here’s the x86 version of the function.<div class=highlighter-rouge><div class=highlight><pre class=highlight><code>SD_getTime:
+                push    ebx
+                sub     esp, 8
+                call    __i686_get_pc_thunk_bx
+                add     ebx, 3EA3h
+                mov     ecx, ds:(OS_VER_ptr - 0E3CCh)[ebx]
+                mov     edx, [ecx]
+                mov     eax, [edx]
+                call    dword ptr [eax+58h]
+                add     esp, 8
+                pop     ebx
+                retn
+</code></pre></div></div><p>The equivalent C code is a little clearer, but obfuscates the mechanism.<div class="language-c highlighter-rouge"><div class=highlight><pre class=highlight><code><span class=kt>int</span> <span class=nf>SD_getTime</span><span class=p>()</span>
+<span class=p>{</span>
+  <span class=k>return</span> <span class=p>(</span><span class=o>*</span><span class=p>(</span><span class=kt>int</span> <span class=p>(</span><span class=o>**</span><span class=p>)(</span><span class=kt>void</span><span class=p>))(</span><span class=o>*</span><span class=p>(</span><span class=n>_DWORD</span> <span class=o>*</span><span class=p>)</span><span class=n>OS_VER</span> <span class=o>+</span> <span class=mh>0x58</span><span class=p>))();</span>
+<span class=p>}</span>
+</code></pre></div></div><p>The <code class=highlighter-rouge>__i686_get_pc_thunk_bx</code> function simply sets <code class=highlighter-rouge>ebx</code> to be the address of the following instruction which happens to be <code class=highlighter-rouge>0xA529</code>. Now IDA has helpfully identified that this is trying to load from the address named <code class=highlighter-rouge>OS_VER_ptr</code> (located at address <code class=highlighter-rouge>0x70</code>). And indeed, we can confirm this is the case by computing (<code class=highlighter-rouge>0x70</code> - <code class=highlighter-rouge>0xE3CC</code>) + <code class=highlighter-rouge>0xA529</code> + <code class=highlighter-rouge>0x3EA3</code> = <code class=highlighter-rouge>0x70</code>. This is standard position-independent code. <code class=highlighter-rouge>OS_VER_ptr</code> is the address of a pointer to <code class=highlighter-rouge>OS_VER</code> which is itself the address of a pointer to the table of functions. Finally, <code class=highlighter-rouge>0x58</code> bytes into that table is the address of the host function to call.<p>Now I said that this is cross-platform and indeed, you can see that the PPC version is very similar.<div class=highlighter-rouge><div class=highlight><pre class=highlight><code>offset_to_got2_end:.long -0xD24          # DATA XREF: SD_getTime+14r
+
+SD_getTime:
+.set var_8, -8
+.set arg_4,  4
+
+                stwu      sp, -0x18(sp)       # Store Word with Update
+                mflr      r7                  # Move from link register
+                bcl       20, 4*cr7+so, loc_8E88 # Branch Conditional
+loc_8E88:
+                stw       r30, 0x18+var_8(sp) # Store Word
+                mflr      r30                 # Move from link register
+                lwz       r6, -0x10(r30)      # offset_to_got_end # Load Word and Zero
+                stw       r7, 0x18+arg_4(sp)  # Store Word
+                add       r30, r6, r30        # Add
+                lwz       r5, -0x7FFC(r30)    # 0x120
+                lwz       r4, 0(r5)           # Load Word and Zero
+                lwz       r3, 0(r4)           # Load Word and Zero
+                lwz       r0, 0x58(r3)        # Load Word and Zero
+                mtctr     r0                  # Move to count register
+                bctrl                         # Branch unconditionally
+                lwz       r30, 0x18+var_8(sp) # Load Word and Zero
+                lwz       r4, 0x18+arg_4(sp)  # Load Word and Zero
+                addi      sp, sp, 0x18        # Add Immediate
+                mtlr      r4                  # Move to link register
+                blr                           # Branch unconditionally
+</code></pre></div></div><p>The mechanism is roughly the same: the <code class=highlighter-rouge>bcl</code> stores the address of the following instruction into the link register which is moved to <code class=highlighter-rouge>r30</code>. The <code class=highlighter-rouge>offset_to_got2_end</code> variable holds the offset to the end of the <code class=highlighter-rouge>.got2</code> section which is added to <code class=highlighter-rouge>r30</code>. Then <code class=highlighter-rouge>-0x7FFC</code> is added to <code class=highlighter-rouge>r30</code> and a word is loaded which happens to be the address of <code class=highlighter-rouge>OS_VER</code>.<div class=highlighter-rouge><div class=highlight><pre class=highlight><code>.got2:00000120                 .long OS_VER
+</code></pre></div></div><p>As before, <code class=highlighter-rouge>OS_VER</code> is loaded (into <code class=highlighter-rouge>r4</code>) which holds the address of the host function table. This is loaded into <code class=highlighter-rouge>r3</code> and finally the word <code class=highlighter-rouge>0x58</code> bytes into the table is loaded into <code class=highlighter-rouge>r0</code>, moved to the count register, and called.<h2 id=setting-up-the-host-function-table>Setting up the host function table</h2><p>The host function table must be constructed ahead of time for each operating system architecture and version. The table along with the code most be loaded into memory and the <code class=highlighter-rouge>OS_VER</code> variable needs to be set to the table’s address. This is handled by code in the <code class=highlighter-rouge>.got_loader</code> (which also fixes up the <code class=highlighter-rouge>.got</code>/<code class=highlighter-rouge>.got2</code> references to things like <a href=http://www.pcre.org/>PCRE</a> tables).<p>The mechanism for setting <code class=highlighter-rouge>OS_VER</code> appears different for different versions of SECONDDATE. For example, in the PPC (<code class=highlighter-rouge>BANANAGLEE/BG2100/Install/LP/Modules/PPC/SecondDate-2123.exe</code>) and MIPS (<code class=highlighter-rouge>BANANAGLEE/BG2100/Install/LP/Modules/MIPS/SecondDate-2122.exe</code>) versions, the address of the table is hard coded. In the PPC version, it is set to <code class=highlighter-rouge>0x61FF8</code>.<div class=highlighter-rouge><div class=highlight><pre class=highlight><code>                bl        _dummy_load      # Branch
+_dummy_load:
+                mflr      r0               # Move from link register
+                mr        r21, r0          # Move Register
+                addi      r21, r21, -0x28  # Add Immediate
+                addi      r22, r21, _end   # Add Immediate
+                lis       r23, 6 # 0x61FF8 # Load Immediate Shifted
+                addi      r23, r23, 0x1FF8 # 0x61FF8 # Add Immediate
+                stw       r23, 4(r22)      # Store Word
+</code></pre></div></div><p>(The final store is storing <code class=highlighter-rouge>0x61FF8</code> four bytes beyond <code class=highlighter-rouge>_end</code> which happens to be <code class=highlighter-rouge>OS_VER</code>.) In the MIPS version, it is <code class=highlighter-rouge>0x80000</code>.<div class=highlighter-rouge><div class=highlight><pre class=highlight><code>                bal     dummy            # Branch Always and Link
+                nop
+dummy:
+                la      $s1, dummy       # Load Address
+                beqz    $s1, cleanup     # Branch on Zero
+                subu    $s1, $ra, $s1    # Subtract Unsigned
+                la      $s3, OS_VER      # Load Address
+                addu    $s3, $s1         # Add Unsigned
+                lui     $s4, 8           # Load Upper Immediate
+                sw      $s4, 0($s3)      # Store Word
+</code></pre></div></div><p>The newer x86 version (<code class=highlighter-rouge>BANANAGLEE/BG3000/Install/LP/Modules/PIX/SecondDate-3021.exe</code>) is a little more interesting. It expects the address of the table to be the four bytes in memory directly preceding the binary.<div class=highlighter-rouge><div class=highlight><pre class=highlight><code>_start:
+                pusha
+                call    SELF
+SELF:
+                pop     edx
+                sub     edx, 6
+                mov     eax, edx
+                sub     eax, 4
+                mov     ecx, eax
+                mov     ds:OS_VER[edx], ecx
+</code></pre></div></div><p>This code appears at the very beginning of the binary so the <code class=highlighter-rouge>sub edx, 6</code> sets <code class=highlighter-rouge>edx</code> to the loaded address of <code class=highlighter-rouge>_start</code>. Therefore the final <code class=highlighter-rouge>mov</code> is setting <code class=highlighter-rouge>OS_VER</code> to be <code class=highlighter-rouge>_start - 4</code>.<h2 id=overall-impression>Overall impression</h2><p>Although I was only looking at this code for a very specific purpose and didn’t examine its real functionality in depth, the code quality and general design seems much better than the <a href=/musings/equation-group/>redirector code I was looking at two days ago</a>.</div></article></main>

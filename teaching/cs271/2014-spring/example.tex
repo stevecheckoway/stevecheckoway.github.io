@@ -1,0 +1,72 @@
+\documentclass{article}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{array}
+
+% Define a new theorem environment
+\newtheorem*{thm}{Theorem}
+% Make a centering column type of a given width.
+\newcolumntype{C}[1]{>{\hfil}p{#1}<{\hfil}}
+
+\title{Example proof}
+\author{Stephen Checkoway}
+
+\begin{document}
+\maketitle
+
+We want to prove the following theorem.
+\begin{thm}
+Let $\Sigma$ be a finite alphabet and let $w\in\Sigma^*$ be a word of
+length at least~2. If there exist nonempty words $x,y\in\Sigma^+$
+such that $w=xy=yx$, then there exists a nonempty word $z\in\Sigma^+$
+and positive integers $a$ and~$b$ such that $x=z^a$ and $y=z^b$.
+\end{thm}
+
+\begin{proof}
+We will prove the theorem by induction on the length of $w$. The base
+case is $|w|=2$. This case is trivial since it must be the case that
+$|x|=|y|=1$. Therefore, $x=y$ so $z=x$ and $a=b=1$.
+
+For the inductive step, assume that the theorem holds for all words of
+length less than~$m$. Let $w$ be a word of length~$m$ such that
+$w=xy=yx$ for nonempty $x$ and~$y$. Write $x=x_1 x_2 \cdots x_k$ and
+$y=y_1 y_2 \cdots y_n$. We can assume, without loss of generality,
+that $k\le n$ (otherwise swap $x$ and~$y$).
+
+If $k=n$, then since $xy=yx$, we have $x_1=y_1$, $x_2=y_2$, \ldots,
+$x_k=y_k$. Therefore, $x=y$ and we can set $z=x$ and $a=b=1$.
+
+Otherwise, $k<n$ and we have a situation that looks like this.
+
+\begin{center}
+\begin{tabular}{|C{2cm}|C{3cm}|}
+\hline
+$x$ & $y$\\
+\hline
+\end{tabular}
+
+\vspace{.5\baselineskip}
+
+\begin{tabular}{|C{3cm}|C{2cm}|}
+\hline
+$y$ & $x$\\
+\hline
+\end{tabular}
+\end{center}
+
+From the picture, it's clear that $y$ starts with $x$ and ends
+with the first $n-k$ letters in $y$. Formally, $y=xy_1y_2\cdots
+y_{n-k}$. Similarly, $y$ ends with $x$ so $y=y_1y_2\cdots y_{n-k}x$.
+Define $y'=y_1y_2\cdots y_{n-k}$. Thus,
+\[ y=xy'=y'x \]
+and we can apply the inductive hypothesis since $|y|=n<|w|=m$. In
+particular, there is a word $z$ and integers $a,c$ such that $x=z^a$
+and $y'=z^c$. This gives
+\begin{align*}
+x&=z^a,\\
+y&=xy'=z^az^c=z^{a+c}.
+\end{align*}
+Setting $b=a+c$ proves the theorem.
+\end{proof}
+
+\end{document}

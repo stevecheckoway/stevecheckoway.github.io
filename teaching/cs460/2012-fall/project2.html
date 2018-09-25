@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml;charset=utf-8" />
+<link rel="stylesheet" href="/css/old-teaching.css" type="text/css" />
+<title>Project 2</title>
+</head>
+<body>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-34500030-2', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+<div id="layout-content">
+<div id="toptitle">
+<div id="title">Project 2</div>
+</div>
+<p><b>Due:</b> Tuesday, November 20, 2012, 23:59<br /></p>
+<h2>Goal</h2>
+<p>Unlike the previous project where you were given access to the source
+code of the target program, for this project, you will have to find
+the vulnerability using only the binary.</p>
+<p>All work in this project must be done on the VirtualBox virtual machine
+provided on the course website; see below for information about this
+environment.</p>
+<p>You are given a single <tt>target</tt> binary and a data file <tt>model.dat</tt>
+accepted by <tt>target</tt>. Your goal is to write a <tt>sploit.dat</tt> file so
+that when <tt>target</tt> is run on <tt>sploit.dat</tt>, you end up with a root
+shell. Further more, once the shell exits, the program should finish
+running without any errors.</p>
+<h2>Collaboration</h2>
+<p>You may work on this project in groups of up to three (and this is
+encouraged). You will turn in a single set of solutions together, but
+it is expected that everyone understand and can explain how to exploit
+the target. You must not discuss the project with anyone in the class
+besides your partners and course staff, nor with anyone outside of
+class. This includes discussing what particular vulnerabilities in the
+target are! You may use online resources for general reference, but
+not to search for solutions to specific questions posed in this
+project.</p>
+<h2>The Environment</h2>
+<p>You (and we, for grading) will test your exploit programs within a
+VirtualBox virtual machine. To use this VM on your personal computer
+(Windows, Mac OS X, and Linux are supported), you will need to
+download the virtual machine image provided on the course
+website&#8201;&mdash;&#8201;sandbox-1.0.tar.bz2&#8201;&mdash;&#8201;as well as
+VirtualBox from the <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox website</a>.</p>
+<p>We have also arranged for VirtualBox to be installed on the Windows
+machines in Maryland 310.</p>
+<p>The VM has Debian Stable installed as well as a number of useful
+utilities such as vim, ssh, and wget.</p>
+<h2>The Target</h2>
+<p>The target must be setuid root in order to run:</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+user@sandbox:~/project2$ ./target model.dat
+Sorry, ./target must be setuid root.
+user@sandbox:~/project2$ sudo chown root:root target
+user@sandbox:~/project2$ sudo chmod u+s target
+user@sandbox:~/project2$ ./target model.dat
+But if you need to convince an enemy to work with you, it's a good idea to make use of all costs.
+user@sandbox:~/project2$ ./target model.dat
+The key to hand-to-hand combat is to be able to keep an eye on your employees during the off-hours and keep listening.
+</pre></div></div>
+<p>Each time you run the target, it will produce a different, ridiculous,
+randomly-generated string.</p>
+<h2>The Exploit</h2>
+<p>The exploit should be a single <tt>sploit.dat</tt> file that when run gives you a root shell and does not crash the binary.</p>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+user@sandbox:~/project2$ ./target sploit.dat
+# whoami
+root
+# exit
+exit
+You just have to wait for the target to party enough to make sure they know it comes with the badge and when.
+</pre></div></div>
+<h2>The Assignment</h2>
+<p>There are several parts for this assignment.</p>
+<ol>
+<li><p>Create a text file <tt>answers</tt> and answer the following questions:</p>
+<ol>
+<li><p>What program does <tt>target</tt> run?</p>
+</li>
+<li><p><tt>target</tt> produces two files. What are their contents? (Hint: One is static, the other depends on the input.)</p>
+</li>
+<li><p><tt>model.dat</tt> is unmangled in two different ways, first by <tt>target</tt> and then by the program <tt>target</tt> runs. What are the two ways?</p>
+</li></ol>
+</li>
+<li><p>Produce a <tt>sploit-small.dat</tt> that is as small as possible that gives a root shell. For this one, it's okay to cause the program to crash when the shell exits. (Hint: Our solution is just 56 bytes.)</p>
+</li>
+<li><p>Produce a <tt>sploit.dat</tt> that both gives the root shell and does <i>not</i> crash the program. This need not be small.</p>
+</li>
+</ol>
+<h2>Deliverables</h2>
+<p>You are to provide a tarball (i.e., a <tt>.tar.gz</tt> or <tt>.tar.bz2</tt> file)
+containing <tt>answers</tt>, <tt>sploit-small.dat</tt>, <tt>sploit.dat</tt>, and <tt>ID</tt>.</p>
+<p>As before, <tt>ID</tt> must contain the names of everyone in the group.</p>
+<p>There should be <b>no</b> directory structure: all files in the tarball
+should be in its root directory.</p>
+<h2>Hints</h2>
+<p>We highly recommend you use the free version of <a href="http://www.hex-rays.com/products/ida/support/download_freeware.shtml">IDA Pro</a> to aid in your reverse engineering.</p>
+<h2>Setting up the Environment</h2>
+<p>Use the same environment from <a href="project1.html">Project 1</a>. You can download the target file from inside the VM:<br />
+<tt>wget https://www.cs.jhu.edu/~s/teaching/cs460/2012-fall/project2.tar.gz</tt></p>
+<div id="footer">
+<div id="footer-text">
+Last updated 2016-06-28 11:48:44 CDT.
+</div>
+</div>
+</div>
+</body>
+</html>

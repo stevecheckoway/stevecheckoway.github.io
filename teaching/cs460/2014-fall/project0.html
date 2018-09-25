@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml;charset=utf-8" />
+<link rel="stylesheet" href="/css/old-teaching.css" type="text/css" />
+<title>Project 0</title>
+</head>
+<body>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-34500030-2', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+<div id="layout-content">
+<div id="toptitle">
+<div id="title">Project 0</div>
+</div>
+<p><b>Due:</b> Tuesday, September 9, 2014, 23:59<br /></p>
+<h2>Goal</h2>
+<p>The goal of this project is to become familiar with assembly language
+programming. This project will use 32-bit x86 assembly. Other projects
+will involve some subset of ARM, Thumb, and x86-64. Fortunately, once
+you become familiar with one assembly language, others are not too
+difficult.</p>
+<h2>Collaboration</h2>
+<p>You may work on this project in collaboration with a single partner as
+described on the <a href="index.html">main page</a>.</p>
+<p>You must not discuss the project with anyone other than your partner
+and course staff. You may use online resources for general reference,
+but not to search for solutions to specific questions posed in this
+project.</p>
+<h2>The Environment</h2>
+<p>You (and we, for grading) will run your programs in a VirtualBox
+virtual machine.
+To use this VM on your personal computer
+(Windows, Mac OS&nbsp;X, and Linux are supported), you will need to
+download the virtual machine image provided on the course
+website (see Setting up the Environment below) as well as
+VirtualBox from the <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox website</a>.</p>
+<p>The VM has Ubuntu installed as well as a number of useful utilities
+such as <tt>vim</tt>, <tt>ssh</tt>, and <tt>wget</tt>.</p>
+<h2>The Assignment</h2>
+<p>You are going to implement functions that operate on unsigned
+<a href="http://en.wikipedia.org/wiki/Arbitrary-precision_arithmetic">big
+nums</a>. You have to implement the five functions described in bn.h in
+32-bit x86 assembly in the file bn.s.</p>
+<p>Some stubs have been provided so that the initial code will compile
+but will not run correctly.</p>
+<h2>Deliverables</h2>
+<p>You will use Blackboard to turn in a single file <tt>bn.s</tt> containing all
+of your code and writeup. In particular, this means that you cannot
+modify any of the other files since we will be using our own version
+to test your code.</p>
+<p>You may wish to add additional tests in <tt>main.c</tt> to check that your
+code works properly. We will test using a more extensive test suite.</p>
+<p>At the top of <tt>bn.s</tt> add a comment with the names of everyone in your
+group. Additionally, for each function that you write (including any
+helpers you produce), add a comment describing what the function does,
+what its parameters are, and (briefly) how it works. <b>This is
+required. Failure to do so will result in lost points.</b></p>
+<h2>Hints</h2>
+<ol>
+<li><p><tt>gcc -m32 -S</tt> is your friend! If you run that on a C file, it will
+produce assembly.</p>
+</li>
+<li><p>You should look at how <tt>gcc</tt> emits code for function calls and make
+sure you follow suit. See
+<a href="https://en.wikipedia.org/wiki/X86_calling_conventions">Wikipedia</a> for details on stack alignment and the x86 cdecl calling
+convention used by Linux.</p>
+</li>
+<li><p>You can get <tt>gcc</tt> to use Intel syntax (instead of AT&amp;T) for x86
+with <tt>gcc -S -masm=intel</tt>.</p>
+</li>
+<li><p>For bn_hex2bn, a helper function that converts a single hex digit to
+an int can be very useful.</p>
+</li>
+<li><p>The standard library function isxdigit() can be helpful as well.</p>
+</li>
+<li><p>Several functions require ensuring that the bn has enough limbs.
+This can also be factored out into a helper function.</p>
+</li>
+<li><p>When adding numbers, you'll want to use the <tt>adc</tt> instruction in a
+loop. The <tt>clc</tt> instruction can be used to clear the carry flag and
+the <tt>loop</tt> instruction can be used to decrement <tt>ecx</tt> and branch if
+nonzero without changing flags. Helpfully, <tt>inc</tt> and <tt>dec</tt> do <i>not</i>
+affect the carry flag.</p>
+</li>
+<li><p>You're likely going to want to have a copy of the Intel manuals for
+reference. (See Resources on the main course <a href="index.html">webpage</a>.)</p>
+</li>
+</ol>
+<h2>Setting up the Environment</h2>
+<p>On your own machine, you will need to install VirtualBox. Follow the
+instructions on the <a href="https://www.virtualbox.org/wiki/Downloads">VirtualBox webpage</a>. If you have trouble, read the documentation.</p>
+<ol>
+<li><p>Download the VM sandbox-1.1.ova (1.1&nbsp;GB).</p>
+</li>
+<li><p>From the <tt>File</tt> menu, choose the <tt>Import Appliance&hellip;</tt> menu option.</p>
+</li>
+<li><p>Open <tt>sandbox-1.1.ova</tt> and follow the steps to import.</p>
+</li>
+<li><p>In the main window, select the <tt>sandbox-1.1</tt> VM and start it by clicking
+on the <tt>Start</tt> button.</p>
+</li>
+<li><p>Log in to the VM. There is one account <tt>user</tt> with the password <tt>user</tt>.
+The <tt>user</tt> account can use the <tt>sudo</tt> command to run commands as
+root (or <tt>sudo -s</tt> to get a root shell) but that should not be
+needed for this project.</p>
+</li>
+<li><p>Download the project 0 tarball in the virtual machine.<br />
+<tt>wget https://www.cs.jhu.edu/~s/teaching/cs460/2014-fall/project0.tar.gz</tt></p>
+</li>
+<li><p>Unpack <tt>project0.tar.gz</tt> and use the <tt>Makefile</tt> to build the code.</p>
+</li>
+<li><p>It is very useful to be able to <tt>ssh</tt> into the VM. You can forward a
+TCP port from your host machine to the VM using VirtualBox. Select
+the sandbox virtual machine and goto Settings &gt; Network &gt; Port
+Forwarding. The VM may already be configured to forward a port. The
+setting I use has protocol TCP, host port 2222, and guest port 22.
+On my host machine, I have the following lines in my
+<tt>$HOME/.ssh/config</tt> file so that I can ssh to the VM by running <tt>ssh
+sandbox</tt>:</p>
+</li>
+</ol>
+<div class="codeblock">
+<div class="blockcontent"><pre>
+Host = sandbox
+HostName = localhost
+Port = 2222
+User = user
+</pre></div></div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2016-06-28 11:50:21 CDT.
+</div>
+</div>
+</div>
+</body>
+</html>

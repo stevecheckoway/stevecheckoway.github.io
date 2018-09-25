@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+<meta http-equiv="Content-Type" content="application/xhtml+xml;charset=utf-8" />
+<link rel="stylesheet" href="/css/old-teaching.css" type="text/css" />
+<title>Homework 1</title>
+</head>
+<body>
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+ga('create', 'UA-34500030-2', 'auto');
+ga('send', 'pageview');
+</script>
+
+
+<div id="layout-content">
+<div id="toptitle">
+<div id="title">Homework 1</div>
+</div>
+<p><b>Due:</b> Tuesday, October 9, 2012, 23:59<br /></p>
+<h2>Problem 1</h2>
+<p>Ken Thompson's paper, &ldquo;Reflections on Trusting Trust,&rdquo; describes a technique
+for installing an undetectable login backdoor by adding a second backdoor to
+the compiler. The backdoored compiler inserts the appropriate backdoors when
+compiling the login program and the compiler itself. Once the binary of the
+compiler, used for bootstrapping future systems, implements the backdoor, any
+trace of tampering can be removed from the source. In this problem, we will
+explore a technique for detecting such an attack.</p>
+<p>Assume we have two C-language compilers: GCC and Clang. We suspect that
+nefarious hackers have inserted the Thompson backdoor into the GCC binary on
+our Linux system, but we believe that these hackers are haven't managed to
+corrupt the faculty and students at UIUC responsible for Clang. The entire
+Linux system doesn't yet build with Clang, since many programs were written to
+expect GCC's extensions to the C language. But we can get Clang to build GCC.
+(The usual procedure is to compile a new version of GCC using GCC itself; this
+is known as &ldquo;self-hosting.&rdquo;) Describe how we can reliably detect the presence
+of a GCC backdoor using the fact that we can compile GCC with Clang.</p>
+<p>In this problem, you have access to a Linux runtime environment in which the
+GCC compiler is possibly compromised, but you may assume that other critical
+components (such as the kernel, shell, and standard utilities) are clean.</p>
+<h2>Problem 2</h2>
+<p>Suppose you are driving along the highway and see the sign pictured below:</p>
+<table class="imgtable"><tr><td>
+<img src="sign.jpg" alt="WARNING // Narcotis Check point Ahead // 1/2 MILE BE PREPARED TO STOP // DRUG DOG IN USE // 1/2 MILLA HAY CHEQUO DE DROGAS" />&nbsp;</td>
+<td align="left"></td></tr></table>
+<p>Where will the police actually be waiting? Explain. It may help to explain the
+threat model you are assuming.</p>
+<p><b>Hint:</b> Why put a sign up at all?</p>
+<h2>Problem 3</h2>
+<p>In the first target in Project 1, you had to perform a simple buffer overflow
+on the stack and change the saved instruction pointer to point to Aleph One's
+shellcode. To make this simple, the sandbox was configured such that the
+location of the stack was constant. A technique called address space layout
+randomization (ASLR) will place the stack at different locations. One
+implementation of ASLR for Linux provides 19-bits of entropy for the stack
+location. That is, the top of the stack can be placed at one of 524,288
+positions.</p>
+<ol>
+<li><p>Briefly describe how you would modify your attack to get a root shell.</p>
+</li>
+<li><p>How could you modify Linux's handling of setuid root binaries to make your
+new attack impractical without impacting system performance too much.</p>
+</li>
+</ol>
+<div id="footer">
+<div id="footer-text">
+Last updated 2016-06-28 11:48:44 CDT.
+</div>
+</div>
+</div>
+</body>
+</html>
