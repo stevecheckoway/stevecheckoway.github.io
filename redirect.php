@@ -88,7 +88,7 @@ $translate = array(
 $page = $_GET['f'];
 if (array_key_exists($page, $translate))
 {
-	header('Location: https://stevecheckoway.github.io/' . $translate[$page]);
+	header('Location: https://checkoway.net/' . $translate[$page]);
 	exit;
 }
 header('HTTP/1.0 404 Not Found');
@@ -105,6 +105,6 @@ header('Content-Type: application/xhtml+xml;charset=utf-8');
 <body>
 <h1>Unknown page!</h1>
 <p>Unfortunately, I do not know how to redirect &lsquo;<?php echo htmlentities('https://cseweb.ucsd.edu/~s/' . $page); ?>&rsquo;.</p>
-<p>Maybe you'd like my <a href="https://stevecheckoway.github.io">home page</a>.</p>
+<p>Maybe you'd like my <a href="https://checkoway.net">home page</a>.</p>
 </body>
 </html>
