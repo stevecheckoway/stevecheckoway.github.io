@@ -1,1 +1,3 @@
+User-Agent: *
+Disallow: /testing/
 Sitemap: https://checkoway.net/sitemap.xml
