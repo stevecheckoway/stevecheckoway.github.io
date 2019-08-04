@@ -1,1 +1,1 @@
-Sitemap: https://checkoway.net/sitemap.txt.gz
+Sitemap: https://checkoway.net/sitemap.xml
