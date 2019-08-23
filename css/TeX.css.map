@@ -1,0 +1,14 @@
+{
+	"version": 3,
+	"file": "TeX.css",
+	"sources": [
+		"TeX.scss",
+		"_sass/_TeX.scss"
+	],
+	"sourcesContent": [
+		"@import \"TeX.scss\"\n",
+		"/*! Based on http://edward.oconnor.cx/2007/08/tex-poshlet */\n\n.tex .drop {\n\tvertical-align: -0.5ex;\n\tmargin-left: -0.1667em;\n\tmargin-right: -0.125em;\n\tline-height: 0pt;\n\ttext-transform: uppercase;\n}\n\n.tex .raise {\n\tfont-size: 0.85em;\n\tvertical-align: 0.15em;\n\tmargin-left: -0.36em;\n\tmargin-right: -0.15em;\n\ttext-transform: uppercase;\n}\n\n.tex .ib {\n\ttext-transform: uppercase;\n\tfont-size: 0.8em;\n\tmargin-right: -0.08em;\n}\n"
+	],
+	"names": [],
+	"mappings": "ACAA,4DAA4D,AAE5D,AAAA,IAAI,CAAC,KAAK,AAAC,CACV,cAAc,CAAE,MAAM,CACtB,WAAW,CAAE,SAAS,CACtB,YAAY,CAAE,QAAQ,CACtB,WAAW,CAAE,GAAG,CAChB,cAAc,CAAE,SAAS,CACzB,AAED,AAAA,IAAI,CAAC,MAAM,AAAC,CACX,SAAS,CAAE,MAAM,CACjB,cAAc,CAAE,MAAM,CACtB,WAAW,CAAE,OAAO,CACpB,YAAY,CAAE,OAAO,CACrB,cAAc,CAAE,SAAS,CACzB,AAED,AAAA,IAAI,CAAC,GAAG,AAAC,CACR,cAAc,CAAE,SAAS,CACzB,SAAS,CAAE,KAAK,CAChB,YAAY,CAAE,OAAO,CACrB"
+}
