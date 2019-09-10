@@ -1,0 +1,72 @@
+I"<h1 id="lecture-2--sep-9th-2019">Lecture 2 – Sep 9th, 2019</h1>
+
+<h2 id="setup">Setup</h2>
+<p>Log on to clyde: <code class="highlighter-rouge">ssh user@clyde.cs.oberlin.edu</code>.</p>
+
+<h2 id="task">Task</h2>
+<ol>
+  <li>Create a directory named <code class="highlighter-rouge">books</code> using <code class="highlighter-rouge">mkdir</code>.</li>
+  <li><code class="highlighter-rouge">cd</code> into the directory.</li>
+  <li><code class="highlighter-rouge">wget</code> to download a copy of Bram Stoker’s
+<em>Dracula</em> from <code class="highlighter-rouge">https://www.gutenberg.org/cache/epub/345/pg345.txt</code>. (Try
+running either <code class="highlighter-rouge">$ wget --help</code> or <code class="highlighter-rouge">$ man wget</code> to see how to use <code class="highlighter-rouge">wget</code> to
+download files.</li>
+  <li>Using <code class="highlighter-rouge">mv</code> rename the file from <code class="highlighter-rouge">pg345.txt</code> to <code class="highlighter-rouge">Stoker, Bram - Dracula.txt</code>.
+Since this file name has spaces, you’ll need to specify it as
+<code class="highlighter-rouge">'Stoker, Bram - Dracula.txt'</code> or <code class="highlighter-rouge">Stoker,\ Bram\ -\ Dracula.txt</code>.</li>
+  <li>
+    <p>The <code class="highlighter-rouge">grep</code> command is used for searching for text files for a “pattern” and
+printing out each line that matches the pattern. For example, <code class="highlighter-rouge">$ grep
+vampire 'Stoker, Bram - Dracula.txt'</code> prints out each line containing the
+word <code class="highlighter-rouge">vampire</code> (in lower case).</p>
+
+    <p>Read <code class="highlighter-rouge">grep</code>’s man page to figure out how to perform a case-insensitive
+search and run the command to print out all lines matching <code class="highlighter-rouge">vampire</code>, case
+insensitively. Hint: typing <code class="highlighter-rouge">/case</code> (and then hit enter) while viewing a
+man page will search for <code class="highlighter-rouge">case</code> in the manual. While searching, you can
+press <code class="highlighter-rouge">n</code>/<code class="highlighter-rouge">N</code> to go to the next/previous instance.</p>
+  </li>
+  <li>Use <code class="highlighter-rouge">grep</code> to print out a <em>count</em> of the lines matching <code class="highlighter-rouge">vampire</code> case
+insensitively. (Search the man page again.)</li>
+  <li>
+    <p>You’re probably tired of typing the same command and file name over and
+over, try using the up/down arrows to move back and forth through the
+history of your commands and then editing the commands to make new ones.
+You can also use <em>tab-completion</em> to get Bash to fill in the rest of the
+name for you: start typing the file name and then hit tab.</p>
+
+    <p>Open the man page for <code class="highlighter-rouge">grep</code> one final time and figure out how to get
+<code class="highlighter-rouge">grep</code> to print the line numbers (and the lines themselves) that match
+<code class="highlighter-rouge">Transylvania</code> and then do that.</p>
+  </li>
+  <li>Use <code class="highlighter-rouge">wget</code> again to download James Joyce’s <em>Dubliners</em> from
+<code class="highlighter-rouge">https://www.gutenberg.org/files/2814/2814-0.txt</code>. Rename it
+<code class="highlighter-rouge">Joyce, James - Dubliners.txt</code>.</li>
+  <li>
+    <p>Find and use the command to print out a count of every word in both books.
+Hint, the <code class="highlighter-rouge">-a</code> (or <code class="highlighter-rouge">--and</code>) option to <code class="highlighter-rouge">apropos</code> lets you search for
+commands that involve all of the key words so <code class="highlighter-rouge">$ apropos -a apple sauce</code>
+will match commands whose descriptions contain both the words apple and
+sauce. So use <code class="highlighter-rouge">appropos -a</code> with appropriate keywords to find a command
+that produces a <em>word count</em>.</p>
+
+    <p>Run that command on all <code class="highlighter-rouge">.txt</code> files in the current directory (using one of
+the wildcards for globbing).</p>
+  </li>
+  <li>Read the man page for the command you found in step 9 and find and use the
+option to print <em>only</em> the word counts.</li>
+  <li>
+    <p>Go to the parent directory (<code class="highlighter-rouge">cd ..</code>) and delete the <code class="highlighter-rouge">books</code> directory.
+Note that neither <code class="highlighter-rouge">$ rm books</code> nor <code class="highlighter-rouge">$ rmdir books</code> will work.</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>steve@clyde:~$ rm books
+rm: cannot remove 'books': Is a directory
+steve@clyde:~$ rmdir books
+rmdir: failed to remove 'books': Directory not empty
+</code></pre></div>    </div>
+
+    <p>Read the man page for <code class="highlighter-rouge">rm</code> to figure out how to <em>recursively</em> delete
+directories.</p>
+  </li>
+</ol>
+:ET
