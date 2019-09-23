@@ -1,0 +1,56 @@
+==================================================================
+https://keybase.io/stevecheckoway
+--------------------------------------------------------------------
+
+I hereby claim:
+
+  * I am an admin of https://checkoway.net
+  * I am stevecheckoway (https://keybase.io/stevecheckoway) on keybase.
+  * I have a public key ASDmRS21uuyoSF8fbJpR5c8MWoHaZlc3DOeEyrJsK59VZAo
+
+To do so, I am signing this object:
+
+{
+  "body": {
+    "key": {
+      "eldest_kid": "0120e6452db5baeca8485f1f6c9a51e5cf0c5a81da6657370ce784cab26c2b9f55640a",
+      "host": "keybase.io",
+      "kid": "0120e6452db5baeca8485f1f6c9a51e5cf0c5a81da6657370ce784cab26c2b9f55640a",
+      "uid": "9bc1c4b97e49e7019141366ca593c300",
+      "username": "stevecheckoway"
+    },
+    "merkle_root": {
+      "ctime": 1569242113,
+      "hash": "6d8337938ab75ff8dc9af975624f06123bb83e6ddb0ac6ff3cc0634e61a74b702e16a6251a08ece8a69ce26454416c3556f6a44027832375d87c93aca5bbc80f",
+      "hash_meta": "10190e3b77ab26d9b75a36f83c2a5d46397c64527bdc73443788052ef36759cc",
+      "seqno": 7700934
+    },
+    "service": {
+      "entropy": "6DpfodooExsVDwdSDFV494xg",
+      "hostname": "checkoway.net",
+      "protocol": "https:"
+    },
+    "type": "web_service_binding",
+    "version": 2
+  },
+  "client": {
+    "name": "keybase.io go client",
+    "version": "4.5.0"
+  },
+  "ctime": 1569242132,
+  "expire_in": 504576000,
+  "prev": "aee6030fb38fb1a1708c265dc6f1702eb5cc49e6025bc18f98aa48208db0ff0e",
+  "seqno": 31,
+  "tag": "signature"
+}
+
+which yields the signature:
+
+hKRib2R5hqhkZXRhY2hlZMOpaGFzaF90eXBlCqNrZXnEIwEg5kUttbrsqEhfH2yaUeXPDFqB2mZXNwznhMqybCufVWQKp3BheWxvYWTESpcCH8QgruYDD7OPsaFwjCZdxvFwLrXMSeYCW8GPmKpIII2w/w7EIIOzxH4TC5hf02Yob2KzPdQAE2Iph4vC4AA3zBhT78s6AgHCo3NpZ8RA3bB0iJZJde6/pM00xWJP73Od9snco9MCYV1owtGG3nmTnNfmaBgLMYsHSgq3Z2aMZYwhrZRM68HTVsY4+OKpAqhzaWdfdHlwZSCkaGFzaIKkdHlwZQildmFsdWXEIAckxv1Pec6MT2ws5Gpa7cMEGS5iRre9udUmm429wVlpo3RhZ80CAqd2ZXJzaW9uAQ==
+
+And finally, I am proving ownership of this host by posting or
+appending to this document.
+
+View my publicly-auditable identity here: https://keybase.io/stevecheckoway
+
+==================================================================
