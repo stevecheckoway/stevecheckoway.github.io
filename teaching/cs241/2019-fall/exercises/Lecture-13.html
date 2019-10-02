@@ -18,6 +18,6 @@
   <span class=n>assert</span><span class=p>(</span><span class=n>n</span> <span class=o>+</span> <span class=n>start</span> <span class=o>&lt;</span> <span class=n>NUM_BITS</span><span class=p>);</span>
   <span class=n>assert</span><span class=p>(</span><span class=n>n</span> <span class=o>&lt;</span> <span class=n>NUM_BITS</span> <span class=o>-</span> <span class=n>start</span><span class=p>);</span> <span class=c1>// Abort on this line.</span>
 <span class=p>}</span>
-</code></pre></div></div><p>When it crashes, it should look like this (although file names and line numbers will differ).<div class=highlighter-rouge><div class=highlight><pre class=highlight><code>a.out: bit_fields.c:27: void crash_me(unsigned int, unsigned int): Assertion `n &lt; NUM_BITS - start' failed.
+</code></pre></div></div><p>When it crashes, it should look like this (although file names and line numbers may differ).<div class=highlighter-rouge><div class=highlight><pre class=highlight><code>a.out: bit_fields.c:27: void crash_me(unsigned int, unsigned int): Assertion `n &lt; NUM_BITS - start' failed.
 Aborted (core dumped)
 </code></pre></div></div></ol></main>
