@@ -26,7 +26,8 @@ autocmd <span class=nb>FileType</span> <span class=k>c</span> <span class=k>setl
 ├── tobinary.c
 ├── todecimal.c
 ├── tohex.c
-└── tooctal.c
+├── tooctal.c
+└── .travis.yml
 </code></pre></div></div><p>It may also a <a href=https://git-scm.com/docs/gitignore><code class=highlighter-rouge>.gitignore</code></a> file which tells Git to ignore files matching patterns in your working directory (like <code class=highlighter-rouge>*.o</code>, for example).<p>Any additional files you have added to your repository should be removed from the <code class=highlighter-rouge>master</code> branch. (You’re free to make other branches, if you desire, but make sure <code class=highlighter-rouge>master</code> contains the version of the code you want graded.)<p>The <code class=highlighter-rouge>README</code> should contain<ol><li>The names of both partners (or just your name if you worked alone…but please don’t work alone if you can manage it).<li>An estimate of the amount of time it took to complete each program.<li>Any known bugs or incomplete functions.<li>Any interesting design decisions you’d like to share.</ol><p>Each of your source files with a <code class=highlighter-rouge>main</code> function should contain a comment at the top of the file that contains usage information plus a description of what the program does.<p>Example.<div class="language-c highlighter-rouge"><div class=highlight><pre class=highlight><code><span class=c1>// Usage: ./frequency &lt; input_file</span>
 <span class=c1>// </span>
 <span class=c1>// Frequency will ...</span>
