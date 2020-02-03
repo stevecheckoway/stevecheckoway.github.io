@@ -1,0 +1,230 @@
+Symbol	Room	Bldg	Organization or Title	Phone	In Charge
+N	111	Archives I	OFFICE OF THE ARCHIVIST OF THE UNITED STATES	202-357-5900	David S Ferriero
+4200	Archives II	    Archives II Office	301-837-1600	 
+ND	4200	Archives II	DEPUTY ARCHIVIST OF THE UNITED STATES	202-357-5900	Debra Steidel Wall
+ 	Archives I	    Archives I Office	202-357-5900	 
+NCON	101	Archives I	CONGRESSIONAL AFFAIRS STAFF	202-357-5100	John Owen Hamilton
+NEEO	3310	Archives II	EQUAL EMPLOYMENT OPPORTUNITY OFFICE	301-837-0939	Ismael Martinez
+NGC	3110	Archives II	GENERAL COUNSEL	301-837-3026	Gary M Stern
+3110	Archives II	    Senior Counsel	301-837-2928	Chris M Runkel
+3110	Archives II	    Director of Litigation	301-837-3026	Jeannette Wise
+3100	Archives II	    Counsel for Procurement and Employment Law	301-837-1888	Stephani L Abramson
+NHPRC	114	Archives I	NATIONAL HISTORICAL PUBLICATIONS AND RECORDS COMMISSION	202-357-5263	Vacant
+OIG	1300	Archives II	OFFICE OF THE INSPECTOR GENERAL	301-837-3000	James E Springs
+1300	Archives II	    Audits	301-837-3000	Jewel L Butler
+1300	Archives II	    Investigations	301-837-3000	Jason J Metrick
+1300	Archives II	    Counsel	301-837-3000	John M Simms
+S	111A	Archives I	OFFICE OF THE CHIEF OF STAFF	202-357-7458	Maria Stanwich
+S-A	107	Archives I	    Planning and Support	202-357-7467	Vacant
+SC	G-1	Archives I	    Communications and Marketing Division	202-357-5300	John G. Valceanu
+SE	 	Archives II	    Executive Secretariat	202-357-7458	Maria Stanwich (A)
+ST	 	 	    Customer Experience	 	Vacant (A)
+C	4200	Archives II	OFFICE OF THE CHIEF OPERATING OFFICER	301-837-0643	William J Bosanko
+CA	4100	Archives II	    Accountability Staff	301-837-1668	Kimm A Richards
+CM	2510	Archives II	    Corporate Records Management Staff	301-837-0880	Deborah H. Armentrout
+CH	 	 	    Holdings Protection and Recovery Staff	 	Vacant
+H	1200	Archives II	OFFICE OF HUMAN CAPITAL	301-837-3710	Sean M Clayton
+HT	 	 	    Talent Acquisition Division	301-837-0366	Vacant
+HTC	370	St. Louis	        Classification Branch	301-512-1617	Landon J. Carter
+HTS	370	St. Louis	        Staffing and Classification Branch	314-801-2501	Kathleen E Trentham
+HP	1200	Archives II	    Labor/Employee Relations, Benefits & Performance Management Division	301-837-1981	Valorie F Findlater (A)
+HPL	370	St. Louis	        Labor Relations Branch	314-801-9282	Christopher B Wilder
+HPP	1200	Archives II	        Performance Management and Benefits Branch	301-837-3754	Valorie F Findlater
+HS	1200	Archives II	    Strategy, Analysis, & Automation Division	301-837-0366	John C. Parham
+HSB	1200	Archives II	        Business Systems Branch	301-837-1756	John C. Parham (A)
+HL	3500	Archives II	    Organizational Development & Learning Division	301-837-0450	Kashmira A. Shaikh
+HLO	 	 	        Organizational Development Branch	 	Steven T Flowers
+HLL	 	Archives II	        Learning & Leadership Branch	 	Bouviette N Pennington (A)
+V	3200	Archives II	OFFICE OF INNOVATION	301-837-2029	Pamela S Wright
+VI	3200	Archives II	    Digitization Division	301-837-1643	Dana M Allen-Greil (A)
+VIS	3200	Archives II	        Digitization Services Branch	301-837-1643	Jennifer L Seitz (A)
+VE	3200	Archives II	    Digital Engagement Division	301-837-0760	Andrew P Wilson
+VES	3200	Archives II	        Web and Social Media Branch	301-837-0294	Dana M Allen-Greil
+VEO	3200	Archives II	        Digital Public Access Branch	301-837-3022	Jason C Clingerman
+VH	3200	Archives II	    Innovation Hub	 	Meredith M. A. Stewart
+VS	3200	Archives II	    Business Architecture, Standards, and Authorities Division	 	Vacant
+VM	3200	Archives II	    Project Management Division	202-357-5113	Aaron S Woo
+F	700	800 N. Capitol	OFFICE OF THE FEDERAL REGISTER	202-741-6100	Oliver A Potts
+FL	700	800 N. Capitol	    Legal Affairs and Policy Division	202-741-6025	Amy P Bunk
+FP	700	800 N. Capitol	    Publications and Services Division	202-741-6002	John H Martinez
+FD	700	800 N. Capitol	    Development, Digital Strategy, and Analytics Division	202-741-6057	Stephen J Frattini
+A	3600	Archives II	AGENCY SERVICES	301-837-3064	Jay A Trainer
+AC	2100	Archives II	    Office of the Chief Records Officer	301-837-1539	Laurence N Brewer (A)
+ACR	2200	Archives II	        Records Management Operations Program	301-837-1539	Margaret R Hawkins
+ACRC	3400	Archives II	            Permanent Records Capture Section	301-837-3109	Matthew Y Eidson
+ACRA	2200	Archives II	            Records Appraisal and Agency Assistance	301-837-1799	Margaret R Hawkins
+ACRB	3513	Laguna Niguel	        Business Analysis Solutions Team	949-448-4932	 
+ACP	2100	Archives II	        Records Management Policy and Outreach Program	301-837-1744	Lisa I Haralampus
+ACPS	 	Archives II	            Policy and Standards Team	301-837-1948	John C Martinez
+ACPP	2100	Archives II	            Policy and Program Support Team	301-837-1744	Arian D Ravanbakhsh (A)
+ACT	5332	Archives II	        Records Management Training Program	301-837-1710	Gary H Rauchfuss (A)
+ACTA	2111	Archives II	            Training Analysis, Evaluation, and Operations Team	301-837-3139	Wilda D Logan (A)
+ACTD	 	Pittsfield	            Training Design and Development Team	413-236-3605	Andy R Potter (A)
+ACTI	5320	Archives II	            Training Implementation Team	301-837-1710	Gary H Rauchfuss (A)
+ACO	2200	Archives II	        Records Management Oversight and Reporting Program	301-837-3426	Donald R Rosen (A)
+ACO1	 	Ft. Worth	            Oversight Team 1	682-465-3021	Cindy C Smolovik (A)
+ACO2	 	Archives II	            Oversight Team 2	 	Evangela C. Wimbush-Jeffrey (A)
+ACOS	 	Archives II	            Systems Analysis Team	 	Vacant (A)
+AF	3600	Archives II	    Federal Records Center Program	301-837-3115	David M Weinberg
+AFC	3600	Archives II	        Customer Relationship Management Branch	301-837-1546	Gordon G Everett
+AFN	360	St. Louis	        National Personnel Records Center	314-801-0587	Scott A Levins
+AFN-C	103	Valmeyer	            Civilian Personnel Records	618-935-3005	Kimberly A Gentile
+AFN-CO	102	Valmeyer	                Civilian Operations Branch	618-935-3010	Patricia S Resler
+AFN-CR	107B	Valmeyer	                Civilian Reference Services Branch	618-935-3017	Tasha M Ford
+AFN-M	360	St. Louis	            Military Personnel Records	314-801-0582	Kevin M Pratt
+AFN-MC1	290	St. Louis	                Military Reference Core 1	314-801-0721	Sharon A Box (A)
+AFN-MC2	200	St. Louis	                Military Reference Core 2	314-801-0721	Joyce A McKiddy
+AFN-MC3	260	St. Louis	                Military Reference Core 3	314-801-0658	Gregory L Sampson
+AFN-MC4	220	St. Louis	                Military Reference Core 4	314-801-0788	Angela R Foster
+AFN-MO	160	St. Louis	                Military Operations Branch	314-801-0647	Karen L Mellott
+AFN-MR	240	St. Louis	                Military Records Retrieval Branch	314-801-9297	 
+AFO	3600	Archives II	        Operations Branch	404-736-2825	Leanne M Townsend-Cerame
+AFOT	3600	Archives II	            National Transfer and Disposition	206-336-5124	Scott E Roley (A)
+AFOP	3600	Archives II	            Policy, Projects, and Management Controls	 	Scott S Diegel
+AFOR	3600	Archives II	            Records Management Services	301-837-2010	David S Miller
+AFOR-R	 	 	            Records Management Consulting Services	 	Vacant
+AFOR-S	 	 	            Scanning Advisory Services	 	Vacant
+AFOD	 	Suitland	            Operations DC - WNRC	301-778-1553	Christopher C Pinkney
+AFOE	3600	Archives II	            Operations East	 	Steven J Ourada
+AFOE-AT	 	Ellenwood	                Atlanta Federal Records Center	404-736-2888	 
+AFOE-BO	 	Boston	                Boston Federal Records Center	781-663-0139	Jonathan D Morse
+AFOE-CH	 	Chicago	                Chicago Federal Records Center	773-948-9007	Pamela Ann Wegner
+AFOE-DT	 	Dayton	                Dayton Federal Records Center	937-425-0661	Chloe R Reed
+AFOE-FW	 	Ft. Worth	                Fort Worth Federal Records Center	817-551-2003	Scott S Beadle
+AFOE-KR	 	Kingsridge	                Kingsridge Federal Records Center	937-425-0601	Lloyd D Mitchell
+AFOE-PA	 	Phil.(NE)	                Federal Records Centers - Philadelphia	215-305-2011	Aaron T Swann
+AFOE-PF	 	Pittsfield	                Pittsfield Federal Records Center	413-236-3610	Jean B Kubica
+AFOW	3600	Archives II	            Operations West	 	Michael J Kretch
+AFOW-DV	 	Broomfield	                Denver Federal Records Center	303-604-4763	Samantha M Wade (A)
+AFOW-KC	 	Kansas City	                Kansas City Federal Records Center	816-994-1702	Theresa L Mellon
+AFOW-LS	 	Lee's Summit	                Lee's Summit Federal Records Center	816-268-8149	Sean P Murphy
+AFOW-LX	 	Lenexa	                Lenexa Federal Records Center	913-825-7809	David H Diamond
+AFOW-RS	 	Riverside	                Riverside Federal Records Center	951-956-2015	Michael J Kretch
+AFOW-SB	 	San Bruno	                San Bruno Federal Records Center	650-238-3475	George K Morash
+AFOW-SE	 	Seattle	                Seattle Federal Records Center	206-336-5143	Steven J Ourada
+AISOO	100	Archives I	    Information Security Oversight Office	202-357-5250	Mark A. Bradley
+AISOO-C	508	Archives I	        Controlled Unclassified Information Executive Agent	202-357-5313	Patrick D Viscuso
+AISOO-P	100	Archives I	        Public Interest Declassification Board	202-357-5205	Vacant (A)
+ANDC	6350	Archives II	    National Declassification Center	301-837-058	Sheryl J Shenberger
+AOGIS	700	800 N. Capitol	    Office of Government Information Services	202-741-5771	Nikki N Gramian (A)
+R	3400	Archives II	RESEARCH SERVICES	301-837-3110	Ann A Cummings
+R-B	 	Archives II	    Backlog Reduction	 	Vacant
+RP	3400	Archives II	    Project and Performance Management	 	Vacant
+RC	3400	Archives II	    Research Customer Support Division	 	Vacant
+RCT	 	Archives II	        Customer Teams	 	Vacant
+RCI	2500	Archives II	        Archives Library Information Center	301-837-1795	Jeffery T Hartley
+RD	2600	Archives II	    Access Coordinator - Washington, DC	 	Vacant
+RD-A	2600	Archives II	        Administrative Staff	301-837-2929	James S Rush
+RD-F	2607	Archives II	        Special Access/FOIA Staff	301-837-3270	Martha W Murphy
+RD-I	2600	Archives II	        Electronic Records Accessioning Support Staff	301-837-0976	Robert K Spangler
+RD-O	 	Archives II	        Research Room Operations Archives II	301-837-0475	Michael F Knight
+RD-OS	 	Archives II	        Special Media Research Rooms/Researcher Registration	301-837-0923	Latoya C Chavis
+RD-OP	1000	Archives II	        Textual Pulls & Refiles	301-837-2043	Lisha B Penn
+RD-OT	2385	Archives II	        Textual Research Room	202-357-5464	Terrell X Fenwick
+RDT	2600	Archives II	        Textual Records Division	301-837-1895	Erin E Townsend
+RDT1	405	Archives I	            Textual Reference Archives I Branch	202-357-5287	Trevor K Plante
+RDT1R	405	Archives I	            Archives I Reference Section	202-357-5182	Juliette J Arai
+RDT1F	606	Archives I	            Archives I Forms Reference Section	202-357-5098	Octavia D Ranger
+RDT1O	G-13	Archives I	            Archives I Research Rooms Section	202-357-5266	Dennis M Edelin
+RDT2	2400	Archives II	            Textual Reference Archives II Branch	301-837-0757	Richard W Peuser
+RDTP	2600	Archives II	            Textual Processing Branch	301-837-3008	Vernon R Smith
+RDTPA	2600	Archives II	                Accessioning Section	301-837-3084	Timothy M Enas
+RDTP2	2600	Archives II	                Archives II Processing Section	301-837-3087	Ashley M Bucciferro
+RDTP1	405	Archives I	                Archives I Processing Section	202-357-5330	Sarah A Herman
+RDTPS	2600	Archives II	                Ancestry Projects - Silver Spring	801-705-7181	Vacant
+RDE	5320	Archives II	        Electronic Records Division	301-837-1824	Theodore J Hull
+RDEP	 	Archives II	            Processing Branch	301-837-0602	Charlotte L Sturm
+RDER	 	Archives II	            Reference Branch	301-837-0468	Lynn A Goodsell
+RDEX	 	Archives II	            Digital Preservation Services Staff	301-837-2989	Gary J Sinkfield
+RDS	 	Archives II	        Special Media Records Division	301-837-1911	Deborah A Lelansky
+RDS-F	 	Archives II	                Motion Picture Lab	301-837-0496	Christina M Kovac
+RDS-A	 	Archives II	                Audio/Video Lab	301-837-1922	Jason A Love
+RDSC	3320	Archives II	            Cartographic Branch	301-837-2036	Peter F Brauer
+RDSM	3360	Archives II	            Motion Picture Branch	301-837-1995	Daniel X Rooney
+RDSS	5360	Archives II	            Still Pictures Branch	301-837-3192	Meghan Ryan Guthorn
+RE	2614	Archives II	    Access Coordinator - East	301-837-3089	Michael T Moore
+RE-AT	138	Morrow	        Archival Operations - Atlanta	770-968-2485	Rob G Richards
+RE-BO	 	Waltham	        Archival Operations - Boston	781-663-0121	Alfie M Paul
+RE-NY	410	New York	        Archival Operations - New York City	212-401-1625	Chris M Gushman
+RE-PA	 	Philadelphia	        Archival Operations - Philadelphia	215-606-0101	Leslie M. Simon
+RL	340F	St. Louis	    Access Coordinator - St. Louis	314-801-9132	Bryan K McGraw
+RL-OC	 	St. Louis	        Online Content Development	 	Vacant
+RL-SL	 	St. Louis	        Archival Operations - St. Louis	314-801-0909	 
+RM	3400	Archives II	    Access Coordinator - Midwest	301-837-0525	Vacant
+RM-CH	 	Chicago	        Archival Operations - Chicago	773-948-9009	Douglas A Bicknese
+RM-DV	 	Denver	        Archival Operations - Denver	303-604-4749	Eileen E Bolger
+RM-FW	 	Ft. Worth	        Archival Operations - Fort Worth	817-551-2033	Meg H Hacker
+RM-KC	213	Kansas City	        Archival Operations - Kansas City	816-268-8017	Lori A Cox-Paul
+RW	 	Seattle	    Access Coordinator - West	301-837-3089	Michael T Moore
+RW-RS	129	Riverside	        Archival Operations - Riverside	951-956-2040	Gwen E Granados
+RW-SB	014	San Francisco	        Archival Operations - San Francisco	650-238-3478	Stephanie M. Bayless
+RW-SE	 	Seattle	        Archival Operations - Seattle	206-336-5141	Susan H Karren
+RX	2800	Archives II	    Preservation Programs Division	301-837-1785	Terry D Boone (A)
+RXC	1901	Archives II	        Conservation Branch	301-837-2906	Vacant
+RXS	310A	St. Louis	        St. Louis Preservation Branch	314-801-0907	Marta G ONeill
+L	104	Archives I	LEGISLATIVE ARCHIVES, PRESIDENTIAL LIBRARIES, AND MUSEUM SERVICES	202-357-5472	Susan K Donius (A)
+LL	8E	Archives I	    Center for Legislative Archives	202-357-5376	Richard H Hunt
+LE	G-9	Archives I	    Education and Public Programs Division	202-357-7483	Maria M Marable-Bunch
+LM	104	Archives I	    Presidential Materials Division	202-357-5144	John J Laster
+LP	2200	Archives II	    Office of Presidential Libraries	857-294-1074	Tom J Putnam (A)
+LP-HH	 	Hoover	        Herbert Hoover Library and Museum	319-643-6029	Thomas F Schwartz
+LP-FDR	 	Roosevelt	        Franklin D. Roosevelt Library and Museum	845-486-7741	Paul M Sparrow
+LP-HST	 	Truman	        Harry S. Truman Library and Museum	816-268-8210	Kurt K. Graham
+LP-DDE	 	Eisenhower	        Dwight D. Eisenhower Library and Museum	785-263-6739	Timothy D Rives
+LP-JFK	 	Kennedy	        John F. Kennedy Library and Museum	617-514-1651	Tom J Putnam
+LP-LBJ	 	Johnson	        Lyndon B. Johnson Library and Museum	512-721-0158	 
+LP-RN	 	Nixon	        Richard M. Nixon Library and Museum	714-983-9121	Michael D Ellzey
+LP-GRF	 	Ford Library	        Gerald R. Ford Library	734-205-0566	Elaine K Didier
+LP-GRFM	 	Ford Museum	        Gerald R. Ford Museum	734-205-0566	Elaine K Didier
+LP-JC	 	Carter	        Jimmy Carter Library and Museum	404-865-7113	Meredith R Evans
+LP-RR	 	Reagan	        Ronald Reagan Library and Museum	805-577-4061	Duke Blackwood
+LP-GB	 	Bush (41)	        George Bush Library and Museum	979-691-4001	Warren L Finch
+LP-WJC	 	Clinton	        William J. Clinton Library and Museum	501-244-2884	Terri T Garner
+LP-GWB	 	Bush (43)	        George W. Bush Library and Museum	214-346-1680	Emily B Robison
+LP-BHO	 	Obama Library	        Barack H. Obama Library and Museum	 	Brooke L Clement
+LX	G-9	Archives I	    Exhibits Division	202-357-5974	Lisa G Royse
+I	4400	Archives II	INFORMATION SERVICES	301-837-1583	Swarnali Haldar
+I-I	4417	Archives II	    Investment Planning & Management Staff	301-837-3126	Kathy A Wickliffe (A)
+I-C	4400	Archives II	    Policy & Compliance Management Staff	301-837-3170	C. Stephen Heaps (A)
+IA	4504	Archives II	    Architecture & Technology Management Division	301-837-0622	Dyung V Le (A)
+IAS	4504	Archives II	        Systems Engineering Branch	301-837-0622	Dyung V Le
+IAD	4400	Archives II	        Data Management Branch	301-837-2998	Mai Phoung Bui (A)
+IP	1510	Archives II	    Portfolio Management Division	301-837-3167	Mary E Winstead (A)
+IPG	1510	Archives II	        Program Management Branch	301-837-3167	Mary E Winstead (A)
+IPJ	2350	Archives II	        IT Project Management Branch	301-837-1955	Thomas J McAndrew
+ID	4414	Archives II	    Development & Tools Management Division	301-837-3625	Leslie L Johnston
+IS	4400	Archives II	    IT Security Management Division	301-837-3048	Sandra E Paul-Blanc
+ISM	4400	Archives II	        Monitoring & Authorization Branch	301-837-3048	Sandra E Paul-Blanc (A)
+ISS	4400	Archives II	        IT Security Support Branch	301-837-3048	Sandra E Paul-Blanc (A)
+IQ	4400	Archives II	    Quality Management Division	301-837-0610	Phuong T Ha
+IQT	 	Archives II	        Test Branch	301-837-0610	Phuong T Ha
+IO	4320	Archives II	    Operations Management Division	301-837-3578	Vacant
+IOO	4324	Archives II	        Operations and Infrastructure Branch	301-837-3269	Mike M Collins
+IOS	4503	Archives II	        Support Services Branch	301-837-1684	James L Atwater
+B	5100	Archives II	BUSINESS SUPPORT SERVICES	301-837-1719	Donna J Forbes
+B-AC	 	Archives II	    Administration, Policy, and Planning Staff	 	Vacant
+B-AD	5107	Archives II	    Storage Coordination and Logistics Branch	301-837-1786	Vacant
+BQ	 	Broomfield	    Field Management Support Division	303-604-4701	Leonard G Harmon
+BQA	 	Ellenwood	        Field Support Office - Atlanta	404-736-2851	Frederick A Abrahamian
+BQB	 	Boston	        Field Support Office - Boston	781-663-0140	David J Powers
+BQC	 	Chicago	        Field Support Office - Chicago and Dayton	817-551-2002	Robert A Newton
+BQD	 	Broomfield	        Field Support Office - Denver	303-604-4701	Vacant
+BQF	 	Ft. Worth	        Field Support Office - Fort Worth	817-551-2002	Vacant
+BQK	 	Kansas City	        Field Support Office - Kansas City	816-268-8024	Robert A Newton
+BQP	 	Philadelphia	        Field Support Office - Philadelphia	215-305-2003	David Roland
+BQS	 	San Bruno	        Field Support Office - San Bruno and Riverside	650-238-3463	David M Piff
+BQU	 	Suitland	        Field Support Office - Suitland	215-305-2003	David Roland
+BQE	 	Seattle	        Field Support Office - Seattle	650-238-3463	David M Piff
+BF	2320	Archives II	    Facility and Property Management Division	301-837-3019	Mark D Sprouse
+BFF	2320	Archives II	        Facilities and Property Branch	301-837-3712	Donald W Overfelt
+BFS	1150	Archives II	        Space Planning and Projects Branch	301-837-3648	Ronald C Noll
+BP	5365	Archives II	    Project Assistance Division	301-837-0550	Alexander C Turell
+BX	2300	Archives II	    Security Management Division	301-837-0298	Kevin A McCoy
+M	5200	Archives II	OFFICE OF THE CHIEF OF MANAGEMENT AND ADMINISTRATION	 	Micah M Cheatham
+MP	 	 	    Strategy and Performance Division	 	Carla B Patterson (A)
+Z	 	Archives II	OFFICE OF THE CHIEF ACQUISITION OFFICER	 	LaVerne A. Fields (A)
+X	5200	Archives II	OFFICE OF THE CHIEF FINANCIAL OFFICER	301-837-1723	Colleen V Murphy (A)
+XA	5200	Archives II	    Accounting Policy and Operations Branch	301-837-1723	Colleen V Murphy
+XB	5200	Archives II	    Office of Budget	 	Cherimonda P Arrington
+XF	5200	Archives II	    Financial Reporting and Analysis Staff	 	Vacant
+XT	5200	Archives II	    National Archives Trust Fund Branch	 	Lawrence S. Post
