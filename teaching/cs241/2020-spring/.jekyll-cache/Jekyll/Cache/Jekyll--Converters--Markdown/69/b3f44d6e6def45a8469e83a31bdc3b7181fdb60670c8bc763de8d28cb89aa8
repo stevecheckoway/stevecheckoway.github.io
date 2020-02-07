@@ -1,0 +1,61 @@
+I"”
+<h1 id="lecture-20--oct-28th-2019">Lecture 20 â€“ Oct 28th, 2019</h1>
+
+<h2 id="setup">Setup</h2>
+<ol>
+  <li>Log in to clyde.</li>
+  <li><code class="highlighter-rouge">$ cp -r ~steve/ex/streams .</code></li>
+</ol>
+
+<h2 id="task">Task</h2>
+<ol>
+  <li>
+    <p>Finish implementing <code class="highlighter-rouge">tobin.c</code> such that it reads integers (separated by
+spaces) from <code class="highlighter-rouge">stdin</code> using <code class="highlighter-rouge">scanf(3)</code> one at a time and then writes them to
+the file whose path is the first argument to <code class="highlighter-rouge">tobin</code>. (See <code class="highlighter-rouge">tobin.c</code> for
+more details.)</p>
+
+    <p>We can use <code class="highlighter-rouge">xxd(1)</code> which prints out each byte in hex to examine our
+result.</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./tobin output
+1 2 3 4 X
+$ xxd output
+00000000: 0100 0000 0200 0000 0300 0000 0400 0000  ................
+</code></pre></div>    </div>
+
+    <p>Notice that it wrote it out in little-endian. I.e., the integer
+<code class="highlighter-rouge">0x00000001</code> became the four bytes <code class="highlighter-rouge">01 00 00 00</code>.</p>
+
+    <p>Try giving the input <code class="highlighter-rouge">1819043144 1396908143 170996786 X</code> to <code class="highlighter-rouge">tobin</code> and
+take a look at the resulting file.</p>
+  </li>
+  <li>
+    <p>Finish implementing <code class="highlighter-rouge">double.c</code> that reads the file whose path is the first
+argument to <code class="highlighter-rouge">double</code>. The goal is to read in all of the integers, from the
+file, double them, and then write them back to the file. (See <code class="highlighter-rouge">double.c</code>
+for more details.)</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./double output
+$ xxd output
+00000000: 0100 0000 0200 0000 0300 0000 0400 0000  ................
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Finish implementing <code class="highlighter-rouge">frombin.c</code> which reads integers one at a time from a
+file and prints them to <code class="highlighter-rouge">stdout</code>, one per line.</p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./frombin output
+2
+4
+6
+8
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Modify your implementation of <code class="highlighter-rouge">frombin.c</code> to first get the file size, then
+allocate an array of integers long enough to hold the whole file, and then
+read everything in with a single call to <code class="highlighter-rouge">fread(3)</code>.</p>
+  </li>
+</ol>
+:ET

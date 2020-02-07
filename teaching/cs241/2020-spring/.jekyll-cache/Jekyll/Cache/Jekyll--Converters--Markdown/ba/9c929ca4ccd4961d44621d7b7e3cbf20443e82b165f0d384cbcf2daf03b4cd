@@ -1,0 +1,97 @@
+I"�<h1 id="lecture-18--oct-16th-2019">Lecture 18 – Oct 16th, 2019</h1>
+
+<h2 id="setup">Setup</h2>
+<ol>
+  <li>Log in to clyde.</li>
+  <li><code class="highlighter-rouge">$ cp -r ~steve/ex/intlist-v2 .</code></li>
+</ol>
+
+<h2 id="task">Task</h2>
+<ol>
+  <li>Run <code class="highlighter-rouge">$ make check</code> and see that this implementation has some bugs.</li>
+  <li>If we run <code class="highlighter-rouge">$ ./test_initialize</code>, it appears to succeed so let’s check
+<code class="highlighter-rouge">$ ./test_insert</code>. AddressSanitizer helpfully tells us that we are
+“attempting free on address which was not malloc()-ed” and it gives a
+helpful stack trace showing us which functions were called leading up to the
+crash. Let’s debug and see what we can find out.</li>
+  <li>Run <code class="highlighter-rouge">$ gdb test_insert</code>. At the GDB prompt, enter the following command.
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) set environment ASAN_OPTIONS=abort_on_error=1
+</code></pre></div>    </div>
+    <p>This will cause AddressSanitizer to abort on an error so we can debug it.</p>
+
+    <p>Now use the <code class="highlighter-rouge">run</code> command to run the program until it crashes. After asan
+prints out the same message, GDB tells us this.</p>
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Program received signal SIGABRT, Aborted.
+__GI_raise (sig=sig@entry=6) at ../sysdeps/unix/sysv/linux/raise.c:51
+51	../sysdeps/unix/sysv/linux/raise.c: No such file or directory.
+</code></pre></div>    </div>
+  </li>
+  <li>That’s not really helpful because we didn’t write that file. Use the
+<code class="highlighter-rouge">backtrace</code> or <code class="highlighter-rouge">bt</code> command to display a stack trace.
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) bt
+#0  __GI_raise (sig=sig@entry=6) at ../sysdeps/unix/sysv/linux/raise.c:51
+#1  0x00007ffff6e43801 in __GI_abort () at abort.c:79
+#2  0x000000000050329b in __sanitizer::Abort() ()
+#3  0x00000000005005c8 in __sanitizer::Die() ()
+#4  0x00000000004e03c3 in __asan::ReportFreeNotMalloced(unsigned long, __sanitizer::BufferedStackTrace*) ()
+#5  0x00000000004231e0 in __asan::Allocator::Deallocate(void*, unsigned long, unsigned long, __sanitizer::BufferedStackTrace*, __asan::AllocType) ()
+#6  0x0000000000425224 in __asan::asan_realloc(void*, unsigned long, __sanitizer::BufferedStackTrace*) ()
+#7  0x00000000004da07a in realloc ()
+#8  0x00000000005141d2 in grow_if_needed (list=0x7fffffffdb80, new_capacity=0) at intlist.c:28
+#9  0x00000000005149a1 in intlist_insert (list=0x7fffffffdb80, index=0, x=32) at intlist.c:47
+#10 0x000000000051225a in main () at test_insert.c:10
+</code></pre></div>    </div>
+  </li>
+  <li>The first 8 of these aren’t interesting to us but <code class="highlighter-rouge">#8</code> is our code, so use
+the <code class="highlighter-rouge">up</code> command to move up the stack trace to <code class="highlighter-rouge">#8</code>.
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) up 8
+#8  0x00000000005141d2 in grow_if_needed (list=0x7fffffffdb80, new_capacity=0) at intlist.c:28
+28	  list = realloc(list, new_capacity);
+</code></pre></div>    </div>
+    <p>This is interesting, we’re trying to reallocate <code class="highlighter-rouge">list</code> but GDB is telling
+us that <code class="highlighter-rouge">list</code> was allocated on the stack. (If you don’t see why that is,
+review the slides from last class.)</p>
+  </li>
+  <li>
+    <p>Using the <code class="highlighter-rouge">print</code>, <code class="highlighter-rouge">up</code>, and <code class="highlighter-rouge">list</code> commands, we see the contents of
+<code class="highlighter-rouge">*list</code> and that sure enough, in <code class="highlighter-rouge">main</code>, <code class="highlighter-rouge">list</code> was allocated on the stack
+but <code class="highlighter-rouge">list-&gt;data</code> is on the heap. We’re reallocating the wrong thing!</p>
+
+    <p>Fix that by reallocating <code class="highlighter-rouge">list-&gt;data</code> instead.</p>
+  </li>
+  <li>Rebuild and run <code class="highlighter-rouge">test_insert</code>. This time, we see a different error, “SEGV
+on unknown address 0x000000000000”. “SEGV” is a <em>signal</em>. We’ll talk about
+signals later. For now, it’s enough to know that this is the OS telling us
+we have a “segmentation fault” which really just means we tried to read or
+write to some inaccessible address. In this case, asan tells us we’re
+trying to read from address 0. I.e., we’ve got a NULL pointer somewhere.</li>
+  <li>
+    <p>We’re going to be running GDB a lot and it prints a lot of useless
+information at start up. In bash, we can run <code class="highlighter-rouge">$ alias gdb='gdb -q'</code> to make
+<code class="highlighter-rouge">gdb</code> start up in quiet mode. You can add that to your <code class="highlighter-rouge">~/.bashrc</code> file (or
+<code class="highlighter-rouge">~/.bash_aliases</code> which Ubuntu’s default <code class="highlighter-rouge">.bashrc</code> will source).</p>
+
+    <p>In addition, put <code class="highlighter-rouge">set environment ASAN_OPTIONS=abort_on_error=1</code> in
+<code class="highlighter-rouge">~/.gdbinit</code> so that you don’t have to enter that command each time you
+start GDB.</p>
+  </li>
+  <li>Run <code class="highlighter-rouge">$ gdb test_insert</code> and then at the GDB prompt, use <code class="highlighter-rouge">run</code> to run until
+it crashes. Next, <code class="highlighter-rouge">p *list</code> shows us that <code class="highlighter-rouge">list-&gt;data</code> is NULL. If we look
+at the stack trace (<code class="highlighter-rouge">bt</code>) and then print the code listing (<code class="highlighter-rouge">list</code>), we see
+that the very first call to <code class="highlighter-rouge">intlist_insert</code> is crashing. So let’s set a
+break point, restart the program, and then step through and see if we can
+work out what’s going on.
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) b intlist_insert
+Breakpoint 1 at 0x514926: file intlist.c, line 46.
+(gdb) run
+</code></pre></div>    </div>
+  </li>
+  <li>Print out <code class="highlighter-rouge">*list</code>. Now step through the code one statement at a time,
+examining variables as needed until you can figure out what has gone
+wrong. Fix it and test your fix works.</li>
+  <li>Repeat the process of building, debugging, and fixing until no bugs
+remain. One thing to keep in mind is the tests aren’t complete. If we fix
+one bug, it is important to look at related code to see if the code author
+made the same mistake in multiple places.</li>
+</ol>
+:ET

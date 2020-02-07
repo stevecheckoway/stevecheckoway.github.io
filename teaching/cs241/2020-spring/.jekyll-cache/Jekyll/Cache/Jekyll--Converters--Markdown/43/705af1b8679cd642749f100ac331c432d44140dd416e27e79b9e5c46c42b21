@@ -1,0 +1,571 @@
+I"��<h1 id="homework-2-bit-by-bit">Homework 2: Bit by bit</h1>
+<p><strong>Due: TBD at 23:59</strong></p>
+
+<h2 id="preliminaries">Preliminaries</h2>
+<p>First, find a partner. You’re allowed to work by yourself, but I highly
+recommend working with a partner. Click on the <a href="">assignment
+link</a>. One partner should create a
+new team. The second partner should click the link and choose the appropriate
+team. (Please don’t choose the wrong team, there’s a maximum of two people and
+if you join the wrong one, you’ll prevent the correct person from joining.)</p>
+
+<p>Once you have accepted the assignment and created/joined a team, you can clone
+the repository on clyde and begin working. But before you do, read the entire
+assignment and be sure to check out the expected <a href="#coding-style">coding style</a>.</p>
+
+<p>Be sure to ask any questions on
+<a href="">Piazza</a>.</p>
+
+<h3 id="coding-style">Coding style</h3>
+<p>You should run <code class="highlighter-rouge">clang-format</code> on each of the C source and header files you
+write. This will format all of your files consistently.</p>
+
+<p>If you use NeoVim or Vim as your editor, you can include the line (called a mode
+line)</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// vim: <span class="nb">set </span><span class="nv">sw</span><span class="o">=</span>2 <span class="nv">sts</span><span class="o">=</span>2 <span class="nv">ts</span><span class="o">=</span>8 et:
+</code></pre></div></div>
+<p>at the bottom of each of your files to force Vim to indent by 2 spaces and
+to ensure that tabs will insert spaces. You can set options in your <code class="highlighter-rouge">~/.vimrc</code>
+file, creating one if necessary. For example, on clyde, I have the simple
+<code class="highlighter-rouge">~/.vimrc</code> (note that this is slightly expanded from the one given in the
+<a href="hw1.html">homework 1</a> write up to set the values for C files).</p>
+<div class="language-viml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">set</span> background<span class="p">=</span><span class="nb">dark</span>
+<span class="k">filetype</span> plugin indent <span class="k">on</span>
+autocmd <span class="nb">FileType</span> <span class="k">sh</span> <span class="k">setlocal</span> shiftwidth<span class="p">=</span><span class="m">2</span> softtabstop<span class="p">=</span><span class="m">2</span> tabstop<span class="p">=</span><span class="m">8</span> expandtab
+autocmd <span class="nb">FileType</span> <span class="k">c</span> <span class="k">setlocal</span> shiftwidth<span class="p">=</span><span class="m">2</span> softtabstop<span class="p">=</span><span class="m">2</span> tabstop<span class="p">=</span><span class="m">8</span> expandtab
+<span class="k">set</span> modeline
+</code></pre></div></div>
+<p>The first line tells Vim to use colors suitable for a terminal with a dark
+background. The second line tells Vim to use file-type aware indenting. The
+third line tells Vim to set those options for shell script files. And the
+fourth line does the same thing, but for C files. See the <a href="https://vim.fandom.com/wiki/Indenting_source_code">Vim
+wiki</a> for more details.</p>
+
+<p>If you use emacs, you’re kind of on your own. Feel free to ask on Piazza,
+search StackOverflow, and read the <a href="https://www.emacswiki.org/emacs/IndentationBasics">Emacs
+Wiki</a>.</p>
+
+<p>Same with Nano.
+<a href="https://stackoverflow.com/questions/42584551/how-to-make-auto-indention-in-nano-while-programming-in-python-in-linux">This</a>
+might be useful.</p>
+
+<h3 id="run-time-errors-and-return-values">Run time errors and return values</h3>
+<p>For each of the parts below that ask you to print out an error message, this
+message should be printed to <code class="highlighter-rouge">stderr</code>. You can use code like this to print to
+<code class="highlighter-rouge">stderr</code>.</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fprintf</span><span class="p">(</span><span class="n">stderr</span><span class="p">,</span> <span class="s">"%d is invalid</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">foo</span><span class="p">);</span>
+</code></pre></div></div>
+
+<p>Any errors should cause the program to exit with a nonzero value (1 is a pretty
+good choice). Programs that run successfully should exit with value 0. You can
+use <code class="highlighter-rouge">exit(value)</code> to exit with a particular value. (Read the man page for
+<code class="highlighter-rouge">exit(3)</code> to see which header you need to include.</p>
+
+<p>You can combine these two operations using the <code class="highlighter-rouge">errx(3)</code> function, see the
+corresponding man page for usage information.</p>
+
+<h3 id="code-warnings-and-errors">Code warnings and errors</h3>
+<p>Your code must compile without error or warning when compiled with <code class="highlighter-rouge">-std=c11
+-Wall</code>.</p>
+
+<h3 id="submission">Submission</h3>
+<p>To submit your homework, you must commit and push to GitHub before the
+deadline.</p>
+
+<p>Your repository should contain the following files</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>├── bits.c
+├── bits.h
+├── decode_bits.c
+├── encode_bits.c
+├── frequency.c
+├── getnum.c
+├── getnum.h
+├── Makefile
+├── README
+├── tests
+│   ├── common.sh
+│   ├── run_tests
+│   ├── test_decode_bits
+│   ├── test_encode_bits
+│   ├── test_frequency
+│   ├── test_tobinary
+│   ├── test_todecimal
+│   ├── test_tohex
+│   └── test_tooctal
+├── tobinary.c
+├── todecimal.c
+├── tohex.c
+├── tooctal.c
+└── .travis.yml
+</code></pre></div></div>
+
+<p>It may also a <a href="https://git-scm.com/docs/gitignore"><code class="highlighter-rouge">.gitignore</code></a> file which
+tells Git to ignore files matching patterns in your working directory (like
+<code class="highlighter-rouge">*.o</code>, for example).</p>
+
+<p>Any additional files you have added to your repository should be removed from
+the <code class="highlighter-rouge">master</code> branch. (You’re free to make other branches, if you desire, but
+make sure <code class="highlighter-rouge">master</code> contains the version of the code you want graded.)</p>
+
+<p>The <code class="highlighter-rouge">README</code> should contain</p>
+<ol>
+  <li>The names of both partners (or just your name if you worked alone…but
+please don’t work alone if you can manage it).</li>
+  <li>An estimate of the amount of time it took to complete each program.</li>
+  <li>Any known bugs or incomplete functions.</li>
+  <li>Any interesting design decisions you’d like to share.</li>
+</ol>
+
+<p>Each of your source files with a <code class="highlighter-rouge">main</code> function should contain a comment at the top of the file
+that contains usage information plus a description of what the program does.</p>
+
+<p>Example.</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Usage: ./frequency &lt; input_file</span>
+<span class="c1">// </span>
+<span class="c1">// Frequency will ...</span>
+</code></pre></div></div>
+
+<h2 id="part-0-makefile-testing-and-travis-ci-15-points">Part 0. Makefile, testing, and Travis CI (15 points)</h2>
+<h3 id="makefile">Makefile</h3>
+<p>The assignment code comes with a bare-bones <code class="highlighter-rouge">Makefile</code>. You need to expand
+upon it as you work through the following parts. Use a pattern rule to compile
+<code class="highlighter-rouge">.o</code> files from the corresponding <code class="highlighter-rouge">.c</code> files. Make sure each <code class="highlighter-rouge">.o</code> file depends
+on the appropriate header files and each program you write depends on the
+appropriate <code class="highlighter-rouge">.o</code> files.</p>
+
+<p>The <code class="highlighter-rouge">all</code> target should depend on all of the programs you write.</p>
+
+<p>The <code class="highlighter-rouge">clean</code> target should delete all of the programs you write and all of the
+object files. (Using <code class="highlighter-rouge">*.o</code> in <code class="highlighter-rouge">clean</code> is perfectly acceptable.)</p>
+
+<p>Here is the output of running <code class="highlighter-rouge">$ make</code> and <code class="highlighter-rouge">$ make clean</code> in the homework
+solutions.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>steve@clyde:~/hw2-solutions$ make
+clang -std=c11 -Wall -c -o frequency.o frequency.c
+clang -o frequency frequency.o
+clang -std=c11 -Wall -c -o encode_bits.o encode_bits.c
+clang -std=c11 -Wall -c -o bits.o bits.c
+clang -o encode_bits encode_bits.o bits.o
+clang -std=c11 -Wall -c -o decode_bits.o decode_bits.c
+clang -o decode_bits decode_bits.o bits.o
+clang -std=c11 -Wall -c -o todecimal.o todecimal.c
+clang -std=c11 -Wall -c -o getnum.o getnum.c
+clang -o todecimal todecimal.o getnum.o
+clang -std=c11 -Wall -c -o tobinary.o tobinary.c
+clang -o tobinary tobinary.o getnum.o
+clang -std=c11 -Wall -c -o tohex.o tohex.c
+clang -o tohex tohex.o getnum.o
+clang -std=c11 -Wall -c -o tooctal.o tooctal.c
+clang -o tooctal tooctal.o getnum.o
+steve@clyde:~/hw2-solutions$ make clean
+rm -f frequency encode_bits decode_bits todecimal tobinary tohex tooctal *.o
+</code></pre></div></div>
+
+<p>When you’re done, your output should look similar.</p>
+
+<h3 id="testing">Testing</h3>
+<p>The assignment code also comes with a set of testing scripts in the <code class="highlighter-rouge">tests</code>
+directory. You can run them by running <code class="highlighter-rouge">$ make check</code>.</p>
+
+<p>There are a handful of tests for Parts 1 and 2 and a whole bunch of tests for
+<code class="highlighter-rouge">tobinary</code> in Part 3.</p>
+
+<p>You should add additional tests <code class="highlighter-rouge">test_frequency</code>, <code class="highlighter-rouge">test_encode_bits</code>, and
+<code class="highlighter-rouge">test_decode_bits</code>.</p>
+
+<p>In addition, you should add three new test scripts, <code class="highlighter-rouge">test_todecimal</code>,
+<code class="highlighter-rouge">test_tooctal</code>, and <code class="highlighter-rouge">test_tohex</code> to the <code class="highlighter-rouge">tests</code> directory to test those
+programs. I recommend you copy <code class="highlighter-rouge">test_tobinary</code> and make the appropriate
+modifications to the expected output. Those need not be as extensive as the
+tests in <code class="highlighter-rouge">test_tobinary</code>, but I found the tests extremely helpful when
+developing my own solutions. I recommend you write tests before you start
+writing any code.</p>
+
+<p>As you work through the parts below, run <code class="highlighter-rouge">$ make check</code> frequently to make
+sure that you haven’t broken any code you previously had working.</p>
+
+<h3 id="travis-ci">Travis CI</h3>
+<p>This homework also uses the <a href="https://travis-ci.com/">Travis CI</a> continuous
+integration service. Each time you push your code to GitHub, Travis will
+download the latest version, build your program and then run the tests.</p>
+
+<p>You should be able to see the status of your latest commit by logging in to
+<a href="https://travis-ci.com">Travis CI</a> using your GitHub account. You can also see
+the latest status from Travis by clicking on the <code class="highlighter-rouge">1 branch</code> link near the top
+of the GitHub page for your repository which has URL
+<code class="highlighter-rouge">https://github.com/systems-programming/${repo_name}/branches</code>. You should see
+either a green check mark if all tests passed or a red X if one or more tests
+failed.</p>
+
+<p>There’s nothing additional you need to do with Travis for this assignment.</p>
+
+<h2 id="part-1-frequency-analysis-15-points">Part 1. Frequency analysis (15 points)</h2>
+
+<p>In this part, we will start using arrays to contain frequencies of characters
+and print a summary of a text’s character distribution.</p>
+
+<p>In C, an array is defined as</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="n">length</span><span class="p">];</span>
+</code></pre></div></div>
+<p>where <code class="highlighter-rouge">length</code> is either a variable or a constant. Typically, we will declare a constant like</p>
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define ARRAY_LENGTH 256
+</span></code></pre></div></div>
+<p>and use <code class="highlighter-rouge">ARRAY_LENGTH</code> for the length. (You might want to pick a more
+descriptive name than <code class="highlighter-rouge">ARRAY_LENGTH</code>.)</p>
+
+<p>Your assignment is to create a program, <code class="highlighter-rouge">frequency</code>, that computes the
+count and frequency of all letters a–z.</p>
+
+<p>Your program should read characters one at a time from <code class="highlighter-rouge">stdin</code> using the
+<code class="highlighter-rouge">getchar(3)</code> function until <code class="highlighter-rouge">EOF</code> is returned to indicate the end of file.
+(Remember, the 3 in <code class="highlighter-rouge">getchar(3)</code> means that the function is described in
+section 3 of the manual, so <code class="highlighter-rouge">$ man 3 getchar</code>.) Use <code class="highlighter-rouge">isalpha(3)</code> on each
+character to test if it is a letter a–z or A–Z. If not, ignore the character
+and move to the next one. If it is a letter, then use <code class="highlighter-rouge">tolower(3)</code> to convert
+it to lowercase.</p>
+
+<p>Use an array of size 26 to hold the count of each character. (Hint, if <code class="highlighter-rouge">c</code> is
+a lower case character, then <code class="highlighter-rouge">c - 'a'</code> is an integer in the set
+${0,1,\ldots,25}$.)</p>
+
+<p>After all input has been read (so <code class="highlighter-rouge">getchar()</code> returns <code class="highlighter-rouge">EOF</code>), print out, in
+tabular form, the letter, the number of times that it has appeared (the
+count), and the percentage of all letters that this letter represents (the
+frequency).</p>
+
+<p>Following this table, print out which is the most frequent and least frequent
+letter. If there are multiple letters that are most or least frequent, you
+should print them all out in alphabetical order.</p>
+
+<p>Two example runs follow where <code class="highlighter-rouge">hamlet.txt</code> can be downloaded from Project
+Gutenberg via <code class="highlighter-rouge">$ curl -o hamlet.txt
+https://www.gutenberg.org/files/1524/1524-0.txt</code>.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./frequency &lt;hamlet.txt
+Character    Count    Frequency (%)
+a            11324            7.549
+b             2110            1.407
+c             3410            2.273
+d             5675            3.783
+e            17565           11.709
+f             3124            2.083
+g             2849            1.899
+h             9245            6.163
+i            10005            6.670
+j              200            0.133
+k             1415            0.943
+l             6862            4.574
+m             4644            3.096
+n             9739            6.492
+o            12856            8.570
+p             2461            1.641
+q              230            0.153
+r             9139            6.092
+s             9449            6.299
+t            14065            9.376
+u             4983            3.322
+v             1347            0.898
+w             3425            2.283
+x              206            0.137
+y             3554            2.369
+z              127            0.085
+Most frequent: e
+Least frequent: z
+$ echo 'Hello CSCI 241!' | ./frequency
+Character    Count    Frequency (%)
+a                0            0.000
+b                0            0.000
+c                2           22.222
+d                0            0.000
+e                1           11.111
+f                0            0.000
+g                0            0.000
+h                1           11.111
+i                1           11.111
+j                0            0.000
+k                0            0.000
+l                2           22.222
+m                0            0.000
+n                0            0.000
+o                1           11.111
+p                0            0.000
+q                0            0.000
+r                0            0.000
+s                1           11.111
+t                0            0.000
+u                0            0.000
+v                0            0.000
+w                0            0.000
+x                0            0.000
+y                0            0.000
+z                0            0.000
+Most frequent: c l
+Least frequent: a b d f g j k m n p q r t u v w x y z
+</code></pre></div></div>
+
+<p>Your output should <em>exactly match</em> the output given above.</p>
+
+<p>Make sure your code can handle no letters at all in the input <code class="highlighter-rouge">$ ./frequency
+&lt;/dev/null</code>. (The counts should be 0 and the frequencies 0.000.)</p>
+
+<p>Hints:</p>
+<ol>
+  <li>You may want to use the following call to <code class="highlighter-rouge">printf</code> to produce output in
+the appropriate form.
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">printf</span><span class="p">(</span><span class="s">"%c         %8d    %13.3f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">count</span><span class="p">,</span> <span class="n">freq</span><span class="p">);</span>
+</code></pre></div>    </div>
+  </li>
+  <li>For computing the least frequently occurring character, you may want to use
+<code class="highlighter-rouge">INT_MAX</code> which is defined in the standard library header <code class="highlighter-rouge">limits.h</code> which
+is the maximum value an <code class="highlighter-rouge">int</code> can hold.</li>
+  <li>When computing the frequency for a given character that appeared <code class="highlighter-rouge">count</code>
+times, you’ll want to compute <code class="highlighter-rouge">100.0 * count / total</code> where <code class="highlighter-rouge">total</code> is the
+total number of <em>letters</em> in the input, not the total number of characters.</li>
+</ol>
+
+<h2 id="part-2-convert-to-binary-and-back-20-points">Part 2. Convert to binary and back (20 points)</h2>
+
+<p>In this part, you will be creating 2 programs. <code class="highlighter-rouge">encode_bits</code> which will generate
+the “binary” representation of a file and <code class="highlighter-rouge">decode_bits</code> which will take that
+representation and convert it back to the original format.</p>
+
+<dl>
+  <dt><code class="highlighter-rouge">encode_bits</code></dt>
+  <dd>Create a program called <code class="highlighter-rouge">encode_bits</code>. This program should use <code class="highlighter-rouge">getchar(3)</code> to
+read in characters one at a time and then call <code class="highlighter-rouge">print_bits()</code> (see below) to
+output that character as a sequence of ‘1’ and ‘0’ characters. It should stop
+on <code class="highlighter-rouge">EOF</code>.
+
+    <p>After all characters have been sent to <code class="highlighter-rouge">print_bits()</code>, output a newline.
+Together with <code class="highlighter-rouge">print_bits()</code>, this should ensure that every line of output
+ends with a newline and that every line of output will contain 70 <code class="highlighter-rouge">0</code> or <code class="highlighter-rouge">1</code>
+characters (except for the last line which may contain fewer).</p>
+  </dd>
+  <dt><code class="highlighter-rouge">decode_bits</code></dt>
+  <dd>Create a program called <code class="highlighter-rouge">decode_bits</code>. This program should use <code class="highlighter-rouge">getchar(3)</code> to
+read in characters one at a time and then call <code class="highlighter-rouge">decode_bits()</code> (see below) to
+output that sequence of ‘1’ and ‘0’ characters as actual characters. It should
+stop on <code class="highlighter-rouge">EOF</code>.</dd>
+  <dt><code class="highlighter-rouge">bits.c</code> and <code class="highlighter-rouge">bits.h</code></dt>
+  <dd>Create a file called <code class="highlighter-rouge">bits.c</code> that contains the definitions of the two
+functions described below and a header file <code class="highlighter-rouge">bits.h</code> that contains a guard
+against multiple inclusion and function prototypes.
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="n">print_bits</span><span class="p">(</span><span class="kt">int</span> <span class="n">ch</span><span class="p">)</span>
+</code></pre></div>    </div>
+    <ul>
+      <li>Takes the character ch and outputs its value in binary format with all
+leading zeros and with the MSB first. For example, the letter <code class="highlighter-rouge">A</code> has a
+value of 0x41, and should be output as <code class="highlighter-rouge">01000001</code>. A newline character has
+a value of 0x0a and should be output as <code class="highlighter-rouge">00001010</code>.</li>
+      <li>You should not assume the number of bits that are in a char, instead use
+the constant <code class="highlighter-rouge">CHAR_BIT</code> from the standard library header <code class="highlighter-rouge">limits.h</code>.</li>
+      <li>While printing the bits, if the current line of output has 70 characters
+(one per bit printed by <code class="highlighter-rouge">print_bits()</code>), print a newline before printing
+the next <code class="highlighter-rouge">0</code> or <code class="highlighter-rouge">1</code>.</li>
+    </ul>
+
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="n">decode_bits</span><span class="p">(</span><span class="kt">int</span> <span class="n">ch</span><span class="p">)</span>
+</code></pre></div>    </div>
+    <ul>
+      <li>If the character is whitespace, skip it. (You might want to use <code class="highlighter-rouge">isspace(3)</code>.)</li>
+      <li>If the character is a <code class="highlighter-rouge">1</code> or a <code class="highlighter-rouge">0</code>, you should add it into a global
+variable (numerically, shifting the current contents appropriately). Once
+you’ve seen <code class="highlighter-rouge">CHAR_BIT</code> bits, you should print the corresponding character
+out.</li>
+      <li>If the character is not white space and not <code class="highlighter-rouge">0</code> or <code class="highlighter-rouge">1</code>, you should
+print an error message to <code class="highlighter-rouge">stderr</code>, and exit with a nonzero value (see the
+instructions at the top of the write up about error messages).</li>
+    </ul>
+  </dd>
+</dl>
+
+<p>Here is some sample output.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ echo "Printing bit by bit" | ./encode_bits
+0101000001110010011010010110111001110100011010010110111001100111001000
+0001100010011010010111010000100000011000100111100100100000011000100110
+10010111010000001010
+$ echo "Printing bit by bit" | ./encode_bits | ./decode_bits
+Printing bit by bit
+$ echo "bad input!" | ./decode_bits
+decode_bits: Character 'b' is not '0' or '1'
+$ echo $?
+1
+</code></pre></div></div>
+
+<p>Hints:</p>
+<ol>
+  <li>You’ll probably want to use static local variables in both <code class="highlighter-rouge">print_bits()</code>
+and <code class="highlighter-rouge">decode_bits()</code> to decide when to print newlines (<code class="highlighter-rouge">print_bits()</code>) or
+the character (<code class="highlighter-rouge">decode_bits()</code>).</li>
+  <li>Make sure <code class="highlighter-rouge">encode_bits</code> doesn’t start by outputting a newline or end with a
+blank line (unless the input was empty).</li>
+</ol>
+
+<h2 id="part-3-base-conversion-50-points">Part 3. Base conversion (50 points)</h2>
+<p>For this part, you will be creating a function to read in a signed
+integer value and storing the result in a long integer variable. You will also
+be creating four short programs that will use that function to read in integers
+and output them in one of four different formats: binary, decimal, octal, or
+hexadecimal.</p>
+
+<h3 id="reading-in-a-number">Reading in a number</h3>
+<p>Create a file called <code class="highlighter-rouge">getnum.c</code> and another called <code class="highlighter-rouge">getnum.h</code>. In <code class="highlighter-rouge">getnum.c</code> you
+will create the function <code class="highlighter-rouge">getnum()</code> that is used by your other programs.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">long</span> <span class="n">getnum</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+</code></pre></div></div>
+<p>Read in a signed integer in one of 4 formats described below and then return
+the value. Skip leading whitespace and stop reading in a number on the next
+occurrence of whitespace or <code class="highlighter-rouge">EOF</code>. All formats optionally begin with a <code class="highlighter-rouge">-</code>
+to indicate negative value. Positive values do not have this (i.e., no <code class="highlighter-rouge">+</code>
+for positive).</p>
+<ul>
+  <li>Binary – begins with a leading <code class="highlighter-rouge">0b</code> and then a sequence of <code class="highlighter-rouge">0</code> and <code class="highlighter-rouge">1</code>
+characters.</li>
+  <li>Octal – begins with a leading <code class="highlighter-rouge">0</code> followed by 0 or more digits from 0–7.</li>
+  <li>Decimal – begins with a digit from 1–9 followed by zero or more digits
+from 0–9.</li>
+  <li>Hexadecimal – begins with a leading <code class="highlighter-rouge">0x</code> followed by 1 or more digits from
+0–9, a–f, or A–F.</li>
+</ul>
+
+<p>Note that this means that a single <code class="highlighter-rouge">0</code> is considered octal. It may be
+helpful to consult this railroad diagram.</p>
+
+<!--
+  Number   ::= Whitespace* '-'? ( '0' OctalDigit+ | '0b' Bit+ | NonzeroDigit Digit* | '0x' HexDigit+ ) ( Whitespace | EOF )
+-->
+
+<iframe title="Number railroad diagram" width="100%" height="340px" src="number.xhtml"></iframe>
+
+<p>If <code class="highlighter-rouge">EOF</code> is encountered before any digits, then set a global variable <code class="highlighter-rouge">bool
+at_eof;</code> to <code class="highlighter-rouge">true</code> and return. Otherwise, <code class="highlighter-rouge">at_eof</code> should be <code class="highlighter-rouge">false</code> when
+<code class="highlighter-rouge">getnum()</code> returns.</p>
+
+<p>If the integer read is valid (meaning its value is at least <code class="highlighter-rouge">LONG_MIN</code> and
+at most <code class="highlighter-rouge">LONG_MAX</code>) and has one of the four prescribed formats, then set a
+global variable <code class="highlighter-rouge">bool valid_num;</code> to <code class="highlighter-rouge">true</code> and return the value. <code class="highlighter-rouge">LONG_MIN</code>
+and <code class="highlighter-rouge">LONG_MAX</code> are defined in the standard library header <code class="highlighter-rouge">limits.h</code>.</p>
+
+<p>If the integer read is invalid, either because it doesn’t fit into a <code class="highlighter-rouge">long</code>
+or because it doesn’t have one of the formats, then</p>
+<ol>
+  <li>skip to the next whitespace in the input or <code class="highlighter-rouge">EOF</code>;</li>
+  <li>set <code class="highlighter-rouge">valid_num</code> to <code class="highlighter-rouge">false</code>; and</li>
+  <li>return.</li>
+</ol>
+
+<p>You might find it useful to “unread” a character. You can do so using
+<code class="highlighter-rouge">ungetc(ch, stdin);</code> where <code class="highlighter-rouge">ch</code> is the character you just read. Note that you
+can only un-read one character at a time until you read in a new character
+and you may not “un-read” <code class="highlighter-rouge">EOF</code>.</p>
+
+<h3 id="printing-out-a-number">Printing out a number</h3>
+<p>You will then create four short programs that will read in a sequence of numbers
+and then output them one per line in the specified format. All four will be using
+sign-magnitude format. (If negative, print out the sign and then the rest as
+if it were positive.)</p>
+
+<ol>
+  <li><code class="highlighter-rouge">tobinary</code> - outputs the signed value in binary with a leading <code class="highlighter-rouge">0b</code>.
+Unless the integer is 0, the output should not contain any leading <code class="highlighter-rouge">0</code>s
+(after the <code class="highlighter-rouge">0b</code>).</li>
+  <li><code class="highlighter-rouge">todecimal</code> - outputs the signed value in base 10 with no leading <code class="highlighter-rouge">0</code>
+characters, unless the integer is 0 in which case it should output <code class="highlighter-rouge">0</code>.</li>
+  <li><code class="highlighter-rouge">tooctal</code> - outputs the signed value in base 8 with a single leading <code class="highlighter-rouge">0</code>.</li>
+  <li><code class="highlighter-rouge">tohex</code> - outputs the signed value in base 16 (uppercase) with a
+leading <code class="highlighter-rouge">0x</code>. Unless the integer is 0, the output should not contain
+any leading <code class="highlighter-rouge">0</code>s (after the <code class="highlighter-rouge">0x</code>).</li>
+</ol>
+
+<p>For example, if the input is <code class="highlighter-rouge">0</code>, then the output should be, <code class="highlighter-rouge">0b0</code>, <code class="highlighter-rouge">0</code>,
+<code class="highlighter-rouge">0</code>, and <code class="highlighter-rouge">0x0</code>, respectively. If the input is <code class="highlighter-rouge">1</code>, the output should be
+<code class="highlighter-rouge">0b1</code>, <code class="highlighter-rouge">1</code>, <code class="highlighter-rouge">01</code>, and <code class="highlighter-rouge">0x1</code>, respectively. If the input is <code class="highlighter-rouge">-2</code>, the output
+should be <code class="highlighter-rouge">-0b10</code>, <code class="highlighter-rouge">-2</code>, <code class="highlighter-rouge">-02</code>, and <code class="highlighter-rouge">-0x2</code>, respectively.</p>
+
+<p>If the integer read is invalid, output <code class="highlighter-rouge">INVALID</code> to standard out (not
+<code class="highlighter-rouge">stderr</code>!).</p>
+
+<p>Each program should loop until no more integers remain.</p>
+
+<p>Hints:</p>
+<ol>
+  <li>You will definitely want to have more functions than just the one required in
+this part and the four <code class="highlighter-rouge">main()</code> functions. You can also have other functions
+or global flags that can be used by the toBASENAME programs.</li>
+  <li>
+    <p>Checking if an integer will “overflow”—that is, checking if adding the
+next digit to the number makes it larger than <code class="highlighter-rouge">LONG_MAX</code> (if positive) or
+smaller than <code class="highlighter-rouge">LONG_MIN</code> (if negative) is tricky!</p>
+
+    <p>Consider base 10 as an example. If the integer being read is nonnegative (i.e.,
+it didn’t start with <code class="highlighter-rouge">-</code>), <code class="highlighter-rouge">value</code> is the current value of the integer and <code class="highlighter-rouge">next</code>
+is the value of the next digit to add, then <code class="highlighter-rouge">value = 10 * value + next;</code>
+gives us the new value. Unfortunately, we perform that computation and then
+check if <code class="highlighter-rouge">value &gt; LONG_MAX</code> because, by definition, <code class="highlighter-rouge">LONG_MAX</code> is the
+largest value a <code class="highlighter-rouge">long</code> can hold. Instead, we need to first check that <code class="highlighter-rouge">value
+&lt;= (LONG_MAX - next) / 10</code>. If that is not true, then our number will
+overflow and is thus invalid.</p>
+
+    <p>Similarly, if we’re reading a negative value, then <code class="highlighter-rouge">value = 10 * value -
+next;</code> is our update so we need to first check that <code class="highlighter-rouge">value &gt;= (LONG_MIN +
+next) / 10</code>. (Pay close attention to the signs.)</p>
+
+    <p>Other bases are similar. I recommend you implement a function like</p>
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Returns true if adding the next digit (with value next) results in a value</span>
+<span class="c1">// in the range of supported values for a long.</span>
+<span class="k">static</span> <span class="n">bool</span> <span class="nf">in_range</span><span class="p">(</span><span class="kt">int</span> <span class="n">base</span><span class="p">,</span> <span class="n">bool</span> <span class="n">negative</span><span class="p">,</span> <span class="kt">long</span> <span class="n">result</span><span class="p">,</span> <span class="kt">int</span> <span class="n">next</span><span class="p">)</span> <span class="p">{</span>
+  <span class="cm">/* ... */</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+    <p>containing that logic and use that to determine if adding the next digit
+leaves you with a valid <code class="highlighter-rouge">long</code> or not.</p>
+  </li>
+  <li>Printing decimal values is the easiest (because you can use <code class="highlighter-rouge">printf()</code>
+directly) and you should definitely implement <code class="highlighter-rouge">todecimal</code> first. Printing
+binary is by far the hardest.</li>
+  <li>
+    <p>For <code class="highlighter-rouge">tooctal</code>, <code class="highlighter-rouge">tohex</code>, and <code class="highlighter-rouge">tobinary</code>, there are two values in particular
+that are slightly tricky to implement: 0 and <code class="highlighter-rouge">LONG_MIN</code>. For 0, I recommend
+checking if the value is 0 and then just printing it out in the appropriate
+format as described above.</p>
+
+    <p>For every negative number <code class="highlighter-rouge">value</code> other than <code class="highlighter-rouge">LONG_MIN</code>, you can print a <code class="highlighter-rouge">-</code>
+followed by printing the positive number <code class="highlighter-rouge">-value</code>. Unfortunately,
+<code class="highlighter-rouge">-LONG_MIN</code> causes an overflow due to <a href="https://en.wikipedia.org/wiki/Two%27s_complement#Most_negative_number">two’s
+complement</a>.
+Fortunately, there’s a work around!</p>
+    <div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">unsigned</span> <span class="kt">long</span> <span class="n">uval</span><span class="p">;</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">==</span> <span class="n">LONG_MIN</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">uval</span> <span class="o">=</span> <span class="n">LONG_MAX</span><span class="p">;</span>
+  <span class="n">uval</span> <span class="o">+=</span> <span class="o">-</span><span class="p">(</span><span class="n">LONG_MAX</span> <span class="o">+</span> <span class="n">LONG_MIN</span><span class="p">);</span>
+<span class="p">}</span> <span class="k">else</span> <span class="nf">if</span> <span class="p">(</span><span class="n">value</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">uval</span> <span class="o">=</span> <span class="o">-</span><span class="n">value</span><span class="p">;</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+  <span class="n">uval</span> <span class="o">=</span> <span class="n">value</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div>    </div>
+    <p>Now you only have to deal with printing the positive value <code class="highlighter-rouge">uval</code>.</p>
+
+    <p>The reason this works is on a two’s complement machine, <code class="highlighter-rouge">LONG_MAX +
+LONG_MIN</code> will be $-1$ so the result is one more than <code class="highlighter-rouge">LONG_MAX</code>, but as an
+unsigned long. (On a sign and magnitude machine—which C
+supports!—<code class="highlighter-rouge">LONG_MIN</code> is precisely <code class="highlighter-rouge">-LONG_MAX</code>, so <code class="highlighter-rouge">LONG_MAX + LONG_MIN</code> is
+0 which gives the correct result. If you’re willing to ignore sign and
+magnitude machines, you could also just write <code class="highlighter-rouge">uval = LONG_MAX + 1UL;</code> and
+it’d have the same effect. Do it whichever way you like but you definitely
+cannot do <code class="highlighter-rouge">uval = LONG_MAX + 1;</code>.)</p>
+  </li>
+  <li>At no point in time should your program segfault or generate errors when
+running under <code class="highlighter-rouge">valgrind</code>. We haven’t talked about <code class="highlighter-rouge">valgrind</code> yet, but you
+can run <code class="highlighter-rouge">$ valgrind ./frequency &lt;input_file</code> (and similar for the others)
+and it will run your program and check for memory errors.</li>
+  <li>Be sure your program can handle both upper and lower case in hex. You’ll
+probably want to use some of the functions in <code class="highlighter-rouge">ctype.h</code>. Check out
+<code class="highlighter-rouge">isxdigit(3)</code> and the related functions mentioned in that man page.</li>
+  <li>Be sure to handle the special case of single ‘0’ character.</li>
+  <li>Be sure to handle the case where EOF immediately follows a valid integer.</li>
+  <li>Don’t forget to add these targets into your Makefile.</li>
+</ol>
+
+:ET

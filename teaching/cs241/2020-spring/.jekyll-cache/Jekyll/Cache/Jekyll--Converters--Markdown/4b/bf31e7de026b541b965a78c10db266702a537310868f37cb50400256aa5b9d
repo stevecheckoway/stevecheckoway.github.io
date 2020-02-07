@@ -1,0 +1,96 @@
+I"%<h1 id="homework-5-regular-expressions">Homework 5: Regular Expressions</h1>
+<p><strong>Due: TDB at 23:59</strong></p>
+
+<h2 id="preliminaries">Preliminaries</h2>
+<p>First, find a partner. You’re allowed to work by yourself, but I highly
+recommend working with a partner. Click on the <a href="">assignment
+link</a>. One partner should create a
+new team. The second partner should click the link and choose the appropriate
+team. (Please don’t choose the wrong team, there’s a maximum of two people and
+if you join the wrong one, you’ll prevent the correct person from joining.)</p>
+
+<p>Once you have accepted the assignment and created/joined a team, you can clone
+the repository on clyde and begin working. But before you do, read the entire
+assignment.</p>
+
+<p>Be sure to ask any questions on
+<a href="">Piazza</a>.</p>
+
+<h3 id="submission">Submission</h3>
+<p>To submit your homework, you must commit and push to GitHub before the
+deadline.</p>
+
+<p>The <code class="highlighter-rouge">README.md</code> should contain</p>
+<ul>
+  <li>The names of both partners (or just your name if you worked alone…but
+please don’t work alone if you can manage it).</li>
+</ul>
+
+<h2 id="part-1">Part 1</h2>
+<p>You’re going to write some regular expressions for use with <code class="highlighter-rouge">egrep(1)</code>. Each
+regex will appear in its own two-line file named <code class="highlighter-rouge">1.1</code> through <code class="highlighter-rouge">1.7</code>.</p>
+
+<p>The first line of the file will be a <a href="https://en.wikipedia.org/wiki/Shebang_(Unix)">shebang</a> line telling the OS to
+run the file as an argument to <code class="highlighter-rouge">egrep(1)</code>. (This is provided for you and you
+shouldn’t change it.) The second line of each file is your regular expression.
+Replace <code class="highlighter-rouge">XXX</code> with the regular expression you want.</p>
+
+<p>Write regular expressions that print out the following when run on <code class="highlighter-rouge">words</code>.</p>
+
+<ol>
+  <li>All words that contain exactly one of <code class="highlighter-rouge">a</code>, <code class="highlighter-rouge">e</code>, <code class="highlighter-rouge">i</code>, <code class="highlighter-rouge">o</code>, or <code class="highlighter-rouge">u</code> (without
+duplicates).</li>
+  <li>All words that contain the lowercase vowels <code class="highlighter-rouge">a</code>, <code class="highlighter-rouge">e</code>, <code class="highlighter-rouge">i</code>, <code class="highlighter-rouge">o</code>, and <code class="highlighter-rouge">u</code> in
+that order. (The words may contain repeated vowels as long as <code class="highlighter-rouge">aeiou</code> is a
+<a href="https://en.wikipedia.org/wiki/Subsequence">subsequence</a>.)</li>
+  <li>All words that are exactly 22 lowercase letters long.</li>
+  <li>All words that are made up of only pairs of consonant-vowels like
+<code class="highlighter-rouge">Banana</code> and are at least 6 letters long. You may consider vowels to be
+just <code class="highlighter-rouge">a</code>, <code class="highlighter-rouge">e</code>, <code class="highlighter-rouge">i</code>, <code class="highlighter-rouge">o</code>, and <code class="highlighter-rouge">u</code> (and their uppercase versions).</li>
+  <li>All words that have a 4-letter sequence repeated (without overlapping).</li>
+  <li>All words that start and end with the same 3 letter sequence (possibly
+overlapping).</li>
+  <li>All words that end with their first 3 letters reversed like “detected”
+(possibly overlapping).</li>
+</ol>
+
+<p>[<strong>Hint:</strong> For 5–7, you will want to use one or more back references.]</p>
+
+<h2 id="part-2">Part 2</h2>
+<p>You’re going to write some <code class="highlighter-rouge">sed(1)</code> scripts to perform the following actions.
+As with <a href="#part-1">Part 1</a>, these will take the form of two-line text files
+named <code class="highlighter-rouge">2.1</code> through <code class="highlighter-rouge">2.9</code>.</p>
+
+<p>The first line is again a shebang line, this time telling it to run <code class="highlighter-rouge">sed(1)</code>.
+Where noted below, it also contains the <code class="highlighter-rouge">-n</code> flag. The second line is the sed
+command to run. Initially, it’s the <code class="highlighter-rouge">q</code> command which just quits. You should
+replace this with your own command. All parts can be solved with a single sed
+command.</p>
+
+<ol>
+  <li>Replace all instances of “snow fall” or “wind chill” in each line with
+“summertime”. You’ll want to use <code class="highlighter-rouge">\&lt;</code> and <code class="highlighter-rouge">\&gt;</code> to match the boundaries of
+the words.</li>
+  <li>Assuming the input is a dictionary file like <code class="highlighter-rouge">words</code> (one per line, alpha
+order), print out all words between <code class="highlighter-rouge">computer</code> and <code class="highlighter-rouge">science</code>. (For this
+one, the <code class="highlighter-rouge">sed</code> flag <code class="highlighter-rouge">-n</code> has been added.)</li>
+  <li>Replaces all instances of <code class="highlighter-rouge">Teh</code> with <code class="highlighter-rouge">The</code> and <code class="highlighter-rouge">teh</code> with <code class="highlighter-rouge">the</code>, but only
+in standalone words.</li>
+  <li>Move the last word on a line to the front.</li>
+  <li>Find lines where a word has been repeated on the same line and replace that
+line with a repeated word. Don’t print the other lines. (For this one, the
+<code class="highlighter-rouge">sed</code> flag <code class="highlighter-rouge">-n</code> has been added.)</li>
+  <li>Convert C block comments that are on one line and at the end into a line
+comment. You should preserve everything between the <code class="highlighter-rouge">/*</code> and <code class="highlighter-rouge">*/</code>,
+including spaces. So <code class="highlighter-rouge">/*  add things up  */</code> would become <code class="highlighter-rouge">//  add things
+up  </code> (there are two space before on either side of “add things up”).</li>
+  <li>Only print out lines that contain <code class="highlighter-rouge">cs 241</code>, but change that to <code class="highlighter-rouge">CSCI 241</code>.
+Make sure <code class="highlighter-rouge">cs</code> is the start of a word and <code class="highlighter-rouge">241</code> is the end of a word. (For
+this one, the <code class="highlighter-rouge">sed</code> flag <code class="highlighter-rouge">-n</code> has been added.)</li>
+  <li>Take the previous, but modify it to handle <code class="highlighter-rouge">CS</code> or <code class="highlighter-rouge">CSCI</code> with any number
+of spaces (including 0) and with any type of capitalization, and any
+3-digit number (e.g., <code class="highlighter-rouge">cScI151</code> becomes <code class="highlighter-rouge">CSCI 151</code>)</li>
+  <li>Truncate all lines after exactly 20 characters.</li>
+</ol>
+
+:ET

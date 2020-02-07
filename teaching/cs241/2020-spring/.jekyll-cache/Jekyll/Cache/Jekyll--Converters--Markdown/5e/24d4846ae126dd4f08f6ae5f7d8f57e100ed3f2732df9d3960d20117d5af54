@@ -1,0 +1,284 @@
+I"�><h1 id="homework-1-shell-scripting">Homework 1: Shell scripting</h1>
+<p><strong>Due: 2020-02-23 at 23:59</strong></p>
+
+<h2 id="preliminaries">Preliminaries</h2>
+<p>First, find a partner. You’re allowed to work by yourself, but I highly
+recommend working with a partner. Click on the <a href="">assignment
+link</a>. One partner should create a
+new team. The second partner should click the link and choose the appropriate
+team. (Please don’t choose the wrong team, there’s a maximum of two people and
+if you join the wrong one, you’ll prevent the correct person from joining.)</p>
+
+<p>Once you have accepted the assignment and created/joined a team, you can clone
+the repository on clyde and begin working. But before you do, read the entire
+assignment and be sure to check out the expected <a href="#coding-style">coding style</a>.</p>
+
+<p>Be sure to ask any questions on
+<a href="https://piazza.com/class/k5yfsgy19ef457">Piazza</a>.</p>
+
+<h3 id="coding-style">Coding style</h3>
+<p>For all of the shell scripts you write, you must follow the Google <a href="https://google.github.io/styleguide/shell.xml">Shell
+Style Guide</a>. Place close
+attention to the formatting rules. These are, in many ways, arbitrary.
+Nevertheless, you must follow them.</p>
+
+<p>If you use NeoVim or Vim as your editor, you can include the line (called a
+modeline)</p>
+<div class="language-sh highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># vim: set sw=2 sts=2 ts=8 et:</span>
+</code></pre></div></div>
+<p>at the bottom of each of your scripts to force Vim to indent by 2 spaces and
+to ensure that tabs will insert spaces. This requires “modeline” support to be
+enabled which is disabled by default. You can enable it by adding the line</p>
+<div class="language-viml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">set</span> modeline
+</code></pre></div></div>
+<p>to your <code class="highlighter-rouge">~/.vimrc</code> file, creating it if necessary.</p>
+
+<p>You can also set options in your <code class="highlighter-rouge">~/.vimrc</code> file, creating one if necessary.
+For example, on clyde, I have the simple <code class="highlighter-rouge">~/.vimrc</code>.</p>
+<div class="language-viml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">set</span> background<span class="p">=</span><span class="nb">dark</span>
+<span class="k">filetype</span> plugin indent <span class="k">on</span>
+autocmd <span class="nb">FileType</span> <span class="k">sh</span> <span class="k">setlocal</span> shiftwidth<span class="p">=</span><span class="m">2</span> softtabstop<span class="p">=</span><span class="m">2</span> tabstop<span class="p">=</span><span class="m">8</span> expandtab
+<span class="k">set</span> modeline
+</code></pre></div></div>
+<p>The first line tells Vim to use colors suitable for a terminal with a dark
+background. The second line tells Vim to use file-type aware indenting. The
+third line tells Vim to set those options for shell script files. See the <a href="https://vim.fandom.com/wiki/Indenting_source_code">Vim
+wiki</a> for more details. And
+the fourth enables modelines.</p>
+
+<p>After you write the <code class="highlighter-rouge"><span class="c">#!/bin/bash</span></code> line at the top of your file (or a modeline
+at the bottom), you’ll probably want to reopen the file so that Vim knows its
+a bash file and turns on the appropriate syntax highlighting and indentation.</p>
+
+<p>If you use emacs, you’re kind of on your own. Feel free to ask on Piazza,
+search StackOverflow, and read the <a href="https://www.emacswiki.org/emacs/IndentationBasics">Emacs
+Wiki</a>.</p>
+
+<p>Same with Nano.
+<a href="https://stackoverflow.com/questions/42584551/how-to-make-auto-indention-in-nano-while-programming-in-python-in-linux">This</a>
+might be useful.</p>
+
+<h3 id="run-time-errors-and-return-values">Run time errors and return values</h3>
+<p>For each of the parts below that ask you to print out a usage message or an
+error message, this message should be printed to <code class="highlighter-rouge">stderr</code>. You can use code
+like this to print a usage message.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>echo "Usage: $0 arguments" &gt;&amp;2
+</code></pre></div></div>
+
+<p>Any errors should cause the script to exit with a nonzero value (1 is a pretty
+good choice). Scripts that run successfully should exit with value 0. You can
+use <code class="highlighter-rouge">exit "${value}"</code> to exit with a particular value.</p>
+
+<h3 id="script-warnings-and-errors">Script warnings and errors</h3>
+<p>Make sure your scripts pass <code class="highlighter-rouge">shellcheck</code> without errors or warnings. If you
+disable a particular warning, you must leave a comment giving a very good
+reason why you did so.</p>
+
+<h3 id="executable-scripts">Executable scripts</h3>
+<p>All of your scripts should start with the line</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+</code></pre></div></div>
+<p>and must be executable. Running <code class="highlighter-rouge">chmod +x</code> on each of the files is sufficient.</p>
+
+<h3 id="submission">Submission</h3>
+<p>To submit your homework, you must commit and push to GitHub before the
+deadline.</p>
+
+<p>Your repository should contain the following files</p>
+<ul>
+  <li><code class="highlighter-rouge">README</code></li>
+  <li><code class="highlighter-rouge">diskhog</code></li>
+  <li><code class="highlighter-rouge">goodhygiene</code></li>
+  <li><code class="highlighter-rouge">testurl</code></li>
+  <li><code class="highlighter-rouge">linecount</code></li>
+</ul>
+
+<p>It may also a <a href="https://git-scm.com/docs/gitignore"><code class="highlighter-rouge">.gitignore</code></a> file which
+tells Git to ignore files matching patterns in your working directory.</p>
+
+<p>Any additional files you have added to your repository should be removed from
+the <code class="highlighter-rouge">master</code> branch. (You’re free to make other branches, if you desire, but
+make sure <code class="highlighter-rouge">master</code> contains the version of the code you want graded.)</p>
+
+<p>The <code class="highlighter-rouge">README</code> should contain</p>
+<ol>
+  <li>The names of both partners (or just your name if you worked alone…but
+please don’t work alone if you can manage it).</li>
+  <li>Your answers to <a href="#part-5-data-file-analysis-20-points">Part 5</a> and the commands you
+used to find them.</li>
+  <li>An estimate of the amount of time it took to complete each script.</li>
+  <li>Any known bugs or incomplete functions.</li>
+  <li>Any interesting design decisions you’d like to share.</li>
+</ol>
+
+<p>Each of your scripts should contain a comment at the top of the script (below
+the <code class="highlighter-rouge"><span class="c">#!/bin/bash</span></code> line) that contains usage information plus a description of
+what the program does.</p>
+
+<p>Example.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c">#!/bin/bash</span>
+
+<span class="c"># Usage: testurl file</span>
+<span class="c">#</span>
+<span class="c"># The file parameter should be a list of URLs, one per line. Testurl will...</span>
+</code></pre></div></div>
+
+<h2 id="part-1-disk-hogger-10-points">Part 1. Disk hogger (10 points)</h2>
+<p>Create a shell script called <code class="highlighter-rouge">diskhog</code> that lists the five largest items (files
+or folders) in the current directory in decreasing order of size. You should
+output the sizes in a human readable format like so.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./hw1/diskhog
+214M	ow
+58M	ow.tar.xz
+48M	.komodoedit
+27M	.cache
+2.7M	Desktop
+</code></pre></div></div>
+
+<p>Make sure that your script handles files and directories with spaces in name
+or names that start with a period.</p>
+
+<p>Check out the man pages for <code class="highlighter-rouge">du(1)</code>, <code class="highlighter-rouge">sort(1)</code>, and <code class="highlighter-rouge">head(1)</code> (or <code class="highlighter-rouge">tail(1)</code>).
+Read the portion of the <code class="highlighter-rouge">bash(1)</code> man page that describes the <code class="highlighter-rouge">dotglob</code> option
+to the <code class="highlighter-rouge">shopt</code> bash builtin command. You’ll want to use this in your script to
+make <code class="highlighter-rouge">*</code> match files/directories that start with a period.</p>
+
+<p>If the script is run from an empty directory, make sure it prints nothing at
+all (and not an error message).</p>
+
+<h2 id="part-2-shell-script-hygiene-15-points">Part 2. Shell script hygiene (15 points)</h2>
+<p>Write a shell script called <code class="highlighter-rouge">goodhygiene</code> which takes zero or one parameters.
+The parameter, if given should be a path to a directory. If no parameters are
+given, it should act on the current directory. If two or more parameters are
+given, output usage information to <code class="highlighter-rouge">stderr</code>, and exit with return value 1. If
+the supplied parameter is not a directory, output an error message (on
+<code class="highlighter-rouge">stderr</code>) and exit with return value 1.</p>
+
+<p>For each file in the directory, use <code class="highlighter-rouge">file</code> and <code class="highlighter-rouge">grep</code> to check if the file is
+a shell script. If it is, run <code class="highlighter-rouge">shellcheck</code> on the file. If <code class="highlighter-rouge">shellcheck</code>
+returns nonzero for any file, <code class="highlighter-rouge">goodhygiene</code> should exit with return value 1.
+Otherwise, exit with value 0.</p>
+
+<p>Make sure you handle files with spaces in the name and those whose names start
+with a period. Make sure the script works correctly when run on an empty
+directory and one that contains no shell scripts (by printing nothing and
+returning 0).</p>
+
+<p>Examples.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./goodhygeine too many args
+Usage: ./goodhygeine [dir]
+$ echo $?
+1
+$ ./goodhygeine ~/empty
+$ echo $?
+0
+$ ./goodhygeine
+
+In ./usage-example line 8:
+  echo Usage: $0 [dir] &gt;&amp;2
+              ^-- SC2086: Double quote to prevent globbing and word splitting.
+
+$ echo $?
+1
+</code></pre></div></div>
+
+<h2 id="part-3-url-testing-15-points">Part 3. URL testing (15 points)</h2>
+<p>Write a shell script called <code class="highlighter-rouge">testurl</code> that accepts a list of URLs in a
+separate file and tests if each website is up or not. You might find it useful
+to checkout the <code class="highlighter-rouge">curl</code>, <code class="highlighter-rouge">wget</code> and <code class="highlighter-rouge">tail</code> commands. And check out this
+<a href="http://mywiki.wooledge.org/BashFAQ/001">FAQ</a> for how to read a file line by
+line in Bash. It’s not obvious.</p>
+
+<p>If any URL in the file isn’t accessible, <code class="highlighter-rouge">testurl</code> should report that it isn’t
+found as per the example below and should (after testing all URLs), exit with
+return value 1.</p>
+
+<p>If zero or more than two parameters are passed to <code class="highlighter-rouge">testurl</code>, print the usage
+to <code class="highlighter-rouge">stderr</code> and exit with value 1.</p>
+
+<p>Examples.</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./testurl
+Usage: ./testurl file
+$ echo $?
+1
+$ cat urls
+https://cs.oberlin.edu/~ncare/cs241/labs/lab8.html
+https://occs.cs.oberlin.edu/~rhoyle/17s-cs241/assignments/hw02.html
+https://no.such.url
+https://occs.cs.oberlin.edu
+$ ./testurl urls
+Not found: http://no.such.url
+$ echo $?
+1
+$ cat urls-working
+https://example.com
+$ ./testurl urls-working
+$ echo $?
+0
+</code></pre></div></div>
+
+<h2 id="part-4-line-count-40-points">Part 4. Line count (40 points)</h2>
+<p>Create a shell script called <code class="highlighter-rouge">linecount</code> that takes zero or more paths
+as parameters and reports the total number of lines of all files in all of the
+paths. If no parameters are given, then <code class="highlighter-rouge">linecount</code> should output <code class="highlighter-rouge">0</code> and
+exit.</p>
+
+<p>For each path that is a directory, the lines of all of the files in that
+directory or below it in the file system should be counted. (That is, if
+<code class="highlighter-rouge">foo</code>, <code class="highlighter-rouge">foo/bar</code>, <code class="highlighter-rouge">foo/qux</code>, and <code class="highlighter-rouge">foo/bar/asdf</code> are all directories and <code class="highlighter-rouge">foo</code>
+is passed as a parameter, then the output of <code class="highlighter-rouge">linecount</code> should include the
+lines of all files in those directories as well.)</p>
+
+<p>Write a function that iterates over each item in a directory and adds the line
+count to a running total for each file and recurses into each directory. You
+may not use <code class="highlighter-rouge">find</code>.</p>
+
+<p>Make sure your implementation correctly handles file names with spaces, files
+and directories that start with a period, and only considers normal files and
+directories (e.g., not symbolic links nor device files).</p>
+
+<p>Report any unreadable files or unreadable/unsearchable directories on stderr
+(see examples below) and continue on. (The order of the error messages doesn’t
+matter and yours may not match the order in the examples.)</p>
+
+<p>The shell parameter <code class="highlighter-rouge">$0</code> expands to the path to the script (e.g.,
+<code class="highlighter-rouge">./linecount</code>) which is useful in error messages.</p>
+
+<p>Example outputs (the numbers are made up and just for example purposes)</p>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ ./linecount
+0
+$ ./linecount .
+97
+$ ./linecount "$HOME" /etc
+./linecount: /etc/cups/ssl: Permission denied
+./linecount: /etc/chatscripts: Permission denied
+./linecount: /etc/sudoers.d/README: Permission denied
+./linecount: /etc/shadow: Permission denied
+# A bunch more errors removed from the example
+339123
+</code></pre></div></div>
+
+<h2 id="part-5-data-file-analysis-20-points">Part 5. Data file analysis (20 points)</h2>
+<p>I often find myself using shell tools to answer questions about a data file
+ that I’m working on. Here is a data file from a machine learning dataset that
+ I’d like you download and unzip:
+ <a href="https://occs.cs.oberlin.edu/~rhoyle/19s-cs241/assignments/adult.data.zip">adult.data.zip</a>
+ The fields in the data set are described
+ <a href="http://archive.ics.uci.edu/ml/datasets/Adult">here</a>.</p>
+
+<p>Answer the following questions in your <code class="highlighter-rouge">README</code> file (and give the commands
+used to find the answer):</p>
+<ol>
+  <li>(2 points) How many entries are marked “Male” and how many are marked “Female”?</li>
+  <li>(2 points) The last column is the label that is applied to the entry. How many of each label type are there?</li>
+  <li>(6 points) Give the counts for each label used for “race” in decreasing order</li>
+  <li>(10 points) Give the counts for a combined “race”/”sex” attribute in decreasing order</li>
+</ol>
+
+<p>Potentially useful commands to look at include <code class="highlighter-rouge">cut</code>, <code class="highlighter-rouge">sort</code>, and <code class="highlighter-rouge">uniq</code>. If you
+include the commands you used to generate your answers, it might be possible
+to give you partial credit. Make sure you don’t check <code class="highlighter-rouge">adult.data.zip</code> or
+<code class="highlighter-rouge">adult.data</code> into your repository. You might consider adding appropriate lines
+to a <code class="highlighter-rouge">.gitignore</code> (described <a href="#submission">above</a>) to cause Git to ignore
+them.</p>
+:ET
