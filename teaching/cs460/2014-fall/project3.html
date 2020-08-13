@@ -1,65 +1,6 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
-<head>
-<meta http-equiv="Content-Type" content="application/xhtml+xml;charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="stylesheet" href="/css/old-teaching.css" type="text/css" />
-<title>Project 3</title>
-</head>
-<body>
-<div id="layout-content">
-<div id="toptitle">
-<div id="title">Project 3</div>
-</div>
-<p><b>Due:</b> Thursday, November 20, 2014, 23:59<br /></p>
-<h2>Goal</h2>
-<p>The goal of this project is to craft a JIT-spraying exploit.</p>
-<p>All work in this project must be done on the VirtualBox virtual machine
-provided on the course website; see below for information about this
-environment. <b>Note: This is <i>not</i> the same VM we used for the previous
-projects!</b></p>
-<p>You are given a single <tt>target</tt> binary which contains a JavaScript
-JIT. The program takes a JavaScript file as input and compiles and
-runs it. Unlike a web browser which would contain numerous external
-functions accessible via the DOM, <tt>target</tt> only exposes three external
-functions: <tt>print</tt> which prints its arguments to the console, <tt>load</tt>
-which takes a single string argument which is a path to a JavaScript
-file to load and run, and <tt>exploit</tt> which takes a single integer
-argument.</p>
-<p>The <tt>exploit</tt> function simulates a vulnerability by jumping to the
-address specified by the argument.</p>
-<p>Your task is to write one or more JavaScript files that will perform a
-JIT spray and then get a local shell.</p>
-<h2>Preliminaries</h2>
-<p>1. Get the sandbox-1.2 virtual machine. sandbox-1.2.ova <b>Again, this is <i>not</i> the same VM we used in the
-previous projects.</b></p>
-<p>2. Go to Settings &gt; Network &gt; Adapter 1 &gt; Port Forwarding and forward
-a port from the host machine to port 22 in the guest:</p>
-<table class="imgtable"><tr><td>
-<img src="portforwarding.png" alt="Port Forwarding" />&nbsp;</td>
-<td align="left"></td></tr></table>
-<p>Note that if you also used port forwarding on port 2222 for a previous
-project, SSH will get very upset, because the new VM's key is
-different and SSH suspects a man-in-the-middle attack.  It will tell
-you what line in <tt>&nbsp;<i>.ssh</i>known_hosts</tt> is responsible, and you can
-delete this line and try again.</p>
-<p>3. Download and unpack project3.</p>
-<div class="codeblock">
-<div class="blockcontent"><pre>
-user@ubuntu:~$ wget http://www.cs.jhu.edu/~s/teaching/cs460/2014-fall/project3.tar.gz
+<!DOCTYPE html><html lang=en><meta http-equiv=Content-Type content="text/html;charset=utf-8"> <meta name=viewport content="width=device-width, initial-scale=1"> <link rel=stylesheet href=/css/old-teaching.css type=text/css><title>Project 3</title><div id=layout-content><div id=toptitle><div id=title>Project 3</div></div><p><b>Due:</b> Thursday, November 20, 2014, 23:59<br><h2>Goal</h2><p>The goal of this project is to craft a JIT-spraying exploit.<p>All work in this project must be done on the VirtualBox virtual machine provided on the course website; see below for information about this environment. <b>Note: This is <i>not</i> the same VM we used for the previous projects!</b><p>You are given a single <code>target</code> binary which contains a JavaScript JIT. The program takes a JavaScript file as input and compiles and runs it. Unlike a web browser which would contain numerous external functions accessible via the DOM, <code>target</code> only exposes three external functions: <code>print</code> which prints its arguments to the console, <code>load</code> which takes a single string argument which is a path to a JavaScript file to load and run, and <code>exploit</code> which takes a single integer argument.<p>The <code>exploit</code> function simulates a vulnerability by jumping to the address specified by the argument.<p>Your task is to write one or more JavaScript files that will perform a JIT spray and then get a local shell.<h2>Preliminaries</h2><p>1. Get the sandbox-1.2 virtual machine. sandbox-1.2.ova <b>Again, this is <i>not</i> the same VM we used in the previous projects.</b><p>2. Go to Settings &gt; Network &gt; Adapter 1 &gt; Port Forwarding and forward a port from the host machine to port 22 in the guest:<table class=imgtable><tr><td><img src=portforwarding.png alt="Port Forwarding">&nbsp;<td align=left></table><p>Note that if you also used port forwarding on port 2222 for a previous project, SSH will get very upset, because the new VM's key is different and SSH suspects a man-in-the-middle attack. It will tell you what line in <tt>&nbsp;<i>.ssh</i>known_hosts</tt> is responsible, and you can delete this line and try again.<p>3. Download and unpack project3.<div class=codeblock><div class=blockcontent><pre>user@ubuntu:~$ wget http://www.cs.jhu.edu/~s/teaching/cs460/2014-fall/project3.tar.gz
 user@ubuntu:~$ tar zxf project3.tar.gz
-</pre></div></div>
-<h2>Getting started</h2>
-<p>The JavaScript JIT that is linked into <tt>target</tt> is Google's v8 which
-is used in Google Chrome. The JIT is <i>lazy</i> in the sense that when it
-sees a new function to compile, it will not actually compile it until
-the first time it is executed. Thus, it is not sufficient to create a
-function, you actually need to call it before it will JIT the code.</p>
-<div class="codeblock">
-<div class="blockcontent"><pre>
-function spray(x)
+</pre></div></div><h2>Getting started</h2><p>The JavaScript JIT that is linked into <code>target</code> is Google's v8 which is used in Google Chrome. The JIT is <i>lazy</i> in the sense that when it sees a new function to compile, it will not actually compile it until the first time it is executed. Thus, it is not sufficient to create a function, you actually need to call it before it will JIT the code.<div class=codeblock><div class=blockcontent><pre>function spray(x)
 {
 	if (x == 0)
 		return 0;
@@ -68,19 +9,7 @@ function spray(x)
 	return y;
 }
 spray(0);
-</pre></div></div>
-<p>The early-exit in <tt>spray</tt> is to prevent the JITted code from actually
-being executed in the call to <tt>spray(0)</tt> which we needed to generate
-code for <tt>spray</tt> (i.e., it's a minor optimization).</p>
-<p>Starting off the JIT spray code by XORing the variable <tt>x</tt> also seems
-to prevent v8 from optimizing the whole expression into a constant.</p>
-<p>The first thing you should try doing is including some additional
-literal values in the spray function and looking at the code that is
-produced.</p>
-<p>For example, try putting into the above code.</p>
-<div class="codeblock">
-<div class="blockcontent"><pre>
-	var y = x ^
+</pre></div></div><p>The early-exit in <code>spray</code> is to prevent the JITted code from actually being executed in the call to <code>spray(0)</code> which we needed to generate code for <code>spray</code> (i.e., it's a minor optimization).<p>Starting off the JIT spray code by XORing the variable <code>x</code> also seems to prevent v8 from optimizing the whole expression into a constant.<p>The first thing you should try doing is including some additional literal values in the spray function and looking at the code that is produced.<p>For example, try putting into the above code.<div class=codeblock><div class=blockcontent><pre>	var y = x ^
 		0x1 ^
 		0x2 ^
 		0x4 ^
@@ -89,15 +18,7 @@ produced.</p>
 		0x20 ^
 		0x40 ^
 		0x55aa;
-</pre></div></div>
-<p>The <tt>target</tt> binary comes with an additional feature: it can print out
-the JITted code by passing the <tt>-p</tt> command line option. Note: This
-option is <i>only</i> designed to help you in the creation of your exploit.
-We will not be testing your code with this option.</p>
-<p>If we run <tt>./target -p sploit.js</tt> on the above code, we see the sequence of XORs:</p>
-<div class="codeblock">
-<div class="blockcontent"><pre>
-0x4bf54a38    88  83f002         xor eax,0x2
+</pre></div></div><p>The <code>target</code> binary comes with an additional feature: it can print out the JITted code by passing the <code>-p</code> command line option. Note: This option is <i>only</i> designed to help you in the creation of your exploit. We will not be testing your code with this option.<p>If we run <code>./target -p sploit.js</code> on the above code, we see the sequence of XORs:<div class=codeblock><div class=blockcontent><pre>0x4bf54a38    88  83f002         xor eax,0x2
 0x4bf54a3b    91  83f004         xor eax,0x4                 ;; debug: position 65
 0x4bf54a3e    94  83f008         xor eax,0x8                 ;; debug: position 87
 0x4bf54a41    97  83f010         xor eax,0x10                ;; debug: position 109
@@ -105,32 +26,7 @@ We will not be testing your code with this option.</p>
 0x4bf54a47   103  83f040         xor eax,0x40                ;; debug: position 154
 0x4bf54a4a   106  3580000000     xor eax,0x80                ;; debug: position 177
 0x4bf54a4f   111  3554ab0000     xor eax,0xab54              ;; debug: position 200
-</pre></div></div>
-<p>The first column is the address where the code was JITted (but notice
-that it will change each time you run this so your values are likely
-different from mine), the second is the offset into the function, the
-third is the actual bytes that make up the instruction, the fourth is
-the x86 code produced.</p>
-<p>Notice that it has modified the value that is to be XORed! Also notice
-that it has used two different <tt>xor</tt> instructions. For small values,
-it uses the instruction <tt>xor r/m32,imm8</tt> which has encoding <tt>83 /6
-imm8</tt> (see the Intel manual if you're unsure what that means). For
-large values, it uses <tt>xor eax,imm32</tt> which has encoding <tt>35 imm32</tt>.
-You're going to be using large values so the second is the only one
-that matters here.</p>
-<p>In addition, to the modification the compiler makes to the integers
-(which has to do with how it internally represents integers), there is
-one further restriction. If you try to XOR an integer larger than
-<tt>0x3fffffff</tt>, the generated code is not nearly as compact.
-Fortunately, that will not be an issue if you use <tt>cmp al</tt> as your
-chaining instruction as it has opcode <tt>3c</tt>.</p>
-<p>To assist in the creation of your exploit, we have provided a
-<tt>x86tojit.sh</tt> BASH script. It takes as an argument an assembly file (see
-<tt>example.s</tt> in the project tarball) and produces the encoding of the
-instructions it contains:</p>
-<div class="codeblock">
-<div class="blockcontent"><pre>
-user@ubuntu:~/project3$ ./x86tojit.sh example.s
+</pre></div></div><p>The first column is the address where the code was JITted (but notice that it will change each time you run this so your values are likely different from mine), the second is the offset into the function, the third is the actual bytes that make up the instruction, the fourth is the x86 code produced.<p>Notice that it has modified the value that is to be XORed! Also notice that it has used two different <code>xor</code> instructions. For small values, it uses the instruction <code>xor r/m32,imm8</code> which has encoding <code>83 /6 imm8</code> (see the Intel manual if you're unsure what that means). For large values, it uses <code>xor eax,imm32</code> which has encoding <code>35 imm32</code>. You're going to be using large values so the second is the only one that matters here.<p>In addition, to the modification the compiler makes to the integers (which has to do with how it internally represents integers), there is one further restriction. If you try to XOR an integer larger than <code>0x3fffffff</code>, the generated code is not nearly as compact. Fortunately, that will not be an issue if you use <code>cmp al</code> as your chaining instruction as it has opcode <code>3c</code>.<p>To assist in the creation of your exploit, we have provided a <code>x86tojit.sh</code> BASH script. It takes as an argument an assembly file (see <code>example.s</code> in the project tarball) and produces the encoding of the instructions it contains:<div class=codeblock><div class=blockcontent><pre>user@ubuntu:~/project3$ ./x86tojit.sh example.s
 b1 08	mov    cl,0x8
 b0 64	mov    al,0x64
 d3 e0	shl    eax,cl
@@ -140,106 +36,25 @@ b0 62	mov    al,0x62
 d3 e0	shl    eax,cl
 b0 61	mov    al,0x61
 50	push   eax
-</pre></div></div>
-<p>As a first step, modify this script or write a similar
-one that will produce the JavaScript code you need rather than
-constructing it by hand. E.g., my modifications (which amounted to 20
-extra lines of sed and bash statements) produce the following for the
-first few lines.</p>
-<div class="codeblock">
-<div class="blockcontent"><pre>
-user@ubuntu:~/project3$ ./x86tojit.sh example.s
+</pre></div></div><p>As a first step, modify this script or write a similar one that will produce the JavaScript code you need rather than constructing it by hand. E.g., my modifications (which amounted to 20 extra lines of sed and bash statements) produce the following for the first few lines.<div class=codeblock><div class=blockcontent><pre>user@ubuntu:~/project3$ ./x86tojit.sh example.s
 		0x1e0458c8 ^ // mov    cl,0x8
 		0x1e325848 ^ // mov    al,0x64
 		0x1e7069c8 ^ // shl    eax,cl
 		...
-</pre></div></div>
-<p>When <tt>./target sploit.js</tt> is run, the result should be a local shell:</p>
-<div class="codeblock">
-<div class="blockcontent"><pre>
-user@ubuntu:~/project3$ ./target sploit.js
+</pre></div></div><p>When <code>./target sploit.js</code> is run, the result should be a local shell:<div class=codeblock><div class=blockcontent><pre>user@ubuntu:~/project3$ ./target sploit.js
 $ echo hello
 hello
 $ exit
-</pre></div></div>
-<p>To do that, you're going to need to write some shell code. Take a look
-at Aleph One's code from the reading. Essentially, you need to arrange
-for <tt>eax</tt> to have value&nbsp;11, <tt>ebx</tt> to point to the string <tt>&ldquo;/bin/sh&rdquo;</tt>,
-<tt>ecx</tt> to point to the <tt>argv</tt> array and <tt>edx</tt> to point to the <tt>environ</tt>
-array. You can construct the string and the arrays on the stack.</p>
-<p>Finally, since where the code is JITted each time is random, you're
-going to need to JIT a bunch of copies of it (e.g., using <tt>load</tt> or
-<tt>eval</tt> in a loop) and then use <tt>exploit</tt> to jump there. Try to make
-your exploit as reliable as possible but it's okay if the target
-crashes the first few times we try to run it.</p>
-<h2>Deliverables</h2>
-<p>You are to provide a tarball (i.e., a <tt>.tar.gz</tt> file) containing the
-following files:</p>
-<ol>
-<li><p><tt>README</tt>: Your <tt>README</tt> file must contain the name of all group
-members at the top. Below that, describe how your <tt>x86tojit.sh</tt> (or
-similar) script works, how your shell code works, and how your JIT
-spray works.</p>
-</li>
-<li><p><tt>shellcode.s</tt>: Shellcode (in the format of <tt>example.s</tt>) which you
-will run your modified <tt>x86tojit.sh</tt> (or similar) script on to
-produce your JavaScript.</p>
-</li>
-<li><p>Your modified <tt>x86tojit.sh</tt> (or comparable script) that turns your
-<tt>shellcode.s</tt> into JavaScript.</p>
-</li>
-<li><p>Your JavaScript files. The main file should be called <tt>sploit.js</tt>
-and you may have as many additional helper files as you wish.</p>
-</li>
-</ol>
-<div class="codeblock">
-<div class="blockcontent"><pre>
-user@ubuntu:~/project3$ tar zcf p3.tar.gz README shellcode.s x86tojit.sh *.js
-</pre></div></div>
-<p>We should be able to run your exploits by running:</p>
-<div class="codeblock">
-<div class="blockcontent"><pre>
-user@ubuntu:~/project3$ tar zxf p3.tar.gz
+</pre></div></div><p>To do that, you're going to need to write some shell code. Take a look at Aleph One's code from the reading. Essentially, you need to arrange for <code>eax</code> to have value&nbsp;11, <code>ebx</code> to point to the string <code>“/bin/sh”</code>, <code>ecx</code> to point to the <code>argv</code> array and <code>edx</code> to point to the <code>environ</code> array. You can construct the string and the arrays on the stack.<p>Finally, since where the code is JITted each time is random, you're going to need to JIT a bunch of copies of it (e.g., using <code>load</code> or <code>eval</code> in a loop) and then use <code>exploit</code> to jump there. Try to make your exploit as reliable as possible but it's okay if the target crashes the first few times we try to run it.<h2>Deliverables</h2><p>You are to provide a tarball (i.e., a <code>.tar.gz</code> file) containing the following files:<ol><li><p><code>README</code>: Your <code>README</code> file must contain the name of all group members at the top. Below that, describe how your <code>x86tojit.sh</code> (or similar) script works, how your shell code works, and how your JIT spray works.<li><p><code>shellcode.s</code>: Shellcode (in the format of <code>example.s</code>) which you will run your modified <code>x86tojit.sh</code> (or similar) script on to produce your JavaScript.<li><p>Your modified <code>x86tojit.sh</code> (or comparable script) that turns your <code>shellcode.s</code> into JavaScript.<li><p>Your JavaScript files. The main file should be called <code>sploit.js</code> and you may have as many additional helper files as you wish.</ol><div class=codeblock><div class=blockcontent><pre>user@ubuntu:~/project3$ tar zcf p3.tar.gz README shellcode.s x86tojit.sh *.js
+</pre></div></div><p>We should be able to run your exploits by running:<div class=codeblock><div class=blockcontent><pre>user@ubuntu:~/project3$ tar zxf p3.tar.gz
 user@ubuntu:~/project3$ ./target sploit.js
-</pre></div></div>
-<p>It may take a few attempts to work correctly due to the randomness,
-but try to make it as robust as you can (see below).</p>
-<h2>Making the exploit robust</h2>
-<p>To make the exploit robust, you're going to want to take a few actions
-to reduce the amount of randomness you have to deal with.</p>
-<p>First, you want to make the code you're spraying pretty large and most
-of that is going to be filled with a JITted NOP sled. For some reason,
-functions that are too large do not behave the way we want with the
-series of XORs. So experiment using <tt>-p</tt> to get a sense of how many
-NOPs you can insert before you lose the chained XORs.</p>
-<p>Notice that the JITted output contains both unoptimized code where
-each XOR takes 13 bytes of code</p>
-<div class="codeblock">
-<div class="blockcontent"><pre>
-0x407546f4   148  90             nop
+</pre></div></div><p>It may take a few attempts to work correctly due to the randomness, but try to make it as robust as you can (see below).<h2>Making the exploit robust</h2><p>To make the exploit robust, you're going to want to take a few actions to reduce the amount of randomness you have to deal with.<p>First, you want to make the code you're spraying pretty large and most of that is going to be filled with a JITted NOP sled. For some reason, functions that are too large do not behave the way we want with the series of XORs. So experiment using <code>-p</code> to get a sense of how many NOPs you can insert before you lose the chained XORs.<p>Notice that the JITted output contains both unoptimized code where each XOR takes 13 bytes of code<div class=codeblock><div class=blockcontent><pre>0x407546f4   148  90             nop
 0x407546f5   149  50             push eax
 0x407546f6   150  b89090903c     mov eax,0x3c909090
 0x407546fb   155  5a             pop edx
 0x407546fc   156  e81f4cfdff     call 0x40729320             ;; debug: position 94
-</pre></div></div>
-<p>whereas the optimized version consists of a single 5-byte instruction</p>
-<div class="codeblock">
-<div class="blockcontent"><pre>
-0x4076e282    98  359090903c     xor eax,0x3c909090          ;; debug: position 94
-</pre></div></div>
-<p>What this means is that even discounting the fixed beginnings and
-endings of your JITted functions, 72% of your JITted code is not
-usable. Worse still, even if you jump into the middle of the optimized
-code, there's still a chance you'll land on an XOR rather than in one
-of the NOP bytes. But that's not all, the JIT also produces a lot of
-extra data that isn't executable.</p>
-<p>Linux exposes information about a process's address space using the
-<tt>/proc</tt> file system. A process can get information about its own
-address space by reading <tt>/proc/self/maps</tt>. As an example, here's
-what the <tt>cat</tt> process's address space looks like.</p>
-<div class="codeblock">
-<div class="blockcontent"><pre>
-user@sandbox:~$ cat /proc/self/maps
+</pre></div></div><p>whereas the optimized version consists of a single 5-byte instruction<div class=codeblock><div class=blockcontent><pre>0x4076e282    98  359090903c     xor eax,0x3c909090          ;; debug: position 94
+</pre></div></div><p>What this means is that even discounting the fixed beginnings and endings of your JITted functions, 72% of your JITted code is not usable. Worse still, even if you jump into the middle of the optimized code, there's still a chance you'll land on an XOR rather than in one of the NOP bytes. But that's not all, the JIT also produces a lot of extra data that isn't executable.<p>Linux exposes information about a process's address space using the <code>/proc</code> file system. A process can get information about its own address space by reading <code>/proc/self/maps</code>. As an example, here's what the <code>cat</code> process's address space looks like.<div class=codeblock><div class=blockcontent><pre>user@sandbox:~$ cat /proc/self/maps
 08048000-08053000 r-xp 00000000 fc:00 28         /bin/cat
 08053000-08054000 r--p 0000a000 fc:00 28         /bin/cat
 08054000-08055000 rw-p 0000b000 fc:00 28         /bin/cat
@@ -257,26 +72,7 @@ b777c000-b779c000 r-xp 00000000 fc:00 5916       /lib/i386-linux-gnu/ld-2.19.so
 b779c000-b779d000 r--p 0001f000 fc:00 5916       /lib/i386-linux-gnu/ld-2.19.so
 b779d000-b779e000 rw-p 00020000 fc:00 5916       /lib/i386-linux-gnu/ld-2.19.so
 bfb16000-bfb37000 rw-p 00000000 00:00 0          [stack]
-</pre></div></div>
-<p>The first column gives the range of mapped addresses, the second
-column shows the permissions, and the final column shows the path of
-the file that's mapped there. (See the <tt>proc</tt> man page for more
-details.) Notice that the process's address space is laid out with the
-stack at the top, some libraries below that, then the heap and finally
-the binary itself.</p>
-<p>When v8 is allocating memory, it performs a <tt>mmap</tt> for (up to) <tt>1 MB</tt>
-at a randomized address. See the
-<a href="https://github.com/v8/v8/blob/master/src/base/platform/platform-posix.cc#L153">OS::GetRandomMmapAddr()</a> function for details. Essentially, it tries
-to allocate memory in the range <tt>0x20000000</tt> to <tt>0x60000000</tt>.</p>
-<p>Let's take a look at what that looks like. The <tt>target</tt> binary has
-another command line flag <tt>-m</tt> which will print out the processes
-address space just prior to jumping to the address specified by the
-<tt>exploit</tt> function.</p>
-<p>Let's take a look at that by running <tt>target -m a.js</tt> where <tt>a.js</tt>
-contains just the <tt>exploit</tt> function.</p>
-<div class="codeblock">
-<div class="blockcontent"><pre>
-user@sandbox:~/project3$ cat a.js
+</pre></div></div><p>The first column gives the range of mapped addresses, the second column shows the permissions, and the final column shows the path of the file that's mapped there. (See the <code>proc</code> man page for more details.) Notice that the process's address space is laid out with the stack at the top, some libraries below that, then the heap and finally the binary itself.<p>When v8 is allocating memory, it performs a <code>mmap</code> for (up to) <code>1 MB</code> at a randomized address. See the <a href=https://github.com/v8/v8/blob/master/src/base/platform/platform-posix.cc#L153>OS::GetRandomMmapAddr()</a> function for details. Essentially, it tries to allocate memory in the range <code>0x20000000</code> to <code>0x60000000</code>.<p>Let's take a look at what that looks like. The <code>target</code> binary has another command line flag <code>-m</code> which will print out the processes address space just prior to jumping to the address specified by the <code>exploit</code> function.<p>Let's take a look at that by running <code>target -m a.js</code> where <code>a.js</code> contains just the <code>exploit</code> function.<div class=codeblock><div class=blockcontent><pre>user@sandbox:~/project3$ cat a.js
 exploit(0);
 user@sandbox:~/project3$ ./target -m a.js
 maps:
@@ -348,96 +144,26 @@ b773c000-b773d000 r--p 0001f000 fc:00 5916       /lib/i386-linux-gnu/ld-2.19.so
 b773d000-b773e000 rw-p 00020000 fc:00 5916       /lib/i386-linux-gnu/ld-2.19.so
 bfca4000-bfcc5000 rw-p 00000000 00:00 0          [stack]
 Segmentation fault (core dumped)
-</pre></div></div>
-<p>There's a lot to see there and it's easy to miss what's important.
-Notice that a lot of the heap memory actually comes in <tt>1 MB</tt>-aligned
-chunks. E.g.,</p>
-<div class="codeblock">
-<div class="blockcontent"><pre>
-3a400000-3a500000 rw-p 00000000 00:00 0
-</pre></div></div>
-<p>Even more interesting is the executables. Every piece of JITted code
-comes in a chunk that looks like this.</p>
-<div class="codeblock">
-<div class="blockcontent"><pre>
-36c00000-36c09000 rw-p 00000000 00:00 0
+</pre></div></div><p>There's a lot to see there and it's easy to miss what's important. Notice that a lot of the heap memory actually comes in <code>1 MB</code>-aligned chunks. E.g.,<div class=codeblock><div class=blockcontent><pre>3a400000-3a500000 rw-p 00000000 00:00 0
+</pre></div></div><p>Even more interesting is the executables. Every piece of JITted code comes in a chunk that looks like this.<div class=codeblock><div class=blockcontent><pre>36c00000-36c09000 rw-p 00000000 00:00 0
 36c09000-36c0a000 ---p 00000000 00:00 0
 36c0a000-36c0b000 rwxp 00000000 00:00 0
 36c0b000-36c34000 ---p 00000000 00:00 0
-</pre></div></div>
-<p>It starts with <tt>0x9000</tt> bytes of nonexecutable data, one <i>guard</i>
-page&#8201;&mdash;&#8201;which cannot be read, written, nor executed&#8201;&mdash;&#8201;the actual
-executable code, and a final guard page.</p>
-<p>You're going to be writing a whole lot of data so it's going to look more like this.</p>
-<div class="codeblock">
-<div class="blockcontent"><pre>
-b6b00000-b6b09000 rw-p 00000000 00:00 0
+</pre></div></div><p>It starts with <code>0x9000</code> bytes of nonexecutable data, one <i>guard</i> page — which cannot be read, written, nor executed — the actual executable code, and a final guard page.<p>You're going to be writing a whole lot of data so it's going to look more like this.<div class=codeblock><div class=blockcontent><pre>b6b00000-b6b09000 rw-p 00000000 00:00 0
 b6b09000-b6b0a000 ---p 00000000 00:00 0
 b6b0a000-b6bff000 rwxp 00000000 00:00 0
 b6bff000-b6c00000 ---p 00000000 00:00 0
-</pre></div></div>
-<p>So what happens if the kernel is not able to allocate space at the
-requested location? Well, the complete answer lies in the
-<del>source</del>,
-but from some experimentation with allocating a whole lot of memory
-(go on, play around with target and try to allocate a bunch of memory,
-either string data or by JITting a bunch of code over and over), it
-appears that <tt>mmap</tt> will first try to allocate in the heap area
-(roughly <tt>0x20000000</tt>&ndash;<tt>0xb0000000</tt>) and if that fails, it will try to
-allocate between the libraries and the stack or before the start of
-the binary. <b>This is important</b> for making your attack robust.</p>
-<p>What you want to do is fill up a large portion of the heap with data
-that is fast to produce and then then perform the JIT spray. If you do
-this, one thing that that seems fairly consistent is that either the <tt>1 MB</tt>
-just after the libraries (or the one after that) will contain the
-executable code. For example one run of <tt>target</tt> on my <tt>sploit.js</tt>
-placed the executable code at <tt>0xb790a000</tt>.</p>
-<div class="codeblock">
-<div class="blockcontent"><pre>
-b77a8000-b77a9000 rw-p 00020000 fc:00 5916       /lib/i386-linux-gnu/ld-2.19.so
+</pre></div></div><p>So what happens if the kernel is not able to allocate space at the requested location? Well, the complete answer lies in the <del>source</del>, but from some experimentation with allocating a whole lot of memory (go on, play around with target and try to allocate a bunch of memory, either string data or by JITting a bunch of code over and over), it appears that <code>mmap</code> will first try to allocate in the heap area (roughly <code>0x20000000</code>–<code>0xb0000000</code>) and if that fails, it will try to allocate between the libraries and the stack or before the start of the binary. <b>This is important</b> for making your attack robust.<p>What you want to do is fill up a large portion of the heap with data that is fast to produce and then then perform the JIT spray. If you do this, one thing that that seems fairly consistent is that either the <code>1 MB</code> just after the libraries (or the one after that) will contain the executable code. For example one run of <code>target</code> on my <code>sploit.js</code> placed the executable code at <code>0xb790a000</code>.<div class=codeblock><div class=blockcontent><pre>b77a8000-b77a9000 rw-p 00020000 fc:00 5916       /lib/i386-linux-gnu/ld-2.19.so
 b7800000-b7909000 rw-p 00000000 00:00 0
 b7909000-b790a000 ---p 00000000 00:00 0
 b790a000-b79ff000 rwxp 00000000 00:00 0
 b79ff000-b7a00000 ---p 00000000 00:00 0
-</pre></div></div>
-<p>A second placed the executable code at <tt>0xb780a000</tt>.</p>
-<div class="codeblock">
-<div class="blockcontent"><pre>
-b775a000-b775b000 rw-p 00020000 fc:00 5916       /lib/i386-linux-gnu/ld-2.19.so
+</pre></div></div><p>A second placed the executable code at <code>0xb780a000</code>.<div class=codeblock><div class=blockcontent><pre>b775a000-b775b000 rw-p 00020000 fc:00 5916       /lib/i386-linux-gnu/ld-2.19.so
 b7800000-b7809000 rw-p 00000000 00:00 0
 b7809000-b780a000 ---p 00000000 00:00 0
 b780a000-b78ff000 rwxp 00000000 00:00 0
 b78ff000-b7900000 ---p 00000000 00:00 0
-</pre></div></div>
-<p>Depending on how your <tt>sploit.js</tt> is written, you may find one is more
-common than the other. It's possible that your code will be in a
-slightly different location.</p>
-<h2>Hints</h2>
-<ol>
-<li><p>My code uses two files: <tt>sploit.js</tt> and <tt>helper.js</tt>. <tt>sploit.js</tt>
-creates 2000 copies of a long string to fill up most of the heap and
-then it makes 1000 copies of the code in <tt>helper.js</tt> using <tt>load</tt> in
-a loop. <tt>helper.js</tt> contains about 4000 XORs which was right around
-the limit before it started JITting in a different way.</p>
-</li>
-<li><p>Creating a long string <i>can</i> be sort of tricky. Some JavaScript
-engines do not do string concatenation in a normal way. Instead,
-they use a data structure called a
-<a href="https://en.wikipedia.org/wiki/Rope_(data_structure)">rope</a>. One
-thing that I found worked well was to use string functions like
-<tt>toLowerCase</tt> and <tt>toUpperCase</tt> to force it to allocate new strings.
-Something like:<br />
-<tt>s = 'Z&rsquo;;</tt><br />
-<tt>s = s.toLowerCase() + s.toUpperCase();</tt></p>
-</li>
-<li><p>Make use of both <tt>-p</tt> and <tt>-m</tt>. They're pretty helpful.</p>
-</li>
-<li><p>Here's a handy loop to run try out your exploit.</p>
-</li>
-</ol>
-<div class="codeblock">
-<div class="blockcontent"><pre>
-user@sandbox:~/project3$ while ! time ./target sploit.js; do :; done
+</pre></div></div><p>Depending on how your <code>sploit.js</code> is written, you may find one is more common than the other. It's possible that your code will be in a slightly different location.<h2>Hints</h2><ol><li><p>My code uses two files: <code>sploit.js</code> and <code>helper.js</code>. <code>sploit.js</code> creates 2000 copies of a long string to fill up most of the heap and then it makes 1000 copies of the code in <code>helper.js</code> using <code>load</code> in a loop. <code>helper.js</code> contains about 4000 XORs which was right around the limit before it started JITting in a different way.<li><p>Creating a long string <i>can</i> be sort of tricky. Some JavaScript engines do not do string concatenation in a normal way. Instead, they use a data structure called a <a href=https://en.wikipedia.org/wiki/Rope_(data_structure)>rope</a>. One thing that I found worked well was to use string functions like <code>toLowerCase</code> and <code>toUpperCase</code> to force it to allocate new strings. Something like:<br><code>s = 'Z’;</code><br><code>s = s.toLowerCase() + s.toUpperCase();</code><li><p>Make use of both <code>-p</code> and <code>-m</code>. They're pretty helpful.<li><p>Here's a handy loop to run try out your exploit.</ol><div class=codeblock><div class=blockcontent><pre>user@sandbox:~/project3$ while ! time ./target sploit.js; do :; done
 Segmentation fault (core dumped)
 
 real	0m39.406s
@@ -450,15 +176,4 @@ $ exit
 real	2m22.711s
 user	0m33.956s
 sys	0m5.252s
-</pre></div></div>
-<p>(The long time for the second run was because I was typing these notes
-and didn't notice that it had succeeded on the second attempt. On my
-machine, it takes about 40 seconds per run.)</p>
-<div id="footer">
-<div id="footer-text">
-Last updated 2016-06-28 11:50:21 CDT.
-</div>
-</div>
-</div>
-</body>
-</html>
+</pre></div></div><p>(The long time for the second run was because I was typing these notes and didn't notice that it had succeeded on the second attempt. On my machine, it takes about 40 seconds per run.)<div id=footer><div id=footer-text>Last updated 2016-06-28 11:50:21 CDT.</div></div></div>
