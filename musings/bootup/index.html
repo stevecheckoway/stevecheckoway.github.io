@@ -2,7 +2,7 @@
 xor	bx, bx
 mov	sp, bx
 mov	esp, eax
-</code></pre><p>As far as I can tell, the only effect this will have is to clear <code class="language-plaintext highlighter-rouge">ebx</code>. I tested it with with a simple program.<div class="language-c highlighter-rouge"><div class=highlight><pre class=highlight><code><span class=cp>#include &lt;stdio.h&gt;
+</code></pre><p>As far as I can tell, the only effect this will have is to clear <code class="language-plaintext highlighter-rouge">ebx</code>. I tested it with with a simple program.<div class="language-c highlighter-rouge"><div class=highlight><pre class=highlight><code><span class=cp>#include</span> <span class=cpf>&lt;stdio.h&gt;</span><span class=cp>
 </span>    
 <span class=kt>int</span> <span class=nf>main</span><span class=p>()</span>
 <span class=p>{</span>
