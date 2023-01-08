@@ -83,7 +83,6 @@ $translate = array(
 	"teaching" => "teaching",
 	"teaching/security.pdf" => "teaching/security.pdf",
 	"citations.html" => "citations.html",
-	"travel.html" => "travel.html",
 );
 $page = $_GET['f'];
 if (array_key_exists($page, $translate))

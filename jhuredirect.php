@@ -188,7 +188,6 @@
 	"site.css" => "site.css",
 	"TeX.css" => "TeX.css",
 	"index.html" => "index.html",
-	"travel.html" => "travel.html",
 	"citations.html" => "citations.html",
 	"redirect.php" => "redirect.php",
 	"images" => "images",
