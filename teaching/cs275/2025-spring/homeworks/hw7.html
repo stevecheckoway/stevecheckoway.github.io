@@ -1,0 +1,109 @@
+<!DOCTYPE html><html lang=en><meta http-equiv=Content-Type content="text/html;charset=utf-8"> <meta http-equiv=X-UA-Compatible content="IE=edge"> <meta name=viewport content="width=device-width, initial-scale=1"><title>Hw7</title><meta name=description content="Homework 7: Streams &amp; Testing Practice"> <link rel=canonical href=https://checkoway.net/teaching/cs275/2025-spring/homeworks/hw7.html> <link rel=stylesheet href=/css/main.css><main><h1 id=homework-7-streams--testing-practice>Homework 7: Streams &amp; Testing Practice</h1><p><strong>Due: Friday, April 11 at 00:00</strong><br><strong>First Commit: Monday, April 7 at 00:00</strong><p>This assignment is an <em>intermezzo</em> in the MiniScheme project. It consists of three parts. The first two ask you to practice working with streams. The second asks you to think about evaluating test suites for existing programs.<p>This homework should likely take you <em>less time</em> than a normal homework. I would encourage you to use the extra time towards working on Summary Problems, if you have not been already!<p>Your implementations will be in several files. The start of each file should be<div class="language-racket highlighter-rouge"><div class=highlight><pre class=highlight><code><span class=o>#</span><span class=nv>lang</span> <span class=nv>racket</span>
+<span class=c1>; Your name(s) here.</span>
+</code></pre></div></div><h2 id=preliminaries>Preliminaries</h2><p>Click on the <a href=#>assignment link</a>. The same partner making rules apply as normal. <em>You can work in new teams for Homework 7</em>, as this is not part of the MiniScheme Project.<p>Once you have accepted the assignment and created/joined a team, you can clone the repository on your computer by following the instructions and begin working. But before you do, read the entire assignment and be sure to check out the expected coding style, as posted on Ed.<h3 id=submission>Submission</h3><p>To submit your homework, you must commit and push to GitHub before the deadline.<p>Your repository should contain the following files<ul><li><code class="language-plaintext highlighter-rouge">hw7.rkt</code><li><code class="language-plaintext highlighter-rouge">keyboard.rkt</code><li><code class="language-plaintext highlighter-rouge">tests.rkt</code><li><code class="language-plaintext highlighter-rouge">suites.rkt</code><li><code class="language-plaintext highlighter-rouge">HONORCODE.md</code></ul><p>It may also a <a href=https://git-scm.com/docs/gitignore><code class="language-plaintext highlighter-rouge">.gitignore</code></a> file which tells Git to ignore files matching patterns in your working directory.<p>Any additional files you have added to your repository should be removed from the <code class="language-plaintext highlighter-rouge">main</code> branch. (You’re free to make other branches, if you desire, but make sure <code class="language-plaintext highlighter-rouge">main</code> contains the version of the code you want graded.)<p>Make sure you put your name (and your partner’s name if you’re working with one) as a comment at the top of each file.<h2 id=part-1-basic-streams-20-points>Part 1. Basic Streams (20 points)</h2><p>This homework gives you practice working with streams. As a reminder, streams are a data structure made possible by a new version of <code class="language-plaintext highlighter-rouge">cons</code> called <code class="language-plaintext highlighter-rouge">stream-cons</code>, which does not evaluate its arguments. The elements of the stream are not evaluated until the <code class="language-plaintext highlighter-rouge">stream-first</code> and <code class="language-plaintext highlighter-rouge">stream-rest</code> procedures <code class="language-plaintext highlighter-rouge">force</code> them.<p>Some reminders of the various stream procedures you can use are below (The <a href=https://docs.racket-lang.org/reference/streams.html>Racket documentation</a> has more).<div class="language-racket highlighter-rouge"><div class=highlight><pre class=highlight><code><span class=o>#</span><span class=nv>lang</span> <span class=nv>racket</span>
+
+<span class=p>(</span><span class=k>require</span> <span class=nv>racket/stream</span><span class=p>)</span>
+
+<span class=p>(</span><span class=k>define</span> <span class=nv>evens</span> <span class=p>(</span><span class=nf>stream-map</span> <span class=p>(</span><span class=k>λ</span> <span class=p>(</span><span class=nf>n</span><span class=p>)</span> <span class=p>(</span><span class=nb>*</span> <span class=mi>2</span> <span class=nv>n</span><span class=p>))</span> <span class=nv>ints</span><span class=p>))</span>
+<span class=p>(</span><span class=k>define</span> <span class=nv>ones</span> <span class=p>(</span><span class=nf>stream-cons</span> <span class=mi>1</span> <span class=nv>ones</span><span class=p>))</span>
+<span class=p>(</span><span class=k>define</span> <span class=nv>odds</span> <span class=p>(</span><span class=nf>stream-add</span> <span class=nv>ones</span> <span class=nv>evens</span><span class=p>))</span>
+
+<span class=p>(</span><span class=nf>stream-&gt;list</span> <span class=p>(</span><span class=nf>stream-take</span> <span class=nv>ones</span> <span class=mi>10</span><span class=p>))</span>
+<span class=p>(</span><span class=nf>stream-&gt;list</span> <span class=p>(</span><span class=nf>stream-take</span> <span class=nv>odds</span> <span class=mi>20</span><span class=p>))</span>
+</code></pre></div></div><p>For each exercise, write the procedure in <code class="language-plaintext highlighter-rouge">hw7.rkt</code> and a test suite (3 tests) and add the test suite to the <code class="language-plaintext highlighter-rouge">all-tests</code> test suite in <code class="language-plaintext highlighter-rouge">tests.rkt</code>. You might want to write the tests first. If you’ve forgotten how to write tests, consult your previous submissions.<p>You may wish to test your implementations on the infinite stream<div class="language-racket highlighter-rouge"><div class=highlight><pre class=highlight><code><span class=p>(</span><span class=k>define</span> <span class=nv>test-stream</span>
+  <span class=p>(</span><span class=nf>stream-cons</span> <span class=ss>'x</span> <span class=p>(</span><span class=nf>stream-cons</span> <span class=ss>'y</span> <span class=p>(</span><span class=nf>stream-cons</span> <span class=ss>'z</span> <span class=nv>test-stream</span><span class=p>))))</span>
+</code></pre></div></div><p>You can use <code class="language-plaintext highlighter-rouge">stream-take</code> and <code class="language-plaintext highlighter-rouge">stream-&gt;list</code> to compare initial portions of the streams to lists.<ol><li>Write the function <code class="language-plaintext highlighter-rouge">(stream-remove-all x s)</code> which returns a stream with all occurrences of <code class="language-plaintext highlighter-rouge">x</code> removed from the stream <code class="language-plaintext highlighter-rouge">s</code>.<li>Write the function <code class="language-plaintext highlighter-rouge">(stream-replace x y s)</code> which returns a stream with all occurrences of <code class="language-plaintext highlighter-rouge">x</code> in the stream <code class="language-plaintext highlighter-rouge">s</code> replaced with <code class="language-plaintext highlighter-rouge">y</code>.</ol><h2 id=part-2-filtering-20-points>Part 2. Filtering (20 points)</h2><p>The file <code class="language-plaintext highlighter-rouge">keyboard.rkt</code> has the procedure <code class="language-plaintext highlighter-rouge">(keyboard-stream)</code> which returns a stream of whatever s-expressions you type. There is also an <code class="language-plaintext highlighter-rouge">(output-stream s)</code> procedure that takes a stream and outputs it one element at a time. Together, these set up a communication channel.<div class="language-racket highlighter-rouge"><div class=highlight><pre class=highlight><code><span class=p>(</span><span class=nf>output-stream</span> <span class=p>(</span><span class=nf>keyboard-stream</span><span class=p>))</span>
+</code></pre></div></div><p>This echoes whatever you type, and continues until you click on the <code class="language-plaintext highlighter-rouge">eof</code> box at the right. We will use this in the next set of exercises having to do with Grune’s Problem.<p>There is a famous problem due to Grune that is important in data communications. Consider a stream of characters, which we will model by typing single characters followed by enter/carriage return in response to <code class="language-plaintext highlighter-rouge">(keyboard-stream)</code>’s prompts. Most characters will be allowed to pass through unaltered. But if we ever receive two <code class="language-plaintext highlighter-rouge">a</code>s in a row, then we will pass through just a single <code class="language-plaintext highlighter-rouge">b</code> and no <code class="language-plaintext highlighter-rouge">a</code>.<p>For these problems, your solutions should go in <code class="language-plaintext highlighter-rouge">hw7.rkt</code>. You should <strong>not</strong> modify <code class="language-plaintext highlighter-rouge">keyboard.rkt</code>.<ol><li>Write the filter <code class="language-plaintext highlighter-rouge">grune-a-b</code> that works as described above. For example, <div class="language-racket highlighter-rouge"><div class=highlight><pre class=highlight><code><span class=nv>&gt;</span> <span class=p>(</span><span class=nf>output-stream</span> <span class=p>(</span><span class=nf>grune-a-b</span> <span class=p>(</span><span class=nf>keyboard-stream</span><span class=p>)))</span> 
+<span class=nv>?</span> <span class=nv>a</span> 
+<span class=nv>?</span> <span class=nv>b</span> 
+<span class=nv>a</span> 
+<span class=nv>b</span> 
+<span class=nv>?</span> <span class=nv>c</span> 
+<span class=nv>c</span> 
+<span class=nv>?</span> <span class=nv>d</span> 
+<span class=nv>d</span> 
+<span class=nv>?</span> <span class=nv>a</span> 
+<span class=nv>?</span> <span class=nv>a</span> 
+<span class=nv>b</span> 
+<span class=nv>?</span> <span class=nv>a</span> 
+<span class=nv>?</span> <span class=nv>b</span> 
+<span class=nv>a</span> 
+<span class=nv>b</span> 
+<span class=nv>?</span> <span class=nv>a</span> 
+<span class=nv>?</span> <span class=nv>a</span> 
+<span class=nv>b</span> 
+<span class=nv>?</span> <span class=nv>&lt;click</span> <span class=nv>eof&gt;</span> 
+</code></pre></div></div><p>You can test using lists as your input stream and <code class="language-plaintext highlighter-rouge">stream-&gt;list</code> to convert the result to a list. For example, the above sequence of input can be tested by checking that<div class="language-racket highlighter-rouge"><div class=highlight><pre class=highlight><code><span class=p>(</span><span class=nf>stream-&gt;list</span> <span class=p>(</span><span class=nf>grune-a-b</span> <span class=o>'</span><span class=p>(</span><span class=nf>a</span> <span class=nv>b</span> <span class=nv>c</span> <span class=nv>d</span> <span class=nv>a</span> <span class=nv>a</span> <span class=nv>a</span> <span class=nv>b</span> <span class=nv>a</span> <span class=nv>a</span><span class=p>)))</span>
+</code></pre></div></div><p>returns<div class="language-racket highlighter-rouge"><div class=highlight><pre class=highlight><code><span class=o>'</span><span class=p>(</span><span class=nf>a</span> <span class=nv>b</span> <span class=nv>c</span> <span class=nv>d</span> <span class=nv>b</span> <span class=nv>a</span> <span class=nv>b</span> <span class=nv>b</span><span class=p>)</span>
+</code></pre></div></div><p>Similarly, the input stream <code class="language-plaintext highlighter-rouge">'(a a a)</code> should produce the output stream <code class="language-plaintext highlighter-rouge">'(b a)</code>.</ol><p>You are expected to write at least three meaningful tests for this function in <code class="language-plaintext highlighter-rouge">tests.rkt</code>.<ol><li>Now write a similar function, but abstract the <code class="language-plaintext highlighter-rouge">a</code> and <code class="language-plaintext highlighter-rouge">b</code>. Write a procedure <code class="language-plaintext highlighter-rouge">(grune a b)</code> which takes two arguments and produces a filter similar to <code class="language-plaintext highlighter-rouge">grune-a-b</code> but with the first argument taking the role of <code class="language-plaintext highlighter-rouge">a</code> and the second taking the role of <code class="language-plaintext highlighter-rouge">b</code>.</ol><p><code class="language-plaintext highlighter-rouge">(grune 'x 'y)</code> needs to return a procedure, similar to <code class="language-plaintext highlighter-rouge">grune-a-b</code> which works as a stream filter replacing two successive <code class="language-plaintext highlighter-rouge">x</code> by a single <code class="language-plaintext highlighter-rouge">y</code>. Here is a transcript of <code class="language-plaintext highlighter-rouge">grune</code> in action.<div class="language-racket highlighter-rouge"><div class=highlight><pre class=highlight><code><span class=nv>&gt;</span> <span class=p>(</span><span class=nf>output-stream</span> <span class=p>((</span><span class=nf>grune</span> <span class=ss>'x</span> <span class=ss>'y</span><span class=p>)</span> <span class=p>(</span><span class=nf>keyboard-stream</span><span class=p>)))</span> 
+   <span class=nv>?</span> <span class=nv>a</span> 
+   <span class=nv>a</span> 
+   <span class=nv>?</span> <span class=nv>b</span> 
+   <span class=nv>b</span> 
+   <span class=nv>?</span> <span class=nv>c</span> 
+   <span class=nv>c</span> 
+   <span class=nv>?</span> <span class=nv>d</span> 
+   <span class=nv>d</span> 
+   <span class=nv>?</span> <span class=nv>x</span> 
+   <span class=nv>?</span> <span class=nv>y</span> 
+   <span class=nv>x</span> 
+   <span class=nv>y</span> 
+   <span class=nv>?</span> <span class=nv>a</span> 
+   <span class=nv>a</span> 
+   <span class=nv>?</span> <span class=nv>b</span> 
+   <span class=nv>b</span> 
+   <span class=nv>?</span> <span class=nv>x</span> 
+   <span class=nv>?</span> <span class=nv>x</span> 
+   <span class=nv>y</span> 
+   <span class=nv>?</span> <span class=nv>x</span> 
+   <span class=nv>?</span> <span class=nv>x</span> 
+   <span class=nv>y</span> 
+   <span class=nv>?</span> <span class=nv>a</span> 
+   <span class=nv>a</span> 
+   <span class=nv>?</span> <span class=nv>b</span> 
+   <span class=nv>b</span> 
+   <span class=nv>?</span> <span class=nv>&lt;click</span> <span class=nv>eof&gt;</span> 
+</code></pre></div></div><p>Notice that <code class="language-plaintext highlighter-rouge">((grune 'a 'b) s)</code> has the same functionality as <code class="language-plaintext highlighter-rouge">(grune-a-b s)</code>. Grune’s problem becomes interesting when we consider pipelining several Grune operations. If you did the last exercise correctly, you should be able to chain several <code class="language-plaintext highlighter-rouge">grune</code>s together.<div class="language-racket highlighter-rouge"><div class=highlight><pre class=highlight><code><span class=nv>&gt;</span> <span class=p>(</span><span class=nf>output-stream</span> <span class=p>((</span><span class=nf>grune</span> <span class=ss>'c</span> <span class=ss>'d</span><span class=p>)</span> <span class=p>((</span><span class=nf>grune</span> <span class=ss>'b</span> <span class=ss>'c</span><span class=p>)</span> <span class=p>((</span><span class=nf>grune</span> <span class=ss>'a</span> <span class=ss>'b</span><span class=p>)</span> <span class=p>(</span><span class=nf>keyboard-stream</span><span class=p>)))))</span>
+<span class=nv>?</span> <span class=nv>a</span> 
+<span class=nv>?</span> <span class=nv>b</span> 
+<span class=nv>a</span> 
+<span class=nv>?</span> <span class=nv>c</span> 
+<span class=nv>b</span> 
+<span class=nv>?</span> <span class=nv>d</span> 
+<span class=nv>c</span> 
+<span class=nv>d</span> 
+<span class=nv>?</span> <span class=nv>e</span> 
+<span class=nv>e</span> 
+<span class=nv>?</span> <span class=nv>f</span> 
+<span class=nv>f</span> 
+<span class=nv>?</span> <span class=nv>g</span> 
+<span class=nv>g</span> 
+<span class=nv>?</span> <span class=nv>a</span>
+<span class=nv>?</span> <span class=nv>a</span> 
+<span class=nv>?</span> <span class=nv>a</span> 
+<span class=nv>?</span> <span class=nv>a</span> 
+<span class=nv>?</span> <span class=nv>a</span> 
+<span class=nv>?</span> <span class=nv>a</span> 
+<span class=nv>?</span> <span class=nv>a</span> 
+<span class=nv>?</span> <span class=nv>a</span> 
+<span class=nv>d</span> 
+<span class=nv>?</span> <span class=nv>a</span> 
+<span class=nv>?</span> <span class=nv>a</span> 
+<span class=nv>?</span> <span class=nv>a</span> 
+<span class=nv>?</span> <span class=nv>a</span> 
+<span class=nv>?</span> <span class=nv>x</span> 
+<span class=nv>c</span> 
+<span class=nv>x</span> 
+<span class=nv>?</span> <span class=nv>y</span> 
+<span class=nv>y</span> 
+<span class=nv>?</span> <span class=nv>z</span> 
+<span class=nv>z</span> 
+<span class=nv>?</span> <span class=nv>x</span> 
+<span class=nv>x</span> 
+<span class=nv>?</span> <span class=nv>y</span> 
+<span class=nv>y</span> 
+<span class=nv>?</span> <span class=nv>z</span> 
+<span class=nv>z</span> 
+<span class=nv>?</span> <span class=nv>&lt;click</span> <span class=nv>eof&gt;</span> 
+</code></pre></div></div><p>You can write a better version of your <code class="language-plaintext highlighter-rouge">grune-a-b</code> implementation by writing<div class="language-racket highlighter-rouge"><div class=highlight><pre class=highlight><code><span class=p>(</span><span class=k>define</span> <span class=nv>better-grune-a-b</span> <span class=p>(</span><span class=nf>grune</span> <span class=ss>'a</span> <span class=ss>'b</span><span class=p>))</span>
+</code></pre></div></div><p>You are expected to write at least three meaningful tests for this function in <code class="language-plaintext highlighter-rouge">tests.rkt</code>.<h1 id=part-3-testing-test-suites--55-points>Part 3. Testing Test Suites (55 points)</h1><p>Thus far this semester, you’ve been in the driver’s seat when it comes to writing and testing functions. This portion of the assignment asks you to read <em>existing</em> code and determine if it has been properly tested.<p>In <code class="language-plaintext highlighter-rouge">suites.rkt</code> there are <em>two</em> existing functions with existing test suites. Your job is to do the following, inline:<ol><li>Describe what the procedure is doing in English. Do this inline as a Racket comment.<li>Look at the partially written test suite. Describe what situation/case each test is handling.<li>Determine if there are situations/cases that are missing for the test suite. Add relevant tests and describe in English what situation/case they are handling. If no additional tests are needed, note that in a comment.</ol><p>Assume that the implementations are correct, in other words they are operating as intended.<p>You will be graded on all three of the above components, including your explanations (although keep them concise!) and the quality of any additional tests.<h2 id=finishing-up>Finishing up</h2><p>Make sure you commit and push. Make sure your name is in all of the files you submit. Your friendly graders thank you!</main>
